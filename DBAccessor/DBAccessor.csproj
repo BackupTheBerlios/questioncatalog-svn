@@ -84,7 +84,26 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "app.config"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccessBenutzer.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccessBenutzer.resx"
+                    DependentUpon = "DataAccessBenutzer.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "DataParameters.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -92,6 +111,25 @@
                     RelPath = "DBconnector.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DSBenutzer.xsd"
+                    BuildAction = "Content"
+                    Generator = "MSDataSetGenerator"
+                    LastGenOutput = "DSBenutzer.cs"
+                />
+                <File
+                    RelPath = "DSBenutzer.cs"
+                    DependentUpon = "DSBenutzer.xsd"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "DSBenutzer.xsx"
+                    DependentUpon = "DSBenutzer.xsd"
+                    BuildAction = "None"
                 />
             </Include>
         </Files>

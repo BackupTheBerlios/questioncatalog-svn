@@ -170,7 +170,6 @@
                     RelPath = "Web.config"
                     BuildAction = "Content"
                 />
-                <Folder RelPath = "Loginpage\" />
             </Include>
         </Files>
     </CSHARP>

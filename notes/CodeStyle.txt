@@ -1,1 +1,6 @@
 Button		btn
+Label		lb
+TextBox		txt
+Membervariable	m_
+DataAdapter	adp
+DataSet		ds

@@ -24,11 +24,17 @@ namespace UmfrageEditor
 		protected System.Web.UI.HtmlControls.HtmlInputButton btnRegistrieren;
 		protected System.Web.UI.WebControls.Label Label2;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl lbAusgabe;
-		protected DBconnector db;
+//		protected DBconnector db;
+		protected DataAccessBenutzer daBenutzer;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			db = new DBconnector();
+//			db = new DBconnector();
+
+			daBenutzer = new DataAccessBenutzer();
+//			DSBenutzer dsBen = db.Select();
+//			DataGrid1.DataSource = dsBen.benutzer;
+//			DataGrid1.DataBind();
 		}
 
 		#region Vom Web Form-Designer generierter Code
@@ -55,17 +61,45 @@ namespace UmfrageEditor
 
 		private void btnRegistrieren_ServerClick(object sender, System.EventArgs e)
 		{
-			SqlDataReader reader = db.getData("SELECT Name FROM benutzer WHERE Name = '" + txtBenutzername.Text + "'");
-			if (reader.HasRows)
+//			SqlDataReader reader = db.getData("SELECT Name FROM benutzer WHERE Name = '" + txtBenutzername.Text + "'");
+//			if (reader.HasRows)
+//			{
+//				reader.Close();
+//				lbAusgabe.InnerText = "Benutzername existiert bereits!";
+//			}
+//			else
+//			{
+//				reader.Close();
+//				lbAusgabe.InnerText = "Ok!";
+//				db.setData("INSERT INTO benutzer (Name, Passwort) VALUES ('" + txtBenutzername.Text + "', '" + txtBenutzername.Text + "'");
+//			}
+
+			SqlParameter paramName = DataAccessBenutzer.ParamName;
+			paramName.Value = txtBenutzername.Text;
+			DataParameters dParams = new DataParameters();
+			dParams.Add(paramName);
+			DSBenutzer dsBen = daBenutzer.Select(dParams);
+
+			if(dsBen.benutzer.Rows.Count > 0)
 			{
-				reader.Close();
 				lbAusgabe.InnerText = "Benutzername existiert bereits!";
 			}
 			else
 			{
-				reader.Close();
 				lbAusgabe.InnerText = "Ok!";
-				db.setData("INSERT INTO benutzer (Name, Passwort) VALUES ('" + txtBenutzername.Text + "', '" + txtBenutzername.Text + "'");
+				DSBenutzer.benutzerRow newEntry = dsBen.benutzer.NewbenutzerRow();
+				newEntry.Name = txtBenutzername.Text;
+				newEntry.Passwort = txtPasswort.Text;
+				newEntry.GruppenID = 1;
+				dsBen.benutzer.AddbenutzerRow(newEntry);
+				try
+				{
+					daBenutzer.CommitChanges(dsBen);
+				}
+				catch(Exception ex)
+				{
+					lbAusgabe.InnerText = ex.Message;
+				}
 			}
 		}
 	}
