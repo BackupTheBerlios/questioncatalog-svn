@@ -60,7 +60,7 @@ namespace UmfrageEditor
 		{
 			if(SessionContainer.ReadFromSession(this).User.IsLoggedIn)
 			{
-				SessionContainer.ReadFromSession(this).User.IsLoggedIn = false;
+				SessionContainer.ReadFromSession(this).User.Logout();
 				Server.Transfer("./default.aspx");
 			}
 			else

@@ -6,3 +6,4 @@ DataAdapter	adp
 DataSet		ds
 Command		cm
 Link		lnk
+Panel		pn

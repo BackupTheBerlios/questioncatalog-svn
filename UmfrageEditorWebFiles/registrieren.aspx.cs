@@ -116,20 +116,22 @@ namespace UmfrageEditor
 
 			if(dsBen.benutzer.Rows.Count == 1)
 			{
-				if (dsBen.benutzer.Rows[0]["Passwort"].Equals( txtPasswort.Text))
+				string pw = (string)dsBen.benutzer.Rows[0]["Passwort"];
+				if (pw.Equals( txtPasswort.Text))
 				{
-					SessionContainer.ReadFromSession(this).User.IsLoggedIn = true;
+					string username = (string)dsBen.benutzer.Rows[0]["Name"];
+					SessionContainer.ReadFromSession(this).User.Login(username, pw);
 //					lbLoginStatus.Text = "Login erfolgreich!";
 				}
 				else
 				{
-					SessionContainer.ReadFromSession(this).User.IsLoggedIn = false;
+					SessionContainer.ReadFromSession(this).User.Logout();
 //					lbLoginStatus.Text = "Falsches Passwort!";
 				}
 			}
 			else
 			{
-				SessionContainer.ReadFromSession(this).User.IsLoggedIn = false;
+				SessionContainer.ReadFromSession(this).User.Logout();
 //				lbLoginStatus.Text = "Falscher Benutzername!";
 			}
 			if (SessionContainer.ReadFromSession(this).User.IsLoggedIn)
