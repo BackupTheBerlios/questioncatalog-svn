@@ -21,10 +21,72 @@
 					<td vAlign="top" align="left" width="691">
 						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td vAlign="top" align="left" width="120"><IFRAME id="menu" style="WIDTH: 122px; HEIGHT: 450px" tabIndex="1" hspace="5" src="menu.aspx"
-										frameBorder="0" width="120" scrolling="no"></IFRAME>
+								<td vAlign="top" align="left" width="120">
+									<TABLE id="Table1" cellSpacing="0" cellPadding="5" width="100%" border="0">
+										<TR>
+											<TD>
+												<DIV id="m_menu_default" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout">
+													<P class="pagename" align="center">Navigation</P>
+													<A class="menu" href="default.aspx" target="_parent">Startseite </A>
+												</DIV>
+												<DIV id="m_menu_registrieren" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout"><A class="menu" href="registrieren.aspx" target="_parent">Registrieren</A>
+												</DIV>
+												<DIV id="m_menu_admin" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout"><A class="menu" href="administration.aspx" target="_parent">Administration</A>
+												</DIV>
+												<DIV class="menu" id="m_menu_user" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout"><A class="menu" href="defaultuser.aspx" target="_parent">User 
+														Profil</A>
+												</DIV>
+												<BR>
+												<DIV id="m_menu_debug" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout">
+													<P class="pagename" align="center">Debug Navigation</P>
+													<P><A class="menu" href="administration.aspx" target="_parent">administration</A><BR>
+														<A class="menu" href="antworten.aspx" target="_parent">antworten</A><BR>
+														<A class="menu" href="default.aspx" target="_parent">default</A><BR>
+														<A class="menu" href="defaultuser.aspx" target="_parent">defaultuser</A><BR>
+														<A class="menu" href="ergebnisse.aspx.cs" target="_parent">ergebnisse</A><BR>
+														<A class="menu" href="fragedarstellung.aspx" target="_parent">fragedarstellung</A><BR>
+														<A class="menu" href="login.aspx" target="_parent">login</A><BR>
+														<A class="menu" href="loginstatus.aspx" target="_parent">loginstatus</A><BR>
+														<A class="menu" href="registrieren.aspx" target="_parent">registrieren</A><BR>
+														<A class="menu" href="umfrageergebnisse.aspx" target="_parent">umfrageergebnisse</A><BR>
+														<A class="menu" href="umfrageerstellen.aspx" target="_parent">umfrageerstellen</A>
+													</P>
+												</DIV>
+											</TD>
+										</TR>
+									</TABLE>
 								</td>
-								<TD vAlign="top" align="left"></TD>
+								<TD vAlign="top" align="left">
+									<TABLE id="Table2" cellSpacing="0" cellPadding="0" width="100%" border="0">
+										<TR>
+											<TD style="HEIGHT: 18px">
+												<DIV align="right">
+													<DIV id="m_login" style="HEIGHT: 18px" align="right" runat="server" ms_positioning="FlowLayout">
+														<asp:Label id="lbLoginMessage" runat="server" CssClass="login" ForeColor="Red"></asp:Label>&nbsp;&nbsp;
+														<SPAN class="login">Benutzername</SPAN>
+														<asp:textbox id="txtBenutzername" runat="server" Width="60px" BorderWidth="1px" BorderStyle="Solid"
+															Height="16px" Font-Size="10px" MaxLength="20"></asp:textbox>&nbsp;&nbsp; <SPAN class="login">
+															Passwort</SPAN>
+														<asp:textbox id="txtPasswort" runat="server" Width="60px" BorderWidth="1px" BorderStyle="Solid"
+															Height="16px" Font-Size="10px" MaxLength="20" TextMode="Password"></asp:textbox>&nbsp;&nbsp;
+														<asp:LinkButton id="LinkLogin" runat="server" CssClass="function">Login</asp:LinkButton>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													</DIV>
+													<DIV align="right">
+														<DIV id="m_logout" style="HEIGHT: 18px" runat="server" ms_positioning="FlowLayout">
+															<asp:Label id="lbLoginStatus" runat="server" CssClass="login"></asp:Label>
+															<asp:LinkButton id="LinkLogout" runat="server" CssClass="function">Logout</asp:LinkButton>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														</DIV>
+													</DIV>
+												</DIV>
+											</TD>
+										</TR>
+										<TR>
+											<TD class="text" align="center"><BR>
+												Umfrageergebnisse<BR>
+											</TD>
+										</TR>
+									</TABLE>
+								</TD>
 							</tr>
 						</table>
 					</td>
