@@ -20,16 +20,17 @@ namespace UmfrageEditor
 	/// </summary>
 	public class _default : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.HyperLink lnkHome;
-		protected System.Web.UI.WebControls.HyperLink lnkLog;
-		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
-		protected System.Web.UI.WebControls.HyperLink lnkLogin;
-		protected System.Web.UI.WebControls.LinkButton LinkLogout;
-		protected System.Web.UI.WebControls.Label lbLoginStatus;
 		protected System.Web.UI.WebControls.LinkButton LinkLogin;
+		protected System.Web.UI.WebControls.LinkButton LinkLogout;
 		protected System.Web.UI.WebControls.TextBox txtPasswort;
 		protected System.Web.UI.WebControls.TextBox txtBenutzername;
 		protected System.Web.UI.WebControls.Label lbLoginMessage;
+		protected System.Web.UI.WebControls.Label lbLoginStatus;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_default;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_registrieren;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_admin;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_user;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_debug;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_login;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_logout;
 
@@ -58,6 +59,7 @@ namespace UmfrageEditor
 		private void InitializeComponent()
 		{    
 			this.LinkLogin.Click += new System.EventHandler(this.LinkLogin_Click);
+			this.LinkLogout.Click += new System.EventHandler(this.LinkLogout_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -183,6 +185,52 @@ namespace UmfrageEditor
 				m_logout.Visible = true;
 			}
 			#endregion
+			#region Navigationsmenü 
+			
+			// Alle Menüs bis auf Widerruf deaktivieren
+			m_menu_default.Visible = false;
+			m_menu_registrieren.Visible = false;
+			m_menu_user.Visible = false;
+			m_menu_admin.Visible = false;
+			m_menu_debug.Visible = false;
+
+			
+			// Einblenden des generellen Navigationsblocks
+			m_menu_default.Visible = true;
+
+			// Einblendung im Navigationmenü prüfen
+			/* Im Debugmodus Direktnavigation zu den Seiten einblenden 
+				 * und alle Menüs einblenden */
+			if (DBConstants.Debugmodus)
+			{
+				m_menu_default.Visible = true;
+				m_menu_registrieren.Visible = true;
+				m_menu_user.Visible = true;
+				m_menu_admin.Visible = true;
+				m_menu_debug.Visible = true;
+			}
+			// wenn der Benutzer angemeldet ist 
+			else if (SessionContainer.ReadFromSession(this).User.IsLoggedIn)
+			{
+				// Usermenü anzeigen 
+				m_menu_user.Visible = true;
+				
+				// wenn der Benutzer AdminStatus besitzt
+				if (SessionContainer.ReadFromSession(this).User.IsAdmin)
+				{
+					// Adminmenü anzeigen
+					m_menu_admin.Visible = true;
+				}
+
+			}
+			// Wenn der Benutzer nicht angemeldet ist
+			else
+			{
+				// Registrieren anzeigen
+				m_menu_registrieren.Visible = true;
+			}
+			#endregion
+
 
 		}
 	}
