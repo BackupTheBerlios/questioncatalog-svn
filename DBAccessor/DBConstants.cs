@@ -3,42 +3,38 @@ using System;
 namespace DBAccessor
 {
 	/// <summary>
-	/// Zusammenfassung für DBConstants.
+	/// Sammlung Von Datenbankkonstanten
 	/// </summary>
 	public class DBConstants
 	{
 		public DBConstants()
 		{
-			//
-			// TODO: Fügen Sie hier die Konstruktorlogik hinzu
-			//
+
 		}
 
 		#region Konstanten für Benutzer
 
-		public static int Admin
-		{
-			get { return 1; }
-		}
+		public const int Admin = 1;
 
-		public static int User
-		{
-			get { return 0; }
-		}
+		public const int User = 0;
 		
 		#endregion
 
-		#region Kostanten für Umfragen
+		#region Konstanten für Umfragen
 
-		public static int Online
-		{
-			get { return 1; }
-		}
+		public const int Online = 1;
 
-		public static int NotOnline
-		{
-			get { return 0; }
-		}
+		public const int NotOnline = 0;
+
+		#endregion
+
+		#region Konstanten für Fragen
+
+		public const int TextFrage = 0;
+
+		public const int UndFrage = 1;
+
+		public const int OderFrage = 2;
 
 		#endregion
 

@@ -26,25 +26,25 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.Button m_btnLoeschen;
 		protected System.Web.UI.WebControls.Button m_btnBearbeiten;
 		protected System.Web.UI.WebControls.TextBox m_txtTitel;
-		protected System.Web.UI.WebControls.Button m_btnFertig;
 		protected System.Web.UI.WebControls.Label m_lbFrage;
 		protected System.Web.UI.WebControls.TextBox m_txtComment;
 		protected System.Web.UI.WebControls.RadioButton m_rdbTextfrage;
 		protected System.Web.UI.WebControls.RadioButton m_rdbUndFrage;
 		protected System.Web.UI.WebControls.RadioButton m_rdbOderFrage;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnUmfrageTitel;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnNeueFrage;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnFrageErstellen;
 		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwortmoeglErstellen;
-		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwortM;
-		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwErstellen;
+//		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwortM;
 		protected System.Web.UI.WebControls.Button m_btnFrageUebernehmen;
 		protected System.Web.UI.WebControls.Label m_lbHeadline;
 		protected System.Web.UI.WebControls.TextBox m_txtFrageTitel;
 		protected System.Web.UI.WebControls.DataGrid m_dgFragen;
-		protected System.Web.UI.WebControls.LinkButton m_lnkbNeueFrage;
 		protected System.Web.UI.WebControls.LinkButton m_lnkbMehrAntw;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnFrageUebernehmen;
+		protected System.Web.UI.WebControls.DataGrid m_dgAntwErstellen;
+		protected System.Web.UI.WebControls.Button m_btnFertig;
+		protected System.Web.UI.WebControls.LinkButton m_lnkbNeueFrage;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnNeueFrage;
 		protected string PageTitle;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -94,7 +94,6 @@ namespace UmfrageEditor
 			}
 		}
 
-		
 
 		#region Vom Web Form-Designer generierter Code
 		override protected void OnInit(EventArgs e)
@@ -125,7 +124,46 @@ namespace UmfrageEditor
 
 		private void m_btnBearbeiten_Click(object sender, System.EventArgs e)
 		{
-			
+			// suche die erste selektierte Frage
+			for (int i = 0; i < m_dgFragen.Items.Count; i++)
+			{
+				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgFragen.Items[i], typeof(CheckBox), 0, 0);
+				if (cbx != null && cbx.Checked)
+				{
+					// den Fragetitel eintragen
+					m_txtFrageTitel.Text = m_dgFragen.Items[i].Cells[1].Text;
+					m_pnFrageErstellen.Visible = true;
+					m_pnFrageUebernehmen.Visible = true;
+
+					// bei Und- und Oderfragen auch die Antwortmöglichkeiten eintragen
+					int frageart = Convert.ToInt32(m_dgFragen.Items[i].Cells[3].Text);
+					if (frageart != DBConstants.TextFrage)
+					{
+						FillDGAntwErstellen(Convert.ToInt32(m_dgFragen.Items[i].Cells[2].Text));
+						m_tblAntwortmoeglErstellen.Visible = true;
+					}
+
+					// Radiobutton entsprechend der Frageart setzen
+					m_rdbTextfrage.Checked = false;
+					m_rdbUndFrage.Checked = false;
+					m_rdbOderFrage.Checked = false;
+					switch(frageart)
+					{
+						case DBConstants.TextFrage:
+							m_rdbTextfrage.Checked = true;
+							break;
+						case DBConstants.UndFrage:
+							m_rdbUndFrage.Checked = true;
+							break;
+						case DBConstants.OderFrage:
+							m_rdbOderFrage.Checked = true;
+							break;
+					}
+
+					// die erste selektierte Frage wurde gefunden, die weiteren werden nicht behandelt
+					break;
+				}
+			}
 		}
 
 		private void m_btnLoeschen_Click(object sender, System.EventArgs e)
@@ -144,6 +182,12 @@ namespace UmfrageEditor
 
 		private void m_lnkbNeueFrage_Click(object sender, System.EventArgs e)
 		{
+			// alle Editfelder zurücksetzen
+			m_txtFrageTitel.Text = "";
+			m_rdbTextfrage.Checked = true;
+			m_rdbOderFrage.Checked = false;
+			m_rdbUndFrage.Checked = false;
+			m_tblAntwortmoeglErstellen.Visible = false;
 			m_pnFrageErstellen.Visible = true;
 			m_pnFrageUebernehmen.Visible = true;
 		}
@@ -152,6 +196,7 @@ namespace UmfrageEditor
 		{
 			// wenn Und- oder Oderfrage ausgewählt ist, sollen Antwortmöglichkeiten erstellt werden können
 			m_tblAntwortmoeglErstellen.Visible = (m_rdbOderFrage.Checked || m_rdbUndFrage.Checked);
+			PrepareDGAntwErstellen(6);
 		}
 
 		#region Hilfsfunktionen
@@ -167,6 +212,52 @@ namespace UmfrageEditor
 			m_dgFragen.DataSource = dsFragen.fragen;
 			m_dgFragen.DataBind();
 			m_tblFragen.Visible = (dsFragen.fragen.Rows.Count > 0);
+		}
+
+		private void PrepareDGAntwErstellen(int numOfTxt)
+		{
+			// eine Datenquelle vorbereiten, die so vielen Zeilen hat wie TextBoxes
+			// in dem DataGrid erscheinen sollen
+			ArrayList rowsCountArray = new ArrayList();
+			for (int i = 0; i < numOfTxt; i++)
+			{
+				rowsCountArray.Add(i);
+			}
+
+			m_dgAntwErstellen.DataSource = rowsCountArray;
+			m_dgAntwErstellen.DataBind();  
+		}
+
+		private void FillDGAntwErstellen(int FrageID)
+		{
+			// vorhandene Antwortmöglichkeiten zu der Frage mit der Id FrageID aus der DB ziehen
+			SqlParameter pR_FrageID = DataAccessAwmoeglichkeiten.Paramr_FrageID;
+			pR_FrageID.Value = FrageID;
+			DataParameters parameters = new DataParameters();
+			parameters.Add(pR_FrageID);
+			DataAccessAwmoeglichkeiten daAwMoegl = new DataAccessAwmoeglichkeiten();
+			DSAwmoeglichkeiten dsAwMoegl = daAwMoegl.Select(parameters);
+
+			if (dsAwMoegl.awmoeglichkeiten.Count > 0)
+			{
+				// Entsprechende Anzahl von Editfeldern im DataGrid anlegen
+				PrepareDGAntwErstellen(dsAwMoegl.awmoeglichkeiten.Count);
+
+				// Daten in die Editfelder eintragen
+				for (int i = 0; i < dsAwMoegl.awmoeglichkeiten.Count; i++)
+				{
+					TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 1, 0);
+					if (txtbx != null)
+					{
+						txtbx.Text = dsAwMoegl.awmoeglichkeiten[i].Text;
+					}
+				}
+			}
+			else
+			{
+				PrepareDGAntwErstellen(6);
+			}
+
 		}
 
 		/// <summary>
@@ -199,10 +290,13 @@ namespace UmfrageEditor
 			DSUmfragen dsUmfr = SessionContainer.ReadFromSession(this).Umfrage.getLoadedUmfrage();
 			if (dsUmfr.umfragen.Rows.Count == 1)
 			{
+				// Editfelder mit Titel und Kurzbeschreibung der Umfrage füllen
 				m_txtTitel.Text = dsUmfr.umfragen[0].Titel;
 				m_txtComment.Text = dsUmfr.umfragen[0].Beschreibung;
+				// Checkbox je nach Onlinestatus der Umfrage setzen
 				m_chbOnline.Checked = (dsUmfr.umfragen[0].Onlinestatus == DBConstants.Online);
-				RefreshDGFragen();
+				// schon vorhandene Fragen aus der Datenbank ziehen
+				RefreshDGFragen();	
 				m_pnFrageErstellen.Visible = false;
 				m_tblAntwortmoeglErstellen.Visible = false;
 			}

@@ -26,7 +26,7 @@
 								<td vAlign="top" align="left" width="120"><IFRAME id="menu" tabIndex="1" hspace="10" src="menu.aspx" frameBorder="0" width="120" scrolling="no"></IFRAME>
 								</td>
 								<TD vAlign="top" align="left">
-									<DIV id="m_pnUmfrageTitel" style="WIDTH: 100%; POSITION: relative; HEIGHT: 248px" runat="server"
+									<DIV id="m_pnUmfrageTitel" style="WIDTH: 600px; POSITION: relative; HEIGHT: 248px" runat="server"
 										ms_positioning="GridLayout"><asp:label id="m_lbTitle" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 88px" runat="server">Titel</asp:label><asp:label id="m_lbComment" style="Z-INDEX: 102; LEFT: 8px; POSITION: absolute; TOP: 128px"
 											runat="server">Kurzbeschreibung</asp:label><asp:textbox id="m_txtTitel" style="Z-INDEX: 103; LEFT: 128px; POSITION: absolute; TOP: 80px"
 											runat="server" Width="393px"></asp:textbox><asp:button id="m_btnTitelUebernehmen" style="Z-INDEX: 104; LEFT: 376px; POSITION: absolute; TOP: 192px"
@@ -45,6 +45,8 @@
 															</ItemTemplate>
 														</asp:TemplateColumn>
 														<asp:BoundColumn DataField="Text"></asp:BoundColumn>
+														<asp:BoundColumn Visible="False" DataField="FrageID"></asp:BoundColumn>
+														<asp:BoundColumn Visible="False" DataField="Frageart"></asp:BoundColumn>
 													</Columns>
 												</asp:datagrid></TD>
 										</TR>
@@ -53,7 +55,7 @@
 											<TD><asp:button id="m_btnBearbeiten" runat="server" Width="96px" Text="Bearbeiten"></asp:button></TD>
 										</TR>
 									</TABLE>
-									<DIV id="m_pnNeueFrage" style="WIDTH: 100%; POSITION: relative; HEIGHT: 88px" runat="server"
+									<DIV id="m_pnNeueFrage" style="WIDTH: 600px; POSITION: relative; HEIGHT: 88px" runat="server"
 										ms_positioning="GridLayout"><asp:button id="m_btnFertig" style="Z-INDEX: 102; LEFT: 448px; POSITION: absolute; TOP: 32px"
 											runat="server" Text="Fertig"></asp:button><asp:linkbutton id="m_lnkbNeueFrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 40px"
 											runat="server">neue Frage erstellen</asp:linkbutton></DIV>
@@ -70,12 +72,17 @@
 										</TR>
 										<TR>
 											<TD colSpan="2">
-												<TABLE id="m_tblAntwErstellen" style="WIDTH: 592px; HEIGHT: 30px" cellSpacing="1" cellPadding="1"
-													width="592" border="0" runat="server">
-													<TR>
-														<TD></TD>
-													</TR>
-												</TABLE>
+												<asp:DataGrid id="m_dgAntwErstellen" runat="server" AutoGenerateColumns="False" GridLines="None"
+													BorderWidth="0px">
+													<Columns>
+														<asp:BoundColumn Visible="False"></asp:BoundColumn>
+														<asp:TemplateColumn>
+															<ItemTemplate>
+																<asp:TextBox id="TextBox1" runat="server"></asp:TextBox>
+															</ItemTemplate>
+														</asp:TemplateColumn>
+													</Columns>
+												</asp:DataGrid>
 											</TD>
 										</TR>
 										<TR>
