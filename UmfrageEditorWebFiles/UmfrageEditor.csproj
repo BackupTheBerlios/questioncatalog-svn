@@ -99,6 +99,38 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "administration.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "administration.aspx.cs"
+                    DependentUpon = "administration.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "administration.aspx.resx"
+                    DependentUpon = "administration.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "antworten.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "antworten.aspx.cs"
+                    DependentUpon = "antworten.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "antworten.aspx.resx"
+                    DependentUpon = "antworten.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -116,6 +148,54 @@
                 <File
                     RelPath = "default.aspx.resx"
                     DependentUpon = "default.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "defaultuser.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defaultuser.aspx.cs"
+                    DependentUpon = "defaultuser.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "defaultuser.aspx.resx"
+                    DependentUpon = "defaultuser.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "ergebnisse.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "ergebnisse.aspx.cs"
+                    DependentUpon = "ergebnisse.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ergebnisse.aspx.resx"
+                    DependentUpon = "ergebnisse.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "fragedarstellung.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "fragedarstellung.aspx.cs"
+                    DependentUpon = "fragedarstellung.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "fragedarstellung.aspx.resx"
+                    DependentUpon = "fragedarstellung.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -185,6 +265,22 @@
                 <File
                     RelPath = "testpage.aspx.resx"
                     DependentUpon = "testpage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "umfrageergebnisse.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "umfrageergebnisse.aspx.cs"
+                    DependentUpon = "umfrageergebnisse.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "umfrageergebnisse.aspx.resx"
+                    DependentUpon = "umfrageergebnisse.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

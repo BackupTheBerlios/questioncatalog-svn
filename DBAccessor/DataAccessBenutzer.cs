@@ -194,6 +194,7 @@ namespace DBAccessor
 			// 
 			this.m_adpBenutzer.DeleteCommand = this.m_cmDelete;
 			this.m_adpBenutzer.InsertCommand = this.m_cmInsert;
+			this.m_adpBenutzer.MissingSchemaAction = System.Data.MissingSchemaAction.AddWithKey;
 			this.m_adpBenutzer.SelectCommand = this.m_cmSelect;
 			this.m_adpBenutzer.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
 																									new System.Data.Common.DataTableMapping("Table", "benutzer", new System.Data.Common.DataColumnMapping[] {

@@ -247,6 +247,11 @@
                     AutoGen = "True"
                 />
                 <File
+                    RelPath = "DSUserantworttext.xsx"
+                    DependentUpon = "DSUserantworttext.xsd"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "SQLCommandBuilder.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

@@ -132,16 +132,20 @@ namespace DBAccessor
 		{
 			System.Configuration.AppSettingsReader configurationAppSettings = new System.Configuration.AppSettingsReader();
 			this.m_cmSelect = new System.Data.SqlClient.SqlCommand();
+			this.m_sqlConn = new System.Data.SqlClient.SqlConnection();
 			this.m_cmInsert = new System.Data.SqlClient.SqlCommand();
 			this.m_cmUpdate = new System.Data.SqlClient.SqlCommand();
 			this.m_cmDelete = new System.Data.SqlClient.SqlCommand();
-			this.m_sqlConn = new System.Data.SqlClient.SqlConnection();
 			this.m_adpUserantworttext = new System.Data.SqlClient.SqlDataAdapter();
 			// 
 			// m_cmSelect
 			// 
 			this.m_cmSelect.CommandText = "SELECT UawtID, r_FrageID, Text FROM userantworttext";
 			this.m_cmSelect.Connection = this.m_sqlConn;
+			// 
+			// m_sqlConn
+			// 
+			this.m_sqlConn.ConnectionString = ((string)(configurationAppSettings.GetValue("ConnectionString", typeof(string))));
 			// 
 			// m_cmInsert
 			// 
@@ -171,10 +175,6 @@ namespace DBAccessor
 			this.m_cmDelete.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UawtID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "UawtID", System.Data.DataRowVersion.Original, null));
 			this.m_cmDelete.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Text", System.Data.SqlDbType.VarChar, 1000, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Text", System.Data.DataRowVersion.Original, null));
 			this.m_cmDelete.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_r_FrageID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "r_FrageID", System.Data.DataRowVersion.Original, null));
-			// 
-			// m_sqlConn
-			// 
-			this.m_sqlConn.ConnectionString = ((string)(configurationAppSettings.GetValue("ConnectionString", typeof(string))));
 			// 
 			// m_adpUserantworttext
 			// 
