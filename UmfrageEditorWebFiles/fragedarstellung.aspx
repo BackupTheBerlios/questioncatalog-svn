@@ -95,9 +95,10 @@
 												<asp:DataGrid id="m_dgFragedarstellung" runat="server" BorderWidth="0px" AutoGenerateColumns="False"
 													GridLines="None">
 													<Columns>
-														<asp:BoundColumn DataField="FrageID"></asp:BoundColumn>
+														<asp:BoundColumn Visible="False" DataField="FrageID"></asp:BoundColumn>
 														<asp:TemplateColumn>
 															<ItemTemplate>
+																<P>&nbsp;</P>
 																<P>
 																	<asp:Label id="Label1" runat="server">Label</asp:Label></P>
 																<P>

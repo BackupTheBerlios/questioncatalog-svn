@@ -52,7 +52,7 @@ namespace UmfrageEditor
 			UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
 
 			// TEST: Umfrage laden
-			umfr.Load(16);
+			umfr.Load(Convert.ToInt32(Request.QueryString["uid"]));
 
 			if (!umfr.IsLoaded)
 			{
@@ -140,7 +140,18 @@ namespace UmfrageEditor
 						chbl.DataBind();
 					}
 					break;
-			}
+				case DBConstants.OderFrage:
+					DropDownList ddl = (DropDownList)DataGridAccess.GetControlFromDataGrid(item, typeof(DropDownList), 1, 0);
+					if (ddl != null)
+					{
+						ddl.Visible = true;
+						ddl.DataSource = dsAntw.awmoeglichkeiten;
+						ddl.DataTextField = dsAntw.awmoeglichkeiten.Columns["Text"].ToString();
+						ddl.DataBind();
+					}
+					break;
+			}		
+				
 		}
 
 		#endregion

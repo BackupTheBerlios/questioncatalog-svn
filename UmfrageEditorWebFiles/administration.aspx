@@ -89,7 +89,7 @@
 												<TD borderColor="#c0c0c0" colSpan="2">
 													<asp:DataGrid id="m_dgBenutzer" runat="server" BorderWidth="0px" AutoGenerateColumns="False" GridLines="None">
 														<Columns>
-															<asp:BoundColumn DataField="UserID"></asp:BoundColumn>
+															<asp:BoundColumn Visible="False" DataField="UserID"></asp:BoundColumn>
 															<asp:TemplateColumn>
 																<ItemTemplate>
 																	<asp:CheckBox id="CheckBox2" runat="server"></asp:CheckBox>
@@ -115,7 +115,7 @@
 												<TD>
 													<asp:DataGrid id="m_dgUmfragen" runat="server" BorderWidth="0px" AutoGenerateColumns="False" GridLines="None">
 														<Columns>
-															<asp:BoundColumn DataField="UmfrageID"></asp:BoundColumn>
+															<asp:BoundColumn Visible="False" DataField="UmfrageID"></asp:BoundColumn>
 															<asp:TemplateColumn>
 																<ItemTemplate>
 																	<asp:CheckBox id="CheckBox1" runat="server"></asp:CheckBox>

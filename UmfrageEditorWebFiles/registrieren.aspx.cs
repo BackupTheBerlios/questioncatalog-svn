@@ -95,7 +95,7 @@ namespace UmfrageEditor
 				DSBenutzer.benutzerRow newEntry = dsBen.benutzer.NewbenutzerRow();
 				newEntry.Name = txtBenutzername.Text;
 				newEntry.Passwort = txtPasswort.Text;
-				newEntry.GruppenID = 1;
+				newEntry.GruppenID = DBConstants.User;
 				dsBen.benutzer.AddbenutzerRow(newEntry);
 				try
 				{

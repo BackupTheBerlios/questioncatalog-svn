@@ -103,7 +103,8 @@ MM_reloadPage(true);
 														<HeaderStyle Font-Bold="True"></HeaderStyle>
 														<Columns>
 															<asp:BoundColumn DataField="UmfrageID" HeaderText="ID"></asp:BoundColumn>
-															<asp:HyperLinkColumn Target="_parent" DataTextField="Titel" HeaderText="Titel der Umfrage" NavigateUrl="fragedarstellung.aspx"></asp:HyperLinkColumn>
+															<asp:HyperLinkColumn Target="_parent" DataNavigateUrlField="umfrageID" DataNavigateUrlFormatString="fragedarstellung.aspx?uid={0}"
+																DataTextField="Titel" HeaderText="Titel der Umfrage"></asp:HyperLinkColumn>
 															<asp:BoundColumn DataField="Beschreibung" HeaderText="Beschreibung"></asp:BoundColumn>
 														</Columns>
 													</asp:DataGrid></P>

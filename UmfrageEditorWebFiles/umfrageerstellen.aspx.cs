@@ -155,6 +155,9 @@ namespace UmfrageEditor
 			this.m_btnTitelUebernehmen.Click += new System.EventHandler(this.m_btnTitelUebernehmen_Click);
 			this.m_btnLoeschen.Click += new System.EventHandler(this.m_btnLoeschen_Click);
 			this.m_btnBearbeiten.Click += new System.EventHandler(this.m_btnBearbeiten_Click);
+			this.m_rdbTextfrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
+			this.m_rdbUndFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
+			this.m_rdbOderFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
 			this.m_lnkbMehrAntw.Click += new System.EventHandler(this.m_lnkbMehrAntw_Click);
 			this.m_btnFrageUebernehmen.Click += new System.EventHandler(this.m_btnFrageUebernehmen_Click);
 			this.m_btnFertig.Click += new System.EventHandler(this.m_btnFertig_Click);

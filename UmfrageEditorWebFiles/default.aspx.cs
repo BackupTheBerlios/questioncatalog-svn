@@ -62,6 +62,8 @@ namespace UmfrageEditor
 		private void InitializeComponent()
 		{    
 			this.LinkLogin.Click += new System.EventHandler(this.LinkLogin_Click);
+			this.LinkLogout.Click += new System.EventHandler(this.LinkLogout_Click);
+			this.m_dgUmfragen.SelectedIndexChanged += new System.EventHandler(this.m_dgUmfragen_SelectedIndexChanged);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -262,6 +264,11 @@ namespace UmfrageEditor
 		}
 
 		private void DataGrid1_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+		
+		}
+
+		private void m_dgUmfragen_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 		
 		}

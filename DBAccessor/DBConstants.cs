@@ -43,7 +43,7 @@ namespace DBAccessor
 		/// <summary>
 		/// Debugoptionen ein=true / aus=false schalten
 		/// </summary> 
-		public static bool Debugmodus = true;
+		public static bool Debugmodus = false;
 			
 		#endregion
 

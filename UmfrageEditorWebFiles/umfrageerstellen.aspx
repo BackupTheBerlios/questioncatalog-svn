@@ -112,7 +112,7 @@
 															<TD colSpan="2">
 																<asp:datagrid id="m_dgFragen" runat="server" GridLines="None" AutoGenerateColumns="False">
 																	<Columns>
-																		<asp:BoundColumn DataField="FrageID"></asp:BoundColumn>
+																		<asp:BoundColumn Visible="False" DataField="FrageID"></asp:BoundColumn>
 																		<asp:TemplateColumn>
 																			<ItemTemplate>
 																				<asp:CheckBox id="CheckBox1" runat="server"></asp:CheckBox>
@@ -159,7 +159,7 @@
 																<asp:datagrid id="m_dgAntwErstellen" runat="server" GridLines="None" AutoGenerateColumns="False"
 																	BorderWidth="0px">
 																	<Columns>
-																		<asp:BoundColumn></asp:BoundColumn>
+																		<asp:BoundColumn Visible="False"></asp:BoundColumn>
 																		<asp:TemplateColumn>
 																			<ItemTemplate>
 																				<asp:TextBox id="TextBox1" runat="server"></asp:TextBox>
