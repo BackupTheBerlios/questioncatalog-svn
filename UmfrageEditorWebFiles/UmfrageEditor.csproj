@@ -89,6 +89,11 @@
                     AssemblyName = "System.Xml"
                     HintPath = "C:\WINNT\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
+                <Reference
+                    Name = "DBAccessor"
+                    Project = "{859E03D5-0E2C-4B21-B500-AAF0A876B3A1}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
             </References>
         </Build>
         <Files>
@@ -97,6 +102,21 @@
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "default.aspx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "default.aspx.cs"
+                    DependentUpon = "default.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "default.aspx.resx"
+                    DependentUpon = "default.aspx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Global.asax"
@@ -115,25 +135,42 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "Web.config"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Loginpage\default.aspx"
+                    RelPath = "registrieren.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Loginpage\default.aspx.cs"
-                    DependentUpon = "default.aspx"
+                    RelPath = "registrieren.aspx.cs"
+                    DependentUpon = "registrieren.aspx"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "Loginpage\default.aspx.resx"
-                    DependentUpon = "default.aspx.cs"
+                    RelPath = "registrieren.aspx.resx"
+                    DependentUpon = "registrieren.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
+                <File
+                    RelPath = "umfrageerstellen.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "umfrageerstellen.aspx.cs"
+                    DependentUpon = "umfrageerstellen.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "umfrageerstellen.aspx.resx"
+                    DependentUpon = "umfrageerstellen.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Web.config"
+                    BuildAction = "Content"
+                />
+                <Folder RelPath = "Loginpage\" />
             </Include>
         </Files>
     </CSHARP>
