@@ -14,6 +14,8 @@ namespace DBAccessor
 			//
 		}
 
+		#region Konstanten für Benutzer
+
 		public static int Admin
 		{
 			get { return 1; }
@@ -23,5 +25,22 @@ namespace DBAccessor
 		{
 			get { return 0; }
 		}
+		
+		#endregion
+
+		#region Kostanten für Umfragen
+
+		public static int Online
+		{
+			get { return 1; }
+		}
+
+		public static int NotOnline
+		{
+			get { return 0; }
+		}
+
+		#endregion
+
 	}
 }

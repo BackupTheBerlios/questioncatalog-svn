@@ -26,7 +26,6 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.Button m_btnLoeschen;
 		protected System.Web.UI.WebControls.Button m_btnBearbeiten;
 		protected System.Web.UI.WebControls.TextBox m_txtTitel;
-		protected System.Web.UI.WebControls.HyperLink m_lnkNeueFrage;
 		protected System.Web.UI.WebControls.Button m_btnFertig;
 		protected System.Web.UI.WebControls.Label m_lbFrage;
 		protected System.Web.UI.WebControls.TextBox m_txtComment;
@@ -40,7 +39,6 @@ namespace UmfrageEditor
 		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwortM;
 		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwErstellen;
 		protected System.Web.UI.WebControls.Button m_btnFrageUebernehmen;
-		protected System.Web.UI.WebControls.HyperLink m_lnkMehrAntw;
 		protected System.Web.UI.WebControls.Label m_lbHeadline;
 		protected System.Web.UI.WebControls.HyperLink lnkHome;
 		protected System.Web.UI.WebControls.HyperLink lnkLog;
@@ -48,6 +46,9 @@ namespace UmfrageEditor
 		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
 		protected System.Web.UI.WebControls.TextBox m_txtFrageTitel;
 		protected System.Web.UI.WebControls.DataGrid m_dgFragen;
+		protected System.Web.UI.WebControls.LinkButton m_lnkbNeueFrage;
+		protected System.Web.UI.WebControls.LinkButton m_lnkbMehrAntw;
+		protected string PageTitle;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -58,37 +59,42 @@ namespace UmfrageEditor
 				Server.Transfer("default.aspx");
 			}
 
-			UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
-            // neue Umfrage soll erstellt werden
-			if (!umfr.IsLoaded)
-			{
-				// nur relevante Abschnitte der Seite anzeigen
-				m_tblFragen.Visible	= false;
-				m_pnNeueFrage.Visible = true;
-				m_pnFrageErstellen.Visible = false;
-				m_tblAntwortmoeglErstellen.Visible = false;
-			}
-			else
-			{
-				// testen, ob die geladene Umfrage dem eingeloggten Benutzer gehört...
-				DSUmfragen dsUmfr = umfr.getLoadedUmfrage();
-				if (dsUmfr.umfragen.Rows.Count == 1)
-				{
-					// ...wenn nicht neue Umfrage erstellen lassen
-					if (user.UserID != Convert.ToInt32(dsUmfr.umfragen.Rows[0]["r_UserID"]))
-					{
-						umfr.Clear();
-						Response.Redirect("umfrageerstellen.aspx");
-					}
-				}
-			}
+
 
 			if (!IsPostBack)
 			{
+				// Titel des Browserfensters setzen
+				PageTitle = "Umfrage Erstellen";
+				DataBind();
+
 				// Abschnitte, die immer sichtbar sein sollen
 				m_pnUmfrageTitel.Visible = true;
 
-				RefreshDGFragen();
+				// soll eine neue Umfrage erstellt werden?
+				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
+				if (!umfr.IsLoaded)
+				{
+					// für neue Umfrage nicht relevante Abschnitte der Seite ausblenden
+					m_tblFragen.Visible	= false;
+					m_pnNeueFrage.Visible = true;
+					m_pnFrageErstellen.Visible = false;
+					m_tblAntwortmoeglErstellen.Visible = false;
+				}
+				else
+				{
+					// testen, ob die geladene Umfrage dem eingeloggten Benutzer gehört...
+					if (!CheckUmfrageBelongsToUser())
+					{
+						// ...wenn nicht neue Umfrage erstellen lassen
+						umfr.Clear();
+						Response.Redirect("umfrageerstellen.aspx");
+					}
+					else
+					{
+						// Umfrage zum bearbeiten laden
+						LoadUmfrage();
+					}
+				}
 			}
 		}
 
@@ -112,6 +118,7 @@ namespace UmfrageEditor
 		{    
 			this.m_btnLoeschen.Click += new System.EventHandler(this.m_btnLoeschen_Click);
 			this.m_btnBearbeiten.Click += new System.EventHandler(this.m_btnBearbeiten_Click);
+			this.m_lnkbNeueFrage.Click += new System.EventHandler(this.m_lnkbNeueFrage_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -119,7 +126,7 @@ namespace UmfrageEditor
 
 		private void m_btnBearbeiten_Click(object sender, System.EventArgs e)
 		{
-		
+			
 		}
 
 		private void m_btnLoeschen_Click(object sender, System.EventArgs e)
@@ -136,6 +143,8 @@ namespace UmfrageEditor
 			}
 		}
 
+		#region Hilfsfunktionen
+
 		private void RefreshDGFragen()
 		{
 			SqlParameter pRUmfrageID = DataAccessFragen.Paramr_UmfrageID;
@@ -147,6 +156,52 @@ namespace UmfrageEditor
 			m_dgFragen.DataSource = dsFragen.fragen;
 			m_dgFragen.DataBind();
 			m_tblFragen.Visible = (dsFragen.fragen.Rows.Count > 0);
+		}
+
+		/// <summary>
+		/// Überprüft, ob die geladene Umfrage dem eingeloggten Benutzer gehört
+		/// </summary>
+		/// <returns>true, wenn die geladene Umfrage dem eingeloggten Benutzer gehört
+		///	false, wenn kein Benutzer eingeloggt ist, keine Umfrage geladen ist oder 
+		///	die geladene Umfrage nicht dem eingeloggten Benutzer gehört</returns>
+		protected bool CheckUmfrageBelongsToUser()
+		{
+			// gar kein Benutzer eingeloggt:
+			UserInfo user = SessionContainer.ReadFromSession(this).User;
+			if (!user.IsLoggedIn)
+			{
+				return false;
+			}
+
+			DSUmfragen dsUmfr = SessionContainer.ReadFromSession(this).Umfrage.getLoadedUmfrage();
+			if (dsUmfr.umfragen.Rows.Count == 1)
+			{
+				return (user.UserID == Convert.ToInt32(dsUmfr.umfragen.Rows[0]["r_UserID"]));
+			}
+
+			return false;
+		}
+
+
+		private void LoadUmfrage()
+		{
+			DSUmfragen dsUmfr = SessionContainer.ReadFromSession(this).Umfrage.getLoadedUmfrage();
+			if (dsUmfr.umfragen.Rows.Count == 1)
+			{
+				m_txtTitel.Text = dsUmfr.umfragen[0].Titel;
+				m_txtComment.Text = dsUmfr.umfragen[0].Beschreibung;
+				m_chbOnline.Checked = (dsUmfr.umfragen[0].Onlinestatus == DBConstants.Online);
+				RefreshDGFragen();
+				m_pnFrageErstellen.Visible = false;
+				m_tblAntwortmoeglErstellen.Visible = false;
+			}
+		}
+
+		#endregion
+
+		private void m_lnkbNeueFrage_Click(object sender, System.EventArgs e)
+		{
+			m_pnFrageErstellen.Visible = true;
 		}
 
 	}

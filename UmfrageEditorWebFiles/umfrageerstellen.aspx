@@ -2,7 +2,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
-		<title>umfrageerstellen</title>
+		<title>
+			<%#PageTitle%>
+		</title>
 		<meta name="GENERATOR" Content="Microsoft Visual Studio .NET 7.1">
 		<meta name="CODE_LANGUAGE" Content="C#">
 		<meta name="vs_defaultClientScript" content="JavaScript">
@@ -69,21 +71,21 @@
 									</TABLE>
 									<DIV style="WIDTH: 600px; POSITION: relative; HEIGHT: 88px" ms_positioning="GridLayout"
 										id="m_pnNeueFrage" runat="server">
-										<asp:HyperLink id="m_lnkNeueFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px"
-											runat="server">neue Frage erstellen</asp:HyperLink>
 										<asp:Button id="m_btnFertig" style="Z-INDEX: 102; LEFT: 496px; POSITION: absolute; TOP: 32px"
-											runat="server" Text="Fertig"></asp:Button></DIV>
+											runat="server" Text="Fertig"></asp:Button>
+										<asp:LinkButton id="m_lnkbNeueFrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 40px"
+											runat="server">neue Frage erstellen</asp:LinkButton></DIV>
 									<DIV style="WIDTH: 600px; POSITION: relative; HEIGHT: 186px" ms_positioning="GridLayout"
 										id="m_pnFrageErstellen" runat="server">
 										<asp:Label id="m_lbFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px" runat="server">Frage</asp:Label>
 										<asp:TextBox id="m_txtFrageTitel" style="Z-INDEX: 102; LEFT: 88px; POSITION: absolute; TOP: 24px"
 											runat="server" Width="472px"></asp:TextBox>
 										<asp:RadioButton id="m_rdbTextfrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 72px"
-											runat="server" Text="Text-Frage"></asp:RadioButton>
+											runat="server" Text="Text-Frage" GroupName="frageart" Checked="True"></asp:RadioButton>
 										<asp:RadioButton id="m_rdbUndFrage" style="Z-INDEX: 104; LEFT: 8px; POSITION: absolute; TOP: 104px"
-											runat="server" Text="Und-Frage (mehrfachauswahl möglich)"></asp:RadioButton>
+											runat="server" Text="Und-Frage (mehrfachauswahl möglich)" GroupName="frageart"></asp:RadioButton>
 										<asp:RadioButton id="m_rdbOderFrage" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 136px"
-											runat="server" Text="Oder-Frage (keine Mehrfachauswahl)"></asp:RadioButton></DIV>
+											runat="server" Text="Oder-Frage (keine Mehrfachauswahl)" GroupName="frageart"></asp:RadioButton></DIV>
 									<TABLE id="m_tblAntwortmoeglErstellen" style="WIDTH: 600px; HEIGHT: 84px" cellSpacing="1"
 										cellPadding="1" width="600" border="0" runat="server">
 										<TR>
@@ -101,7 +103,7 @@
 										</TR>
 										<TR>
 											<TD style="WIDTH: 447px">
-												<asp:HyperLink id="m_lnkMehrAntw" runat="server">mehr Antwortmöglichkeiten</asp:HyperLink></TD>
+												<asp:LinkButton id="m_lnkbMehrAntw" runat="server">mehr Antwortmöglichkeiten</asp:LinkButton></TD>
 											<TD>
 												<asp:Button id="m_btnFrageUebernehmen" runat="server" Text="Übernehmen"></asp:Button></TD>
 										</TR>

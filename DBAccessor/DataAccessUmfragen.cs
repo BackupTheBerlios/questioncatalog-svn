@@ -12,12 +12,12 @@ namespace DBAccessor
 	/// </summary>
 	public class DataAccessUmfragen : System.ComponentModel.Component
 	{
-		private SqlCommand m_cmSelect;
-		private SqlCommand m_cmInsert;
-		private SqlCommand m_cmUpdate;
-		private SqlCommand m_cmDelete;
 		private SqlConnection m_sqlConn;
 		private SqlDataAdapter m_adpUmfragen;
+		private System.Data.SqlClient.SqlCommand sqlSelectCommand1;
+		private System.Data.SqlClient.SqlCommand sqlInsertCommand1;
+		private System.Data.SqlClient.SqlCommand sqlUpdateCommand1;
+		private System.Data.SqlClient.SqlCommand sqlDeleteCommand1;
 		/// <summary>
 		/// Erforderliche Designervariable.
 		/// </summary>
@@ -159,56 +159,12 @@ namespace DBAccessor
 		private void InitializeComponent()
 		{
 			System.Configuration.AppSettingsReader configurationAppSettings = new System.Configuration.AppSettingsReader();
-			this.m_cmSelect = new System.Data.SqlClient.SqlCommand();
-			this.m_cmInsert = new System.Data.SqlClient.SqlCommand();
-			this.m_cmUpdate = new System.Data.SqlClient.SqlCommand();
-			this.m_cmDelete = new System.Data.SqlClient.SqlCommand();
 			this.m_sqlConn = new System.Data.SqlClient.SqlConnection();
 			this.m_adpUmfragen = new System.Data.SqlClient.SqlDataAdapter();
-			// 
-			// m_cmSelect
-			// 
-			this.m_cmSelect.CommandText = "SELECT UmfrageID, Titel, Beschreibung, Datum_Beginn, Datum_Ende, r_userID FROM um" +
-				"fragen";
-			this.m_cmSelect.Connection = this.m_sqlConn;
-			// 
-			// m_cmInsert
-			// 
-			this.m_cmInsert.CommandText = @"INSERT INTO umfragen(Titel, Beschreibung, Datum_Beginn, Datum_Ende, r_userID) VALUES (@Titel, @Beschreibung, @Datum_Beginn, @Datum_Ende, @r_userID); SELECT UmfrageID, Titel, Beschreibung, Datum_Beginn, Datum_Ende, r_userID FROM umfragen WHERE (UmfrageID = @@IDENTITY)";
-			this.m_cmInsert.Connection = this.m_sqlConn;
-			this.m_cmInsert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Titel", System.Data.SqlDbType.VarChar, 100, "Titel"));
-			this.m_cmInsert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Beschreibung", System.Data.SqlDbType.VarChar, 1000, "Beschreibung"));
-			this.m_cmInsert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Datum_Beginn", System.Data.SqlDbType.DateTime, 8, "Datum_Beginn"));
-			this.m_cmInsert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Datum_Ende", System.Data.SqlDbType.DateTime, 8, "Datum_Ende"));
-			this.m_cmInsert.Parameters.Add(new System.Data.SqlClient.SqlParameter("@r_userID", System.Data.SqlDbType.Int, 4, "r_userID"));
-			// 
-			// m_cmUpdate
-			// 
-			this.m_cmUpdate.CommandText = @"UPDATE umfragen SET Titel = @Titel, Beschreibung = @Beschreibung, Datum_Beginn = @Datum_Beginn, Datum_Ende = @Datum_Ende, r_userID = @r_userID WHERE (UmfrageID = @Original_UmfrageID) AND (Beschreibung = @Original_Beschreibung OR @Original_Beschreibung IS NULL AND Beschreibung IS NULL) AND (Datum_Beginn = @Original_Datum_Beginn OR @Original_Datum_Beginn IS NULL AND Datum_Beginn IS NULL) AND (Datum_Ende = @Original_Datum_Ende OR @Original_Datum_Ende IS NULL AND Datum_Ende IS NULL) AND (Titel = @Original_Titel) AND (r_userID = @Original_r_userID); SELECT UmfrageID, Titel, Beschreibung, Datum_Beginn, Datum_Ende, r_userID FROM umfragen WHERE (UmfrageID = @UmfrageID)";
-			this.m_cmUpdate.Connection = this.m_sqlConn;
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Titel", System.Data.SqlDbType.VarChar, 100, "Titel"));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Beschreibung", System.Data.SqlDbType.VarChar, 1000, "Beschreibung"));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Datum_Beginn", System.Data.SqlDbType.DateTime, 8, "Datum_Beginn"));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Datum_Ende", System.Data.SqlDbType.DateTime, 8, "Datum_Ende"));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@r_userID", System.Data.SqlDbType.Int, 4, "r_userID"));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UmfrageID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "UmfrageID", System.Data.DataRowVersion.Original, null));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Beschreibung", System.Data.SqlDbType.VarChar, 1000, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Beschreibung", System.Data.DataRowVersion.Original, null));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Datum_Beginn", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Datum_Beginn", System.Data.DataRowVersion.Original, null));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Datum_Ende", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Datum_Ende", System.Data.DataRowVersion.Original, null));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Titel", System.Data.SqlDbType.VarChar, 100, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Titel", System.Data.DataRowVersion.Original, null));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_r_userID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "r_userID", System.Data.DataRowVersion.Original, null));
-			this.m_cmUpdate.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UmfrageID", System.Data.SqlDbType.Int, 4, "UmfrageID"));
-			// 
-			// m_cmDelete
-			// 
-			this.m_cmDelete.CommandText = @"DELETE FROM umfragen WHERE (UmfrageID = @Original_UmfrageID) AND (Beschreibung = @Original_Beschreibung OR @Original_Beschreibung IS NULL AND Beschreibung IS NULL) AND (Datum_Beginn = @Original_Datum_Beginn OR @Original_Datum_Beginn IS NULL AND Datum_Beginn IS NULL) AND (Datum_Ende = @Original_Datum_Ende OR @Original_Datum_Ende IS NULL AND Datum_Ende IS NULL) AND (Titel = @Original_Titel) AND (r_userID = @Original_r_userID)";
-			this.m_cmDelete.Connection = this.m_sqlConn;
-			this.m_cmDelete.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UmfrageID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "UmfrageID", System.Data.DataRowVersion.Original, null));
-			this.m_cmDelete.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Beschreibung", System.Data.SqlDbType.VarChar, 1000, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Beschreibung", System.Data.DataRowVersion.Original, null));
-			this.m_cmDelete.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Datum_Beginn", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Datum_Beginn", System.Data.DataRowVersion.Original, null));
-			this.m_cmDelete.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Datum_Ende", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Datum_Ende", System.Data.DataRowVersion.Original, null));
-			this.m_cmDelete.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Titel", System.Data.SqlDbType.VarChar, 100, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Titel", System.Data.DataRowVersion.Original, null));
-			this.m_cmDelete.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_r_userID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "r_userID", System.Data.DataRowVersion.Original, null));
+			this.sqlSelectCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlInsertCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlUpdateCommand1 = new System.Data.SqlClient.SqlCommand();
+			this.sqlDeleteCommand1 = new System.Data.SqlClient.SqlCommand();
 			// 
 			// m_sqlConn
 			// 
@@ -216,9 +172,9 @@ namespace DBAccessor
 			// 
 			// m_adpUmfragen
 			// 
-			this.m_adpUmfragen.DeleteCommand = this.m_cmDelete;
-			this.m_adpUmfragen.InsertCommand = this.m_cmInsert;
-			this.m_adpUmfragen.SelectCommand = this.m_cmSelect;
+			this.m_adpUmfragen.DeleteCommand = this.sqlDeleteCommand1;
+			this.m_adpUmfragen.InsertCommand = this.sqlInsertCommand1;
+			this.m_adpUmfragen.SelectCommand = this.sqlSelectCommand1;
 			this.m_adpUmfragen.TableMappings.AddRange(new System.Data.Common.DataTableMapping[] {
 																									new System.Data.Common.DataTableMapping("Table", "umfragen", new System.Data.Common.DataColumnMapping[] {
 																																																				new System.Data.Common.DataColumnMapping("UmfrageID", "UmfrageID"),
@@ -226,8 +182,57 @@ namespace DBAccessor
 																																																				new System.Data.Common.DataColumnMapping("Beschreibung", "Beschreibung"),
 																																																				new System.Data.Common.DataColumnMapping("Datum_Beginn", "Datum_Beginn"),
 																																																				new System.Data.Common.DataColumnMapping("Datum_Ende", "Datum_Ende"),
-																																																				new System.Data.Common.DataColumnMapping("r_userID", "r_userID")})});
-			this.m_adpUmfragen.UpdateCommand = this.m_cmUpdate;
+																																																				new System.Data.Common.DataColumnMapping("r_userID", "r_userID"),
+																																																				new System.Data.Common.DataColumnMapping("Onlinestatus", "Onlinestatus")})});
+			this.m_adpUmfragen.UpdateCommand = this.sqlUpdateCommand1;
+			// 
+			// sqlSelectCommand1
+			// 
+			this.sqlSelectCommand1.CommandText = "SELECT UmfrageID, Titel, Beschreibung, Datum_Beginn, Datum_Ende, r_userID, Online" +
+				"status FROM umfragen";
+			this.sqlSelectCommand1.Connection = this.m_sqlConn;
+			// 
+			// sqlInsertCommand1
+			// 
+			this.sqlInsertCommand1.CommandText = @"INSERT INTO umfragen(Titel, Beschreibung, Datum_Beginn, Datum_Ende, r_userID, Onlinestatus) VALUES (@Titel, @Beschreibung, @Datum_Beginn, @Datum_Ende, @r_userID, @Onlinestatus); SELECT UmfrageID, Titel, Beschreibung, Datum_Beginn, Datum_Ende, r_userID, Onlinestatus FROM umfragen WHERE (UmfrageID = @@IDENTITY)";
+			this.sqlInsertCommand1.Connection = this.m_sqlConn;
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Titel", System.Data.SqlDbType.VarChar, 100, "Titel"));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Beschreibung", System.Data.SqlDbType.VarChar, 1000, "Beschreibung"));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Datum_Beginn", System.Data.SqlDbType.DateTime, 8, "Datum_Beginn"));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Datum_Ende", System.Data.SqlDbType.DateTime, 8, "Datum_Ende"));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@r_userID", System.Data.SqlDbType.Int, 4, "r_userID"));
+			this.sqlInsertCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Onlinestatus", System.Data.SqlDbType.Int, 4, "Onlinestatus"));
+			// 
+			// sqlUpdateCommand1
+			// 
+			this.sqlUpdateCommand1.CommandText = @"UPDATE umfragen SET Titel = @Titel, Beschreibung = @Beschreibung, Datum_Beginn = @Datum_Beginn, Datum_Ende = @Datum_Ende, r_userID = @r_userID, Onlinestatus = @Onlinestatus WHERE (UmfrageID = @Original_UmfrageID) AND (Beschreibung = @Original_Beschreibung OR @Original_Beschreibung IS NULL AND Beschreibung IS NULL) AND (Datum_Beginn = @Original_Datum_Beginn OR @Original_Datum_Beginn IS NULL AND Datum_Beginn IS NULL) AND (Datum_Ende = @Original_Datum_Ende OR @Original_Datum_Ende IS NULL AND Datum_Ende IS NULL) AND (Onlinestatus = @Original_Onlinestatus OR @Original_Onlinestatus IS NULL AND Onlinestatus IS NULL) AND (Titel = @Original_Titel) AND (r_userID = @Original_r_userID); SELECT UmfrageID, Titel, Beschreibung, Datum_Beginn, Datum_Ende, r_userID, Onlinestatus FROM umfragen WHERE (UmfrageID = @UmfrageID)";
+			this.sqlUpdateCommand1.Connection = this.m_sqlConn;
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Titel", System.Data.SqlDbType.VarChar, 100, "Titel"));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Beschreibung", System.Data.SqlDbType.VarChar, 1000, "Beschreibung"));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Datum_Beginn", System.Data.SqlDbType.DateTime, 8, "Datum_Beginn"));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Datum_Ende", System.Data.SqlDbType.DateTime, 8, "Datum_Ende"));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@r_userID", System.Data.SqlDbType.Int, 4, "r_userID"));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Onlinestatus", System.Data.SqlDbType.Int, 4, "Onlinestatus"));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UmfrageID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "UmfrageID", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Beschreibung", System.Data.SqlDbType.VarChar, 1000, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Beschreibung", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Datum_Beginn", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Datum_Beginn", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Datum_Ende", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Datum_Ende", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Onlinestatus", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Onlinestatus", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Titel", System.Data.SqlDbType.VarChar, 100, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Titel", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_r_userID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "r_userID", System.Data.DataRowVersion.Original, null));
+			this.sqlUpdateCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UmfrageID", System.Data.SqlDbType.Int, 4, "UmfrageID"));
+			// 
+			// sqlDeleteCommand1
+			// 
+			this.sqlDeleteCommand1.CommandText = @"DELETE FROM umfragen WHERE (UmfrageID = @Original_UmfrageID) AND (Beschreibung = @Original_Beschreibung OR @Original_Beschreibung IS NULL AND Beschreibung IS NULL) AND (Datum_Beginn = @Original_Datum_Beginn OR @Original_Datum_Beginn IS NULL AND Datum_Beginn IS NULL) AND (Datum_Ende = @Original_Datum_Ende OR @Original_Datum_Ende IS NULL AND Datum_Ende IS NULL) AND (Onlinestatus = @Original_Onlinestatus OR @Original_Onlinestatus IS NULL AND Onlinestatus IS NULL) AND (Titel = @Original_Titel) AND (r_userID = @Original_r_userID)";
+			this.sqlDeleteCommand1.Connection = this.m_sqlConn;
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UmfrageID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "UmfrageID", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Beschreibung", System.Data.SqlDbType.VarChar, 1000, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Beschreibung", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Datum_Beginn", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Datum_Beginn", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Datum_Ende", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Datum_Ende", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Onlinestatus", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Onlinestatus", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_Titel", System.Data.SqlDbType.VarChar, 100, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "Titel", System.Data.DataRowVersion.Original, null));
+			this.sqlDeleteCommand1.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_r_userID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, false, ((System.Byte)(0)), ((System.Byte)(0)), "r_userID", System.Data.DataRowVersion.Original, null));
 
 		}
 		#endregion

@@ -6,6 +6,7 @@ DataAdapter	adp
 DataSet		ds
 Command		cm
 Link		lnk
+LinkButton	lnkb
 Panel		pn
 Tabelle		tbl
 DataGrid	dg

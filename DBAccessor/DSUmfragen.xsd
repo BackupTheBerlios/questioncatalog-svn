@@ -12,6 +12,7 @@
               <xs:element name="Datum_Beginn" type="xs:dateTime" minOccurs="0" />
               <xs:element name="Datum_Ende" type="xs:dateTime" minOccurs="0" />
               <xs:element name="r_userID" type="xs:int" />
+              <xs:element name="Onlinestatus" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

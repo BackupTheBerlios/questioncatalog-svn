@@ -147,6 +147,8 @@ namespace DBAccessor {
             
             private DataColumn columnr_userID;
             
+            private DataColumn columnOnlinestatus;
+            
             internal umfragenDataTable() : 
                     base("umfragen") {
                 this.InitClass();
@@ -211,6 +213,12 @@ namespace DBAccessor {
                 }
             }
             
+            internal DataColumn OnlinestatusColumn {
+                get {
+                    return this.columnOnlinestatus;
+                }
+            }
+            
             public umfragenRow this[int index] {
                 get {
                     return ((umfragenRow)(this.Rows[index]));
@@ -229,7 +237,7 @@ namespace DBAccessor {
                 this.Rows.Add(row);
             }
             
-            public umfragenRow AddumfragenRow(string Titel, string Beschreibung, System.DateTime Datum_Beginn, System.DateTime Datum_Ende, int r_userID) {
+            public umfragenRow AddumfragenRow(string Titel, string Beschreibung, System.DateTime Datum_Beginn, System.DateTime Datum_Ende, int r_userID, int Onlinestatus) {
                 umfragenRow rowumfragenRow = ((umfragenRow)(this.NewRow()));
                 rowumfragenRow.ItemArray = new object[] {
                         null,
@@ -237,7 +245,8 @@ namespace DBAccessor {
                         Beschreibung,
                         Datum_Beginn,
                         Datum_Ende,
-                        r_userID};
+                        r_userID,
+                        Onlinestatus};
                 this.Rows.Add(rowumfragenRow);
                 return rowumfragenRow;
             }
@@ -268,6 +277,7 @@ namespace DBAccessor {
                 this.columnDatum_Beginn = this.Columns["Datum_Beginn"];
                 this.columnDatum_Ende = this.Columns["Datum_Ende"];
                 this.columnr_userID = this.Columns["r_userID"];
+                this.columnOnlinestatus = this.Columns["Onlinestatus"];
             }
             
             private void InitClass() {
@@ -283,6 +293,8 @@ namespace DBAccessor {
                 this.Columns.Add(this.columnDatum_Ende);
                 this.columnr_userID = new DataColumn("r_userID", typeof(int), null, System.Data.MappingType.Element);
                 this.Columns.Add(this.columnr_userID);
+                this.columnOnlinestatus = new DataColumn("Onlinestatus", typeof(int), null, System.Data.MappingType.Element);
+                this.Columns.Add(this.columnOnlinestatus);
                 this.Constraints.Add(new UniqueConstraint("Constraint1", new DataColumn[] {
                                 this.columnUmfrageID}, true));
                 this.columnUmfrageID.AutoIncrement = true;
@@ -417,6 +429,20 @@ namespace DBAccessor {
                 }
             }
             
+            public int Onlinestatus {
+                get {
+                    try {
+                        return ((int)(this[this.tableumfragen.OnlinestatusColumn]));
+                    }
+                    catch (InvalidCastException e) {
+                        throw new StrongTypingException("Der Wert kann nicht ermittelt werden, da er DBNull ist.", e);
+                    }
+                }
+                set {
+                    this[this.tableumfragen.OnlinestatusColumn] = value;
+                }
+            }
+            
             public bool IsBeschreibungNull() {
                 return this.IsNull(this.tableumfragen.BeschreibungColumn);
             }
@@ -439,6 +465,14 @@ namespace DBAccessor {
             
             public void SetDatum_EndeNull() {
                 this[this.tableumfragen.Datum_EndeColumn] = System.Convert.DBNull;
+            }
+            
+            public bool IsOnlinestatusNull() {
+                return this.IsNull(this.tableumfragen.OnlinestatusColumn);
+            }
+            
+            public void SetOnlinestatusNull() {
+                this[this.tableumfragen.OnlinestatusColumn] = System.Convert.DBNull;
             }
         }
         
