@@ -21,13 +21,7 @@
 					<td vAlign="top" align="left" width="691">
 						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td vAlign="top" align="left" width="120">
-									<p class="pagename" align="center"><strong>Startseite</strong></p>
-									<DIV id="menu_user" runat="server" ms_positioning="FlowLayout">
-										<P><asp:hyperlink class="menu" id="lnkHome" runat="server" NavigateUrl="default.aspx">Startseite</asp:hyperlink><br>
-											<asp:hyperlink class="menu" id="lnkLog" runat="server" NavigateUrl="registrieren.aspx">Login</asp:hyperlink><BR>
-											<asp:hyperlink class="menu" id="lnkVerwaltung" runat="server" NavigateUrl="administration.aspx">Verwaltung</asp:hyperlink></P>
-									</DIV>
+								<td vAlign="top" align="left" width="120"><IFRAME id="menu" tabIndex="1" hspace="10" src="menu.aspx" frameBorder="0" width="120" scrolling="no"></IFRAME>
 								</td>
 								<TD vAlign="top" align="left">
 									<P></P>

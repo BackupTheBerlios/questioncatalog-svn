@@ -27,10 +27,6 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.Button btnLogin;
 		protected System.Web.UI.WebControls.Label lbLoginStatus;
 		protected System.Web.UI.WebControls.HyperLink HyperLink1;
-		protected System.Web.UI.WebControls.HyperLink lnkHome;
-		protected System.Web.UI.WebControls.HyperLink lnkLog;
-		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
 
 		protected DataAccessBenutzer daBenutzer;
 	
@@ -58,6 +54,7 @@ namespace UmfrageEditor
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.txtBenutzername.TextChanged += new System.EventHandler(this.txtBenutzername_TextChanged);
 			this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
 			this.btnRegistrieren.ServerClick += new System.EventHandler(this.btnRegistrieren_ServerClick);
 			this.Load += new System.EventHandler(this.Page_Load);
@@ -126,6 +123,7 @@ namespace UmfrageEditor
 				SessionContainer.ReadFromSession(this).User.Logout();
 //				lbLoginStatus.Text = "Falscher Benutzername!";
 			}
+
 			if (SessionContainer.ReadFromSession(this).User.IsLoggedIn)
 			{
 //				lbLoginStatus.Text = "Login erfolgreich!";
@@ -135,6 +133,11 @@ namespace UmfrageEditor
 			{
 				lbLoginStatus.Text = "Login fehlgeschlagen!";
 			}
+		}
+
+		private void txtBenutzername_TextChanged(object sender, System.EventArgs e)
+		{
+		
 		}
 	}
 }

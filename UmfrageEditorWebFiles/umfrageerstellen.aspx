@@ -23,27 +23,21 @@
 					<td vAlign="top" align="left" width="691">
 						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td vAlign="top" align="left" width="120">
-									<p class="pagename" align="center"><strong>Startseite</strong></p>
-									<DIV id="menu_user" runat="server" ms_positioning="FlowLayout">
-										<P><asp:hyperlink class="menu" id="lnkHome" runat="server" NavigateUrl="default.aspx">Startseite</asp:hyperlink><br>
-											<asp:hyperlink class="menu" id="lnkLog" runat="server" NavigateUrl="registrieren.aspx">Login</asp:hyperlink><BR>
-											<asp:hyperlink class="menu" id="lnkVerwaltung" runat="server" NavigateUrl="administration.aspx">Verwaltung</asp:hyperlink></P>
-									</DIV>
+								<td vAlign="top" align="left" width="120"><IFRAME id="menu" tabIndex="1" hspace="10" src="menu.aspx" frameBorder="0" width="120" scrolling="no"></IFRAME>
 								</td>
 								<TD vAlign="top" align="left">
-									<DIV id="m_pnUmfrageTitel" style="WIDTH: 600px; POSITION: relative; HEIGHT: 248px" ms_positioning="GridLayout"
+									<DIV id="m_pnUmfrageTitel" style="WIDTH: 100%; POSITION: relative; HEIGHT: 248px" ms_positioning="GridLayout"
 										runat="server">
 										<asp:Label id="m_lbTitle" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 88px" runat="server">Titel</asp:Label>
 										<asp:Label id="m_lbComment" style="Z-INDEX: 102; LEFT: 8px; POSITION: absolute; TOP: 128px"
 											runat="server">Kurzbeschreibung</asp:Label>
-										<asp:TextBox id="m_txtTitel" style="Z-INDEX: 103; LEFT: 168px; POSITION: absolute; TOP: 80px"
+										<asp:TextBox id="m_txtTitel" style="Z-INDEX: 103; LEFT: 128px; POSITION: absolute; TOP: 80px"
 											runat="server" Width="393px"></asp:TextBox>
 										<asp:Button id="m_btnTitelUebernehmen" style="Z-INDEX: 104; LEFT: 416px; POSITION: absolute; TOP: 192px"
 											runat="server" Text="Übernehmen"></asp:Button>
 										<asp:CheckBox id="m_chbOnline" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 200px"
 											runat="server" Text="Umfrage online stellen"></asp:CheckBox>
-										<asp:TextBox id="m_txtComment" style="Z-INDEX: 106; LEFT: 168px; POSITION: absolute; TOP: 120px"
+										<asp:TextBox id="m_txtComment" style="Z-INDEX: 106; LEFT: 128px; POSITION: absolute; TOP: 120px"
 											runat="server" Width="392px"></asp:TextBox>
 										<asp:Label id="m_lbHeadline" style="Z-INDEX: 107; LEFT: 8px; POSITION: absolute; TOP: 24px"
 											runat="server">Neue Umfrage Erstellen</asp:Label></DIV>
@@ -69,13 +63,13 @@
 												<asp:Button id="m_btnBearbeiten" runat="server" Text="Bearbeiten" Width="96px"></asp:Button></TD>
 										</TR>
 									</TABLE>
-									<DIV style="WIDTH: 600px; POSITION: relative; HEIGHT: 88px" ms_positioning="GridLayout"
+									<DIV style="WIDTH: 100%; POSITION: relative; HEIGHT: 88px" ms_positioning="GridLayout"
 										id="m_pnNeueFrage" runat="server">
 										<asp:Button id="m_btnFertig" style="Z-INDEX: 102; LEFT: 496px; POSITION: absolute; TOP: 32px"
 											runat="server" Text="Fertig"></asp:Button>
 										<asp:LinkButton id="m_lnkbNeueFrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 40px"
 											runat="server">neue Frage erstellen</asp:LinkButton></DIV>
-									<DIV style="WIDTH: 600px; POSITION: relative; HEIGHT: 186px" ms_positioning="GridLayout"
+									<DIV style="WIDTH: 100%; POSITION: relative; HEIGHT: 186px" ms_positioning="GridLayout"
 										id="m_pnFrageErstellen" runat="server">
 										<asp:Label id="m_lbFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px" runat="server">Frage</asp:Label>
 										<asp:TextBox id="m_txtFrageTitel" style="Z-INDEX: 102; LEFT: 88px; POSITION: absolute; TOP: 24px"

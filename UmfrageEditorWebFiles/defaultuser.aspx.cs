@@ -26,10 +26,6 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.Button m_btnBearbeiten;
 		protected System.Web.UI.WebControls.CheckBoxList m_chblUmfragenListe;
 		protected System.Web.UI.HtmlControls.HtmlTable m_tblUmfragenListe;
-		protected System.Web.UI.WebControls.HyperLink lnkHome;
-		protected System.Web.UI.WebControls.HyperLink lnkLog;
-		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
 		protected System.Web.UI.HtmlControls.HtmlForm Form1;
 		protected System.Web.UI.WebControls.HyperLink m_lnkUmfrageNeu;
 		

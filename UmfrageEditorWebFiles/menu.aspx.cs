@@ -16,13 +16,21 @@ namespace UmfrageEditor
 	/// </summary>
 	public class menu : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
-		protected System.Web.UI.WebControls.HyperLink lnkLog;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_registrieren;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_admin;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_user;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_default;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Hier Benutzercode zur Seiteninitialisierung einfügen
+			//wenn kein Benutzer eingeloggt ist
+			/*
+			UserInfo user = SessionContainer.ReadFromSession(this).User;
+			if (!user.IsLoggedIn)
+			{
+				// Server.Transfer("default.aspx");
+			}
+			*/
 		}
 
 		#region Vom Web Form-Designer generierter Code
@@ -45,5 +53,11 @@ namespace UmfrageEditor
 
 		}
 		#endregion
+
+		private void Button1_Click(object sender, System.EventArgs e)
+		{
+		
+		}
+
 	}
 }

@@ -16,10 +16,6 @@ namespace UmfrageEditor
 	/// </summary>
 	public class ergebnisse : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.HyperLink lnkHome;
-		protected System.Web.UI.WebControls.HyperLink lnkLog;
-		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
