@@ -22,6 +22,11 @@ namespace UmfrageEditor
 	/// </summary>
 	public class fragedarstellung : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.Table m_tblFragenListe;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnUmfrageTitel;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_lbUmfrageTitel;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl P1;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_lbComment;
 		protected System.Web.UI.WebControls.LinkButton LinkLogout;
 		protected System.Web.UI.WebControls.Label lbLoginStatus;
 		protected System.Web.UI.WebControls.LinkButton LinkLogin;
@@ -38,12 +43,22 @@ namespace UmfrageEditor
 	
 		protected DataAccessBenutzer daBenutzer;
 
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+
+			// Falls keine Umfrage geladen ist, zurück zur Startseite
+			UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
+			if (!umfr.IsLoaded)
+			{
+				
+			}
+
 			daBenutzer = new DataAccessBenutzer();
 
 			// Einblendungen für Login und Navmenü prüfen
 			check_visibility();
+
 		}
 
 		#region Vom Web Form-Designer generierter Code

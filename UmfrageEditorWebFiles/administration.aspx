@@ -26,7 +26,7 @@
 									</DIV>
 								</td>
 								<TD align="left" valign="top">&nbsp;
-									<TABLE id="m_tblRegisterCards" cellSpacing="1" cellPadding="1" width="600" border="0" runat="server">
+									<TABLE id="m_tblRegisterCards" cellSpacing="1" cellPadding="1" width="550" border="0" runat="server">
 										<TR>
 											<TD style="WIDTH: 120px">
 												<asp:Button id="m_btnBenutzer" runat="server" Text="Benutzer" BackColor="#4263C6" Width="100%"
@@ -37,7 +37,7 @@
 											<TD></TD>
 										</TR>
 									</TABLE>
-									<TABLE id="m_tblBenutzer" cellSpacing="0" cellPadding="1" width="600" border="1" runat="server">
+									<TABLE id="m_tblBenutzer" cellSpacing="0" cellPadding="1" width="550" border="1" runat="server">
 										<TR>
 											<TD borderColor="#c0c0c0" colSpan="2">
 												<asp:DataGrid id="m_dgBenutzer" runat="server" BorderWidth="0px" AutoGenerateColumns="False" GridLines="None">
@@ -62,7 +62,7 @@
 												<asp:Button id="m_btnBenutzerLoeschen" runat="server" Text="Löschen" Width="90px"></asp:Button></TD>
 										</TR>
 									</TABLE>
-									<TABLE id="m_tblUmfragen" borderColor="silver" cellSpacing="1" cellPadding="1" width="600"
+									<TABLE id="m_tblUmfragen" borderColor="silver" cellSpacing="1" cellPadding="1" width="550"
 										border="1" runat="server">
 										<TR>
 											<TD>

@@ -78,7 +78,16 @@
 														</DIV>
 													</DIV>
 												</DIV>
-												fragedarstellung</TD>
+												<DIV id="m_pnUmfrageTitel" style="WIDTH: 550px; HEIGHT: 100px" runat="server" ms_positioning="FlowLayout">
+													<P id="P1"></P>
+													<FONT size="3"></FONT>
+													<DIV id="m_lbUmfrageTitel" style="DISPLAY: inline; WIDTH: 100%; HEIGHT: 15px" align="center"
+														runat="server" ms_positioning="FlowLayout"></DIV>
+													<P></P>
+													<DIV id="m_lbComment" style="DISPLAY: inline; WIDTH: 100%; HEIGHT: 15px" align="center"
+														runat="server" ms_positioning="FlowLayout"></DIV>
+												</DIV>
+											</TD>
 										</TR>
 										<TR>
 											<TD></TD>
