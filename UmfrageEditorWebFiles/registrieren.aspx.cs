@@ -24,9 +24,6 @@ namespace UmfrageEditor
 		protected System.Web.UI.HtmlControls.HtmlInputButton btnRegistrieren;
 		protected System.Web.UI.WebControls.Label Label2;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl lbAusgabe;
-		protected System.Web.UI.WebControls.Button btnLogin;
-		protected System.Web.UI.WebControls.Label lbLoginStatus;
-		protected System.Web.UI.WebControls.HyperLink HyperLink1;
 
 		protected DataAccessBenutzer daBenutzer;
 	
@@ -53,7 +50,6 @@ namespace UmfrageEditor
 		{    
 			this.txtBenutzername.TextChanged += new System.EventHandler(this.txtBenutzername_TextChanged);
 			this.txtPasswort.TextChanged += new System.EventHandler(this.txtPasswort_TextChanged);
-			this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
 			this.btnRegistrieren.ServerClick += new System.EventHandler(this.btnRegistrieren_ServerClick);
 			this.Load += new System.EventHandler(this.Page_Load);
 
@@ -76,7 +72,7 @@ namespace UmfrageEditor
 			}
 			else
 			{
-				lbAusgabe.InnerText = "Ok!";
+				lbAusgabe.InnerText = "Registrierung erfolgreich. Sie können sich jetzt auf der Startseite einloggen!";
 				DSBenutzer.benutzerRow newEntry = dsBen.benutzer.NewbenutzerRow();
 				newEntry.Name = txtBenutzername.Text;
 				newEntry.Passwort = txtPasswort.Text;
@@ -93,46 +89,46 @@ namespace UmfrageEditor
 			}
 		}
 
-		private void btnLogin_Click(object sender, System.EventArgs e)
-		{
-			SqlParameter paramName = DataAccessBenutzer.ParamName;
-			paramName.Value = txtBenutzername.Text;
-			DataParameters dParams = new DataParameters();
-			dParams.Add(paramName);
-			DSBenutzer dsBen = daBenutzer.Select(dParams);
-
-			if(dsBen.benutzer.Rows.Count == 1)
-			{
-				string pw = (string)dsBen.benutzer.Rows[0]["Passwort"];
-				if (pw.Equals( txtPasswort.Text))
-				{
-					string username = (string)dsBen.benutzer.Rows[0]["Name"];
-					SessionContainer.ReadFromSession(this).User.Login(username, pw);
-//					lbLoginStatus.Text = "Login erfolgreich!";
-				}
-				else
-				{
-					SessionContainer.ReadFromSession(this).User.Logout();
-//					lbLoginStatus.Text = "Falsches Passwort!";
-				}
-			}
-			else
-			{
-				SessionContainer.ReadFromSession(this).User.Logout();
-//				lbLoginStatus.Text = "Falscher Benutzername!";
-			}
-
-			if (SessionContainer.ReadFromSession(this).User.IsLoggedIn)
-			{
-//				lbLoginStatus.Text = "Login erfolgreich!";
-				Server.Transfer("defaultuser.aspx");
-			}
-			else
-			{
-				lbLoginStatus.Text = "Login fehlgeschlagen!";
-			}
-		}
-
+//		private void btnLogin_Click(object sender, System.EventArgs e)
+//		{
+//			SqlParameter paramName = DataAccessBenutzer.ParamName;
+//			paramName.Value = txtBenutzername.Text;
+//			DataParameters dParams = new DataParameters();
+//			dParams.Add(paramName);
+//			DSBenutzer dsBen = daBenutzer.Select(dParams);
+//
+//			if(dsBen.benutzer.Rows.Count == 1)
+//			{
+//				string pw = (string)dsBen.benutzer.Rows[0]["Passwort"];
+//				if (pw.Equals( txtPasswort.Text))
+//				{
+//					string username = (string)dsBen.benutzer.Rows[0]["Name"];
+//					SessionContainer.ReadFromSession(this).User.Login(username, pw);
+////					lbLoginStatus.Text = "Login erfolgreich!";
+//				}
+//				else
+//				{
+//					SessionContainer.ReadFromSession(this).User.Logout();
+////					lbLoginStatus.Text = "Falsches Passwort!";
+//				}
+//			}
+//			else
+//			{
+//				SessionContainer.ReadFromSession(this).User.Logout();
+////				lbLoginStatus.Text = "Falscher Benutzername!";
+//			}
+//
+//			if (SessionContainer.ReadFromSession(this).User.IsLoggedIn)
+//			{
+////				lbLoginStatus.Text = "Login erfolgreich!";
+//				Server.Transfer("defaultuser.aspx");
+//			}
+//			else
+//			{
+//				lbLoginStatus.Text = "Login fehlgeschlagen!";
+//			}
+//		}
+//
 		private void txtBenutzername_TextChanged(object sender, System.EventArgs e)
 		{
 		

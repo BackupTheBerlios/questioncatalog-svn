@@ -38,7 +38,7 @@ namespace DBAccessor
 
 		#endregion
 
-		#region Debug Infos
+		#region Debug Infos ein-/ausschalten
 
 		/// <summary>
 		/// Debugoptionen ein=true / aus=false schalten

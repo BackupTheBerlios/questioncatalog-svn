@@ -8,6 +8,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+
 using DBAccessor;
 
 using System.Data.SqlClient;
@@ -20,25 +21,25 @@ namespace UmfrageEditor
 	/// </summary>
 	public class _default : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.LinkButton LinkLogin;
-		protected System.Web.UI.WebControls.LinkButton LinkLogout;
-		protected System.Web.UI.WebControls.TextBox txtPasswort;
-		protected System.Web.UI.WebControls.TextBox txtBenutzername;
-		protected System.Web.UI.WebControls.Label lbLoginMessage;
-		protected System.Web.UI.WebControls.Label lbLoginStatus;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_default;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_registrieren;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_admin;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_user;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_debug;
+		protected System.Web.UI.WebControls.Label lbLoginStatus;
+		protected System.Web.UI.WebControls.LinkButton LinkLogout;
+		protected System.Web.UI.WebControls.Label lbLoginMessage;
+		protected System.Web.UI.WebControls.TextBox txtBenutzername;
+		protected System.Web.UI.WebControls.TextBox txtPasswort;
+		protected System.Web.UI.WebControls.LinkButton LinkLogin;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_login;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_logout;
 
-		protected DataAccessBenutzer daBenutzer;
+		protected DataAccessBenutzer daBenutzer = new DataAccessBenutzer();
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			daBenutzer = new DataAccessBenutzer();
+			// Einblendungen für Login und Navmenü prüfen
 			check_visibility();
 		}
 
@@ -58,13 +59,14 @@ namespace UmfrageEditor
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.LinkLogin.Click += new System.EventHandler(this.LinkLogin_Click);
 			this.LinkLogout.Click += new System.EventHandler(this.LinkLogout_Click);
+			this.LinkLogin.Click += new System.EventHandler(this.LinkLogin_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
+		#region Login & Menü
 		private void LinkLogin_Click(object sender, System.EventArgs e)
 		{
 			SqlParameter paramName = DataAccessBenutzer.ParamName;
@@ -86,6 +88,9 @@ namespace UmfrageEditor
 					// Statusmessages setzen
 					lbLoginStatus.Text = @"Eingeloggt als """ + SessionContainer.ReadFromSession(this).User.Username + @"""";
 					lbLoginMessage.Text = "";
+
+					// Redirect zur persönlichen Startseite
+					Server.Transfer("defaultuser.aspx");
 
 				}
 				else
@@ -147,6 +152,7 @@ namespace UmfrageEditor
 			m_login.Visible = true;
 			m_logout.Visible = false;
 			SessionContainer.ReadFromSession(this).User.Logout();
+			Server.Transfer("default.aspx");
 		}
 
 		private void txtBenutzername_TextChanged(object sender, System.EventArgs e)
@@ -243,9 +249,6 @@ namespace UmfrageEditor
 
 		}
 
-		private void LinkButton1_Click(object sender, System.EventArgs e)
-		{
-			//Response.AddHeader(Title,test);
-		}
+		#endregion
 	}
 }

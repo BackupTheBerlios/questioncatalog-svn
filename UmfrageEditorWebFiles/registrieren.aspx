@@ -21,15 +21,11 @@
 					<td vAlign="top" align="left" width="691">
 						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td vAlign="top" align="left" width="120"><IFRAME id="menu" style="WIDTH: 122px; HEIGHT: 450px" tabIndex="1" hspace="5" src="menu.aspx"
-										frameBorder="0" width="120" scrolling="no"></IFRAME>
+								<td vAlign="top" align="left" width="120">
 								</td>
 								<TD vAlign="top" align="left">
 									<P></P>
-									<DIV id="lbAusgabe" style="DISPLAY: inline; WIDTH: 70px; HEIGHT: 15px" runat="server"
-										ms_positioning="FlowLayout">Ausgabe</DIV>
-									<asp:HyperLink id="HyperLink1" runat="server" NavigateUrl="defaultuser.aspx">HyperLink</asp:HyperLink>&nbsp;
-									<asp:Label id="lbLoginStatus" runat="server"></asp:Label>
+									&nbsp;
 									<P></P>
 									<P>
 										<asp:Label id="Label1" runat="server">Benutzername</asp:Label><BR>
@@ -37,8 +33,9 @@
 									<P>
 										<asp:Label id="Label2" runat="server">Passwort</asp:Label><BR>
 										<asp:TextBox id="txtPasswort" runat="server"></asp:TextBox></P>
-									<P><INPUT id="btnRegistrieren" type="submit" value="Registrieren" name="Submit1" runat="server">
-										<asp:Button id="btnLogin" runat="server" Text="Login"></asp:Button></P>
+									<P><INPUT id="btnRegistrieren" type="submit" value="Registrieren" name="Submit1" runat="server"></P>
+									<DIV id="lbAusgabe" style="DISPLAY: inline; WIDTH: 70px; HEIGHT: 15px" runat="server"
+										ms_positioning="FlowLayout">Ausgabe</DIV>
 								</TD>
 							</tr>
 						</table>
