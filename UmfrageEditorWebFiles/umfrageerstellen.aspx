@@ -55,10 +55,6 @@
 											<TD><asp:button id="m_btnBearbeiten" runat="server" Width="96px" Text="Bearbeiten"></asp:button></TD>
 										</TR>
 									</TABLE>
-									<DIV id="m_pnNeueFrage" style="WIDTH: 600px; POSITION: relative; HEIGHT: 88px" runat="server"
-										ms_positioning="GridLayout"><asp:button id="m_btnFertig" style="Z-INDEX: 102; LEFT: 448px; POSITION: absolute; TOP: 32px"
-											runat="server" Text="Fertig"></asp:button><asp:linkbutton id="m_lnkbNeueFrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 40px"
-											runat="server">neue Frage erstellen</asp:linkbutton></DIV>
 									<DIV id="m_pnFrageErstellen" style="WIDTH: 100%; POSITION: relative; HEIGHT: 186px" runat="server"
 										ms_positioning="GridLayout"><asp:label id="m_lbFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px" runat="server">Frage</asp:label><asp:textbox id="m_txtFrageTitel" style="Z-INDEX: 102; LEFT: 88px; POSITION: absolute; TOP: 24px"
 											runat="server" Width="424px"></asp:textbox><asp:radiobutton id="m_rdbTextfrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 72px"
@@ -81,6 +77,7 @@
 																<asp:TextBox id="TextBox1" runat="server"></asp:TextBox>
 															</ItemTemplate>
 														</asp:TemplateColumn>
+														<asp:BoundColumn></asp:BoundColumn>
 													</Columns>
 												</asp:DataGrid>
 											</TD>
@@ -93,6 +90,12 @@
 									<DIV id="m_pnFrageUebernehmen" style="WIDTH: 100%; POSITION: relative; HEIGHT: 74px"
 										runat="server" ms_positioning="GridLayout"><asp:button id="m_btnFrageUebernehmen" style="Z-INDEX: 101; LEFT: 376px; POSITION: absolute; TOP: 24px"
 											runat="server" Text="Übernehmen"></asp:button></DIV>
+									<DIV id="m_pnNeueFrage" style="WIDTH: 600px; POSITION: relative; HEIGHT: 88px" runat="server"
+										ms_positioning="GridLayout">
+										<asp:button id="m_btnFertig" style="Z-INDEX: 102; LEFT: 448px; POSITION: absolute; TOP: 32px"
+											runat="server" Text="Fertig"></asp:button>
+										<asp:linkbutton id="m_lnkbNeueFrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 40px"
+											runat="server">neue Frage erstellen</asp:linkbutton></DIV>
 								</TD>
 							</tr>
 						</table>

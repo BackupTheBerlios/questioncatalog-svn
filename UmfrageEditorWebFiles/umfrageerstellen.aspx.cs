@@ -240,17 +240,22 @@ namespace UmfrageEditor
 
 			if (dsAwMoegl.awmoeglichkeiten.Count > 0)
 			{
-				// Entsprechende Anzahl von Editfeldern im DataGrid anlegen
-				PrepareDGAntwErstellen(dsAwMoegl.awmoeglichkeiten.Count);
+				// Entsprechende Anzahl von Editfeldern im DataGrid anlegen (+ 4 neue)
+				PrepareDGAntwErstellen(dsAwMoegl.awmoeglichkeiten.Count + 4);
 
 				// Daten in die Editfelder eintragen
-				for (int i = 0; i < dsAwMoegl.awmoeglichkeiten.Count; i++)
+				int i;
+				for (i = 0; i < dsAwMoegl.awmoeglichkeiten.Count; i++)
 				{
 					TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 1, 0);
 					if (txtbx != null)
 					{
+						// Antworttext in das Editfeld dieser Zeile eintragen
 						txtbx.Text = dsAwMoegl.awmoeglichkeiten[i].Text;
+						// AntwortMögl.-ID in die gleiche Zeile eintragen
+						m_dgAntwErstellen.Items[i].Cells[2].Text = dsAwMoegl.awmoeglichkeiten[i].AwmID.ToString();
 					}
+					
 				}
 			}
 			else
