@@ -68,6 +68,10 @@
 											<TD colSpan="2">Antwortmöglickeiten vorgeben:</TD>
 										</TR>
 										<TR>
+											<TD colSpan="2">
+												<asp:Label id="m_lbWarningAlreadyAnswered" runat="server" ForeColor="Red">Falls zu dieser Umfrage bereits Antworten  bestehen, können Änderungen an der Reihenfolge der Antwortmöglichkeiten falsche Zuordnugen von Antworten zur Folge haben!</asp:Label></TD>
+										</TR>
+										<TR>
 											<TD colSpan="2"><asp:datagrid id="m_dgAntwErstellen" runat="server" AutoGenerateColumns="False" GridLines="None"
 													BorderWidth="0px">
 													<Columns>

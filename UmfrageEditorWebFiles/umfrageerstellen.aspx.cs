@@ -44,6 +44,7 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.Button m_btnFertig;
 		protected System.Web.UI.WebControls.LinkButton m_lnkbNeueFrage;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnNeueFrage;
+		protected System.Web.UI.WebControls.Label m_lbWarningAlreadyAnswered;
 		protected string PageTitle;
 
 		/// <summary>
@@ -53,15 +54,7 @@ namespace UmfrageEditor
 		{
 			get
 			{
-				if (ViewState["FrageID"] == null)
-				{
-					return DBConstants.NotValid;
-				}
-				else
-				{
-					return (int)(ViewState["FrageId"]);
-				}
-//				return ((ViewState["FrageID"] == null) ? DBConstants.NotValid : (int)ViewState["FrageId"]); 
+				return ((ViewState["FrageID"] == null) ? DBConstants.NotValid : (int)ViewState["FrageID"]); 
 			} 
 			set { ViewState["FrageID"] = value; }
 		}
@@ -89,31 +82,27 @@ namespace UmfrageEditor
 				FrageID = DBConstants.NotValid;
 
 				// soll eine neue Umfrage erstellt werden?
-				
 				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
-				if (!umfr.IsLoaded)
+				if (!umfr.IsLoaded || !CheckUmfrageBelongsToUser())
 				{
-					// für neue Umfrage nicht relevante Abschnitte der Seite ausblenden
-					m_tblFragen.Visible	= false;
-					m_pnNeueFrage.Visible = true;
-					m_pnFrageErstellen.Visible = false;
-					m_tblAntwortmoeglErstellen.Visible = false;
-					m_pnFrageUebernehmen.Visible = false;
+					// wenn keine Umfrage in der Session geladen ist oder die geladene
+					// Umfrage nicht dem eingeloggten Benutzer gehört...
+					NeueUmfrage();
 				}
 				else
 				{
-					// testen, ob die geladene Umfrage dem eingeloggten Benutzer gehört...
-					if (!CheckUmfrageBelongsToUser())
-					{
-						// ...wenn nicht neue Umfrage erstellen lassen
-						umfr.Clear();
-						Response.Redirect("umfrageerstellen.aspx");
-					}
-					else
-					{
+//					// testen, ob die geladene Umfrage dem eingeloggten Benutzer gehört...
+//					if (!CheckUmfrageBelongsToUser())
+//					{
+//						// ...wenn nicht neue Umfrage erstellen lassen
+//						umfr.Clear();
+//						Response.Redirect("umfrageerstellen.aspx");
+//					}
+//					else
+//					{
 						// Umfrage zum bearbeiten laden
 						LoadUmfrage();
-					}
+//					}
 				}
 			}
 		}
@@ -190,6 +179,12 @@ namespace UmfrageEditor
 			{
 				// alle Datensätze aus dem DataSet löschen
 				daFragen.DeleteFrage(id);
+				// Falls die in Bearbeitung befindliche Frage gelöscht wird
+				// die Fragebearbeitungsanzeige zurücksetzen
+				if (id == FrageID)
+				{
+					NeueFrage();
+				}
 			}
 
 			RefreshDGFragen();
@@ -197,9 +192,7 @@ namespace UmfrageEditor
 
 		private void m_lnkbNeueFrage_Click(object sender, System.EventArgs e)
 		{
-			ClearFrage();
-			m_pnFrageErstellen.Visible = true;
-			m_pnFrageUebernehmen.Visible = true;
+			NeueFrage();
 		}
 
 		private void m_rdbFrageart_CheckedChanged(object sender, System.EventArgs e)
@@ -244,43 +237,16 @@ namespace UmfrageEditor
 
 		private void m_btnTitelUebernehmen_Click(object sender, System.EventArgs e)
 		{
-			if (IsValid)
-			{
-				int onlinestatus = (m_chbOnline.Checked ? DBConstants.Online : DBConstants.NotOnline);
-				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
-				UserInfo user = SessionContainer.ReadFromSession(this).User;
-
-				// Umfragedatensatz aktualisieren oder neu anlegen
-				DataAccessUmfragen daUmfr = new DataAccessUmfragen();
-				DSUmfragen dsUmfr= daUmfr.GetUmfrageByID(umfr.UmfrageID);
-				if (dsUmfr.umfragen.Count == 0)
-				{
-					// Umfrage besteht noch nicht in der DB, neuen Datensatz anlegen
-					dsUmfr.umfragen.AddumfragenRow(m_txtTitel.Text, m_txtComment.Text, System.DateTime.Now, System.DateTime.Now, user.UserID, onlinestatus); 
-				}
-				else if (dsUmfr.umfragen.Count == 1)
-				{
-					// Umfrage besteht schon, Datensatz aktualisieren
-					dsUmfr.umfragen[0].Titel = m_txtTitel.Text;
-					dsUmfr.umfragen[0].Beschreibung = m_txtComment.Text;
-					dsUmfr.umfragen[0].Onlinestatus = onlinestatus;
-				}
-				daUmfr.CommitChanges(dsUmfr);
-
-				// ID des neuen Datensatzes in die Session schreiben
-				if (dsUmfr.umfragen[0].UmfrageID != umfr.UmfrageID)
-				{
-					umfr.Load(dsUmfr.umfragen[0].UmfrageID);
-				}
-			}
+			SaveUmfrage();
+			LoadFrage(FrageID);			
 		}
 
 		private void m_btnFrageUebernehmen_Click(object sender, System.EventArgs e)
 		{
-			if (IsValid)
+			SaveFrage();
+			if (m_tblAntwortmoeglErstellen.Visible)
 			{
-				DataAccessFragen daFragen = new DataAccessFragen();
-				DSFragen dsFragen = daFragen.GetFrageByID(FrageID);
+				SaveAntworten();
 			}
 		}
 
@@ -386,6 +352,18 @@ namespace UmfrageEditor
 			return false;
 		}
 
+//		private void CheckAnswersExist()
+//		{
+//			UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
+//			if (!umfr.IsLoaded)
+//			{
+//				return;
+//			}
+//
+//			
+//
+//		}
+
 
 		private void LoadUmfrage()
 		{
@@ -400,6 +378,7 @@ namespace UmfrageEditor
 				// schon vorhandene Fragen aus der Datenbank ziehen
 				RefreshDGFragen();	
 				m_pnFrageErstellen.Visible = false;
+				m_pnFrageUebernehmen.Visible = false;
 				m_tblAntwortmoeglErstellen.Visible = false;
 			}
 		}
@@ -415,6 +394,7 @@ namespace UmfrageEditor
 			if (dsFragen.fragen.Count != 1)
 			{
 				ClearFrage();
+				NeueFrage();
 				return;
 			}
 
@@ -462,6 +442,152 @@ namespace UmfrageEditor
 			m_tblAntwortmoeglErstellen.Visible = false;
 			m_pnFrageErstellen.Visible = false;
 			m_pnFrageUebernehmen.Visible = false;
+		}
+
+		private void NeueFrage()
+		{
+			ClearFrage();
+			m_pnFrageErstellen.Visible = true;
+			m_pnFrageUebernehmen.Visible = true;
+		}
+
+		private void NeueUmfrage()
+		{
+			// Umfrage aus der Session löschen
+			SessionContainer.ReadFromSession(this).Umfrage.Clear();
+
+			// für neue Umfrage nicht relevante Abschnitte der Seite ausblenden
+			m_tblFragen.Visible	= false;
+			m_pnNeueFrage.Visible = false;
+			m_pnFrageErstellen.Visible = false;
+			m_pnFrageUebernehmen.Visible = false;
+			m_tblAntwortmoeglErstellen.Visible = false;
+			m_pnFrageUebernehmen.Visible = false;
+		}
+
+		private void SaveUmfrage()
+		{
+			if (IsValid)
+			{
+				int onlinestatus = (m_chbOnline.Checked ? DBConstants.Online : DBConstants.NotOnline);
+				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
+				UserInfo user = SessionContainer.ReadFromSession(this).User;
+
+				// Umfragedatensatz aktualisieren oder neu anlegen
+				DataAccessUmfragen daUmfr = new DataAccessUmfragen();
+				DSUmfragen dsUmfr= daUmfr.GetUmfrageByID(umfr.UmfrageID);
+				if (dsUmfr.umfragen.Count == 0)
+				{
+					// Umfrage besteht noch nicht in der DB, neuen Datensatz anlegen
+					dsUmfr.umfragen.AddumfragenRow(m_txtTitel.Text.Trim(), m_txtComment.Text.Trim(), System.DateTime.Now, System.DateTime.Now, user.UserID, onlinestatus); 
+				}
+				else if (dsUmfr.umfragen.Count == 1)
+				{
+					// Umfrage besteht schon, Datensatz aktualisieren
+					dsUmfr.umfragen[0].Titel = m_txtTitel.Text.Trim();
+					dsUmfr.umfragen[0].Beschreibung = m_txtComment.Text.Trim();
+					dsUmfr.umfragen[0].Onlinestatus = onlinestatus;
+				}
+				daUmfr.CommitChanges(dsUmfr);
+
+				// ID des neuen Datensatzes in die Session schreiben
+				if (dsUmfr.umfragen[0].UmfrageID != umfr.UmfrageID)
+				{
+					umfr.Load(dsUmfr.umfragen[0].UmfrageID);
+				}
+			}
+		}
+
+		private void SaveFrage()
+		{
+			if (IsValid)
+			{
+				// Daten vorbereiten
+				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
+				int frageart = DBConstants.TextFrage;
+				if (m_rdbTextfrage.Checked)
+				{
+					frageart = DBConstants.TextFrage;
+				}
+				else if (m_rdbUndFrage.Checked)
+				{
+					frageart = DBConstants.UndFrage;
+				}
+				else if (m_rdbOderFrage.Checked)
+				{
+					frageart = DBConstants.OderFrage;
+				}
+
+				// Fragedatensatz aktualisieren oder neu anlegen
+				DataAccessFragen daFragen = new DataAccessFragen();
+				DSFragen dsFragen = daFragen.GetFrageByID(FrageID);
+				if (dsFragen.fragen.Count == 0)
+				{
+					// Frage besteht noch nicht in der DB, neuen Datensatz anlegen
+					dsFragen.fragen.AddfragenRow(umfr.UmfrageID, m_txtFrageTitel.Text.Trim(), frageart, 0);
+				}
+				else if (dsFragen.fragen.Count == 1)
+				{
+					// Frage besteht schon, Datensatz aktualisieren
+					dsFragen.fragen[0].Text =  m_txtFrageTitel.Text.Trim();
+					dsFragen.fragen[0].Frageart = frageart;
+				}
+				daFragen.CommitChanges(dsFragen);
+
+				// ID des neuen Datensatzes in die FrageID schreiben
+				FrageID = dsFragen.fragen[0].FrageID;
+
+				RefreshDGFragen();
+			}
+		}
+
+		private void SaveAntworten()
+		{
+			TextBox txt = null;
+			DataAccessAwmoeglichkeiten daAntw = new DataAccessAwmoeglichkeiten();
+			DSAwmoeglichkeiten dsAntw = new DSAwmoeglichkeiten();
+			for (int i = 0; i < m_dgAntwErstellen.Items.Count; i++) 
+			{
+				dsAntw.Clear();
+				int id = Convert.ToInt32(m_dgAntwErstellen.Items[i].Cells[0].Text);
+				txt = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 1, 0);
+				if (txt == null)
+				{
+					continue;
+				}
+
+				if (txt.Text.Trim() == "")
+				{
+					// wenn ein leeres Textfeld eine gültige ID hat, wird der Datensatz gelöscht
+					if (id != DBConstants.NotValid)
+					{
+						daAntw.DeleteAntwortmoegl(id);
+					}
+					
+					continue;
+				}
+				else
+				{
+					dsAntw = daAntw.GetAntwortmoeglByID(id);
+					if (dsAntw.awmoeglichkeiten.Count == 0)
+					{
+						// neuen Datensatz anlegen
+						dsAntw.awmoeglichkeiten.AddawmoeglichkeitenRow(FrageID, txt.Text.Trim());
+					}
+					else if (dsAntw.awmoeglichkeiten.Count == 1)
+					{
+						// Datensatz aktualisieren
+						dsAntw.awmoeglichkeiten[0].Text = txt.Text.Trim();
+					}
+				}
+				daAntw.CommitChanges(dsAntw);
+
+				// ID des Datensatzes in Datagrid eintragen
+				m_dgAntwErstellen.Items[i].Cells[0].Text = dsAntw.awmoeglichkeiten[0].AwmID.ToString();
+			}
+
+			// Datagrid aktualisieren
+			FillDGAntwErstellen(FrageID);
 		}
 
 		#endregion
