@@ -1,14 +1,14 @@
-<%@ Page language="c#" Codebehind="umfrageerstellen.aspx.cs" AutoEventWireup="false" Inherits="UmfrageEditor.umfrageerstellen" %>
+<%@ Page language="c#" Codebehind="umfrageerstellen.aspx.cs" AutoEventWireup="false" Inherits="UmfrageEditor.umfrageerstellen" smartNavigation="True"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
 	<HEAD>
 		<title>
 			<%#PageTitle%>
 		</title>
-		<meta name="GENERATOR" Content="Microsoft Visual Studio .NET 7.1">
-		<meta name="CODE_LANGUAGE" Content="C#">
-		<meta name="vs_defaultClientScript" content="JavaScript">
-		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
+		<meta content="C#" name="CODE_LANGUAGE">
+		<meta content="JavaScript" name="vs_defaultClientScript">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="styles.css" type="text/css" rel="stylesheet">
 	</HEAD>
 	<body>
@@ -26,26 +26,18 @@
 								<td vAlign="top" align="left" width="120"><IFRAME id="menu" tabIndex="1" hspace="10" src="menu.aspx" frameBorder="0" width="120" scrolling="no"></IFRAME>
 								</td>
 								<TD vAlign="top" align="left">
-									<DIV id="m_pnUmfrageTitel" style="WIDTH: 100%; POSITION: relative; HEIGHT: 248px" ms_positioning="GridLayout"
-										runat="server">
-										<asp:Label id="m_lbTitle" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 88px" runat="server">Titel</asp:Label>
-										<asp:Label id="m_lbComment" style="Z-INDEX: 102; LEFT: 8px; POSITION: absolute; TOP: 128px"
-											runat="server">Kurzbeschreibung</asp:Label>
-										<asp:TextBox id="m_txtTitel" style="Z-INDEX: 103; LEFT: 128px; POSITION: absolute; TOP: 80px"
-											runat="server" Width="393px"></asp:TextBox>
-										<asp:Button id="m_btnTitelUebernehmen" style="Z-INDEX: 104; LEFT: 416px; POSITION: absolute; TOP: 192px"
-											runat="server" Text="Übernehmen"></asp:Button>
-										<asp:CheckBox id="m_chbOnline" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 200px"
-											runat="server" Text="Umfrage online stellen"></asp:CheckBox>
-										<asp:TextBox id="m_txtComment" style="Z-INDEX: 106; LEFT: 128px; POSITION: absolute; TOP: 120px"
-											runat="server" Width="392px"></asp:TextBox>
-										<asp:Label id="m_lbHeadline" style="Z-INDEX: 107; LEFT: 8px; POSITION: absolute; TOP: 24px"
-											runat="server">Neue Umfrage Erstellen</asp:Label></DIV>
+									<DIV id="m_pnUmfrageTitel" style="WIDTH: 100%; POSITION: relative; HEIGHT: 248px" runat="server"
+										ms_positioning="GridLayout"><asp:label id="m_lbTitle" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 88px" runat="server">Titel</asp:label><asp:label id="m_lbComment" style="Z-INDEX: 102; LEFT: 8px; POSITION: absolute; TOP: 128px"
+											runat="server">Kurzbeschreibung</asp:label><asp:textbox id="m_txtTitel" style="Z-INDEX: 103; LEFT: 128px; POSITION: absolute; TOP: 80px"
+											runat="server" Width="393px"></asp:textbox><asp:button id="m_btnTitelUebernehmen" style="Z-INDEX: 104; LEFT: 376px; POSITION: absolute; TOP: 192px"
+											runat="server" Text="Übernehmen"></asp:button><asp:checkbox id="m_chbOnline" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 200px"
+											runat="server" Text="Umfrage online stellen"></asp:checkbox><asp:textbox id="m_txtComment" style="Z-INDEX: 106; LEFT: 128px; POSITION: absolute; TOP: 120px"
+											runat="server" Width="392px"></asp:textbox><asp:label id="m_lbHeadline" style="Z-INDEX: 107; LEFT: 8px; POSITION: absolute; TOP: 24px"
+											runat="server">Neue Umfrage Erstellen</asp:label></DIV>
 									<TABLE id="m_tblFragen" style="WIDTH: 600px; HEIGHT: 57px" cellSpacing="1" cellPadding="1"
 										width="600" border="0" runat="server">
 										<TR>
-											<TD colSpan="2">
-												<asp:DataGrid id="m_dgFragen" runat="server" AutoGenerateColumns="False" GridLines="None">
+											<TD colSpan="2"><asp:datagrid id="m_dgFragen" runat="server" GridLines="None" AutoGenerateColumns="False">
 													<Columns>
 														<asp:TemplateColumn>
 															<ItemTemplate>
@@ -54,32 +46,23 @@
 														</asp:TemplateColumn>
 														<asp:BoundColumn DataField="Text"></asp:BoundColumn>
 													</Columns>
-												</asp:DataGrid></TD>
+												</asp:datagrid></TD>
 										</TR>
 										<TR>
-											<TD style="WIDTH: 109px">
-												<asp:Button id="m_btnLoeschen" runat="server" Text="Löschen"></asp:Button></TD>
-											<TD>
-												<asp:Button id="m_btnBearbeiten" runat="server" Text="Bearbeiten" Width="96px"></asp:Button></TD>
+											<TD style="WIDTH: 109px"><asp:button id="m_btnLoeschen" runat="server" Text="Löschen"></asp:button></TD>
+											<TD><asp:button id="m_btnBearbeiten" runat="server" Width="96px" Text="Bearbeiten"></asp:button></TD>
 										</TR>
 									</TABLE>
-									<DIV style="WIDTH: 100%; POSITION: relative; HEIGHT: 88px" ms_positioning="GridLayout"
-										id="m_pnNeueFrage" runat="server">
-										<asp:Button id="m_btnFertig" style="Z-INDEX: 102; LEFT: 496px; POSITION: absolute; TOP: 32px"
-											runat="server" Text="Fertig"></asp:Button>
-										<asp:LinkButton id="m_lnkbNeueFrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 40px"
-											runat="server">neue Frage erstellen</asp:LinkButton></DIV>
-									<DIV style="WIDTH: 100%; POSITION: relative; HEIGHT: 186px" ms_positioning="GridLayout"
-										id="m_pnFrageErstellen" runat="server">
-										<asp:Label id="m_lbFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px" runat="server">Frage</asp:Label>
-										<asp:TextBox id="m_txtFrageTitel" style="Z-INDEX: 102; LEFT: 88px; POSITION: absolute; TOP: 24px"
-											runat="server" Width="472px"></asp:TextBox>
-										<asp:RadioButton id="m_rdbTextfrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 72px"
-											runat="server" Text="Text-Frage" GroupName="frageart" Checked="True"></asp:RadioButton>
-										<asp:RadioButton id="m_rdbUndFrage" style="Z-INDEX: 104; LEFT: 8px; POSITION: absolute; TOP: 104px"
-											runat="server" Text="Und-Frage (mehrfachauswahl möglich)" GroupName="frageart"></asp:RadioButton>
-										<asp:RadioButton id="m_rdbOderFrage" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 136px"
-											runat="server" Text="Oder-Frage (keine Mehrfachauswahl)" GroupName="frageart"></asp:RadioButton></DIV>
+									<DIV id="m_pnNeueFrage" style="WIDTH: 100%; POSITION: relative; HEIGHT: 88px" runat="server"
+										ms_positioning="GridLayout"><asp:button id="m_btnFertig" style="Z-INDEX: 102; LEFT: 448px; POSITION: absolute; TOP: 32px"
+											runat="server" Text="Fertig"></asp:button><asp:linkbutton id="m_lnkbNeueFrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 40px"
+											runat="server">neue Frage erstellen</asp:linkbutton></DIV>
+									<DIV id="m_pnFrageErstellen" style="WIDTH: 100%; POSITION: relative; HEIGHT: 186px" runat="server"
+										ms_positioning="GridLayout"><asp:label id="m_lbFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px" runat="server">Frage</asp:label><asp:textbox id="m_txtFrageTitel" style="Z-INDEX: 102; LEFT: 88px; POSITION: absolute; TOP: 24px"
+											runat="server" Width="424px"></asp:textbox><asp:radiobutton id="m_rdbTextfrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 72px"
+											runat="server" Text="Text-Frage" AutoPostBack="True" Checked="True" GroupName="frageart"></asp:radiobutton><asp:radiobutton id="m_rdbUndFrage" style="Z-INDEX: 104; LEFT: 8px; POSITION: absolute; TOP: 104px"
+											runat="server" Text="Und-Frage (mehrfachauswahl möglich)" AutoPostBack="True" GroupName="frageart"></asp:radiobutton><asp:radiobutton id="m_rdbOderFrage" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 136px"
+											runat="server" Text="Oder-Frage (keine Mehrfachauswahl)" AutoPostBack="True" GroupName="frageart"></asp:radiobutton></DIV>
 									<TABLE id="m_tblAntwortmoeglErstellen" style="WIDTH: 600px; HEIGHT: 84px" cellSpacing="1"
 										cellPadding="1" width="600" border="0" runat="server">
 										<TR>
@@ -96,12 +79,13 @@
 											</TD>
 										</TR>
 										<TR>
-											<TD style="WIDTH: 447px">
-												<asp:LinkButton id="m_lnkbMehrAntw" runat="server">mehr Antwortmöglichkeiten</asp:LinkButton></TD>
-											<TD>
-												<asp:Button id="m_btnFrageUebernehmen" runat="server" Text="Übernehmen"></asp:Button></TD>
+											<TD style="WIDTH: 447px"><asp:linkbutton id="m_lnkbMehrAntw" runat="server">mehr Antwortmöglichkeiten</asp:linkbutton></TD>
+											<TD></TD>
 										</TR>
 									</TABLE>
+									<DIV id="m_pnFrageUebernehmen" style="WIDTH: 100%; POSITION: relative; HEIGHT: 74px"
+										runat="server" ms_positioning="GridLayout"><asp:button id="m_btnFrageUebernehmen" style="Z-INDEX: 101; LEFT: 376px; POSITION: absolute; TOP: 24px"
+											runat="server" Text="Übernehmen"></asp:button></DIV>
 								</TD>
 							</tr>
 						</table>

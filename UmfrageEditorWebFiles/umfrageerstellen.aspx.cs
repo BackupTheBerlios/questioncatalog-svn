@@ -44,6 +44,7 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.DataGrid m_dgFragen;
 		protected System.Web.UI.WebControls.LinkButton m_lnkbNeueFrage;
 		protected System.Web.UI.WebControls.LinkButton m_lnkbMehrAntw;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnFrageUebernehmen;
 		protected string PageTitle;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -54,8 +55,6 @@ namespace UmfrageEditor
 			{
 				Server.Transfer("default.aspx");
 			}
-
-
 
 			if (!IsPostBack)
 			{
@@ -75,6 +74,7 @@ namespace UmfrageEditor
 					m_pnNeueFrage.Visible = true;
 					m_pnFrageErstellen.Visible = false;
 					m_tblAntwortmoeglErstellen.Visible = false;
+					m_pnFrageUebernehmen.Visible = false;
 				}
 				else
 				{
@@ -115,6 +115,9 @@ namespace UmfrageEditor
 			this.m_btnLoeschen.Click += new System.EventHandler(this.m_btnLoeschen_Click);
 			this.m_btnBearbeiten.Click += new System.EventHandler(this.m_btnBearbeiten_Click);
 			this.m_lnkbNeueFrage.Click += new System.EventHandler(this.m_lnkbNeueFrage_Click);
+			this.m_rdbTextfrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
+			this.m_rdbUndFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
+			this.m_rdbOderFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -137,6 +140,18 @@ namespace UmfrageEditor
 					}
 				}
 			}
+		}
+
+		private void m_lnkbNeueFrage_Click(object sender, System.EventArgs e)
+		{
+			m_pnFrageErstellen.Visible = true;
+			m_pnFrageUebernehmen.Visible = true;
+		}
+
+		private void m_rdbFrageart_CheckedChanged(object sender, System.EventArgs e)
+		{
+			// wenn Und- oder Oderfrage ausgewählt ist, sollen Antwortmöglichkeiten erstellt werden können
+			m_tblAntwortmoeglErstellen.Visible = (m_rdbOderFrage.Checked || m_rdbUndFrage.Checked);
 		}
 
 		#region Hilfsfunktionen
@@ -195,10 +210,7 @@ namespace UmfrageEditor
 
 		#endregion
 
-		private void m_lnkbNeueFrage_Click(object sender, System.EventArgs e)
-		{
-			m_pnFrageErstellen.Visible = true;
-		}
+
 
 	}
 }
