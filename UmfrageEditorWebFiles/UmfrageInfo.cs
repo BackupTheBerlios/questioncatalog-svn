@@ -33,7 +33,7 @@ namespace UmfrageEditor
 		/// </summary>
 		public bool IsLoaded
 		{
-			get { return (m_umfrageID > 0); }
+			get { return (m_umfrageID != DBConstants.NotValid); }
 		}
 
 
@@ -48,7 +48,7 @@ namespace UmfrageEditor
 
 		public void Clear()
 		{
-			m_umfrageID = -1;
+			m_umfrageID = DBConstants.NotValid;
 		}
 
 		/// <summary>
@@ -58,7 +58,7 @@ namespace UmfrageEditor
 		/// <param name="owner">der Benutzer, der die Umfrage löschen will</param>
 		public void DeleteFromDB(UserInfo owner)
 		{
-			if (m_umfrageID <= 0)
+			if (!IsLoaded)
 			{
 				return;
 			}
@@ -97,22 +97,6 @@ namespace UmfrageEditor
 			Load(umfrageID);
 			DeleteFromDB(owner);
 		}
-
-//		/// <summary>
-//		/// gibt ein DataSet zurück, das den Datensatz mit der Umfrage mit der ID umfrageID enthält
-//		/// </summary>
-//		/// <param name="umfrageID">ID der gesuchten Umfrage</param>
-//		/// <returns>DataSet vom Typ DSUmfragen mit dem gesuchten Datensatz</returns>
-//		public DSUmfragen getUmfrageByID(int umfrageID)
-//		{
-//			SqlParameter pUmfrageID = DataAccessUmfragen.ParamUmfrageID;
-//			pUmfrageID.Value = umfrageID;
-//			DataParameters umfrageparams = new DataParameters();
-//			umfrageparams.Add(pUmfrageID);
-//			DataAccessUmfragen daUmfr = new DataAccessUmfragen();
-//			DSUmfragen dsUmfr = daUmfr.Select(umfrageparams);
-//			return dsUmfr;
-//		}
 
 		public DSUmfragen getLoadedUmfrage()
 		{

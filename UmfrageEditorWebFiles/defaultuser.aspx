@@ -39,10 +39,10 @@
 												<asp:Button id="m_btnBearbeiten" runat="server" Text="Bearbeiten" Width="100px"></asp:Button></TD>
 										</TR>
 									</TABLE>
-									<DIV id="m_pnUmfrageNeu" style="WIDTH: 269px; POSITION: relative; HEIGHT: 71px" align="left"
+									<DIV id="m_pnUmfrageNeu" style="WIDTH: 275px; POSITION: relative; HEIGHT: 71px" align="left"
 										runat="server" ms_positioning="GridLayout">
-										<asp:HyperLink id="m_lnkUmfrageNeu" style="Z-INDEX: 102; LEFT: 0px; POSITION: absolute; TOP: 24px"
-											runat="server" NavigateUrl="umfrageerstellen.aspx">neue Umfrage erstellen</asp:HyperLink></DIV>
+										<asp:LinkButton id="m_lnkbUmfrageNeu" style="Z-INDEX: 102; LEFT: 8px; POSITION: absolute; TOP: 24px"
+											runat="server">neue Umfrage erstellen</asp:LinkButton></DIV>
 								</TD>
 							</tr>
 						</table>

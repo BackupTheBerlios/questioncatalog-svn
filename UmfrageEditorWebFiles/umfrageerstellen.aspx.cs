@@ -123,12 +123,14 @@ namespace UmfrageEditor
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.m_btnTitelUebernehmen.Click += new System.EventHandler(this.m_btnTitelUebernehmen_Click);
 			this.m_btnLoeschen.Click += new System.EventHandler(this.m_btnLoeschen_Click);
 			this.m_btnBearbeiten.Click += new System.EventHandler(this.m_btnBearbeiten_Click);
 			this.m_rdbTextfrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
 			this.m_rdbUndFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
 			this.m_rdbOderFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
 			this.m_lnkbMehrAntw.Click += new System.EventHandler(this.m_lnkbMehrAntw_Click);
+			this.m_btnFrageUebernehmen.Click += new System.EventHandler(this.m_btnFrageUebernehmen_Click);
 			this.m_btnFertig.Click += new System.EventHandler(this.m_btnFertig_Click);
 			this.m_lnkbNeueFrage.Click += new System.EventHandler(this.m_lnkbNeueFrage_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
@@ -271,6 +273,48 @@ namespace UmfrageEditor
 					m_dgAntwErstellen.Items[i].Cells[1].Text = (string)((Pair)tempData[i]).Second;
 				}
 			}
+		}
+
+		private void m_btnTitelUebernehmen_Click(object sender, System.EventArgs e)
+		{
+			if (IsValid)
+			{
+				int onlinestatus = (m_chbOnline.Checked ? DBConstants.Online : DBConstants.NotOnline);
+				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
+				UserInfo user = SessionContainer.ReadFromSession(this).User;
+
+				// Umfragedatensatz aktualisieren oder neu anlegen
+				DataAccessUmfragen daUmfr = new DataAccessUmfragen();
+				DSUmfragen dsUmfr= daUmfr.getUmfrageByID(umfr.UmfrageID);
+				if (dsUmfr.umfragen.Count == 0)
+				{
+					dsUmfr.umfragen.AddumfragenRow(m_txtTitel.Text, m_txtComment.Text, System.DateTime.Now, System.DateTime.Now, user.UserID, onlinestatus); 
+				}
+				else if (dsUmfr.umfragen.Count == 1)
+				{
+					dsUmfr.umfragen[0].Titel = m_txtTitel.Text;
+					dsUmfr.umfragen[0].Beschreibung = m_txtComment.Text;
+					dsUmfr.umfragen[0].Onlinestatus = onlinestatus;
+				}
+				daUmfr.CommitChanges(dsUmfr);
+				// ID des neuen Datensatzes in die Session schreiben
+				if (dsUmfr.umfragen[0].UmfrageID != umfr.UmfrageID)
+				{
+					umfr.Load(dsUmfr.umfragen[0].UmfrageID);
+				}
+			}
+		}
+
+		private void m_btnFrageUebernehmen_Click(object sender, System.EventArgs e)
+		{
+			if (IsValid)
+			{}
+		}
+
+		private void m_btnFertig_Click(object sender, System.EventArgs e)
+		{
+			if (IsValid)
+			{}
 		}
 
 		#endregion
@@ -457,11 +501,6 @@ namespace UmfrageEditor
 		}
 
 		#endregion
-
-		private void m_btnFertig_Click(object sender, System.EventArgs e)
-		{
-
-		}
 
 	}
 }

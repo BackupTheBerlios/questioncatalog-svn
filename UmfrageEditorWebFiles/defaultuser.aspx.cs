@@ -27,7 +27,7 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.CheckBoxList m_chblUmfragenListe;
 		protected System.Web.UI.HtmlControls.HtmlTable m_tblUmfragenListe;
 		protected System.Web.UI.HtmlControls.HtmlForm Form1;
-		protected System.Web.UI.WebControls.HyperLink m_lnkUmfrageNeu;
+		protected System.Web.UI.WebControls.LinkButton m_lnkbUmfrageNeu;
 		
 		/// <summary>
 		/// Kommunikation mit der DB
@@ -76,6 +76,7 @@ namespace UmfrageEditor
 		{    
 			this.m_btnLoeschen.Click += new System.EventHandler(this.m_btnLoeschen_Click);
 			this.m_btnBearbeiten.Click += new System.EventHandler(this.m_btnBearbeiten_Click);
+			this.m_lnkbUmfrageNeu.Click += new System.EventHandler(this.m_lnkbUmfrageNeu_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -131,6 +132,12 @@ namespace UmfrageEditor
 			// wenn keine Datensätze gefunden wurden, sollen die Umfragenliste und die
 			// dazugehörigen Buttons nicht sichtbar sein
 			m_tblUmfragenListe.Visible = (ds.umfragen.Rows.Count > 0);
+		}
+
+		private void m_lnkbUmfrageNeu_Click(object sender, System.EventArgs e)
+		{
+			SessionContainer.ReadFromSession(this).Umfrage.Clear();
+			Server.Transfer("umfrageerstellen.aspx");
 		}
 	}
 }
