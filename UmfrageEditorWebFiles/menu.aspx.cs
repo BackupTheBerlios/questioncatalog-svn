@@ -28,7 +28,7 @@ namespace UmfrageEditor
 
 			#region Navigationsmenü 
 			
-			// Alle Menüs Bis auf Widerruf deaktivieren
+			// Alle Menüs bis auf Widerruf deaktivieren
 			m_menu_default.Visible = false;
 			m_menu_registrieren.Visible = false;
 			m_menu_user.Visible = false;

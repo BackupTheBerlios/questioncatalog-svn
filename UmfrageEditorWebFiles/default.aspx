@@ -7,7 +7,7 @@
 		<meta content="C#" name="CODE_LANGUAGE">
 		<meta content="JavaScript" name="vs_defaultClientScript">
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
-		<link href="styles.css" rel="stylesheet" type="text/css">
+		<LINK href="styles.css" type="text/css" rel="stylesheet">
 		<script language="JavaScript" type="text/JavaScript">
 <!--
 function MM_reloadPage(init) {  //reloads the window if Nav4 resized
@@ -31,21 +31,37 @@ MM_reloadPage(true);
 					<td vAlign="top" align="left" width="691">
 						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td width="120" align="left" vAlign="top">
-									<IFRAME id="menu" style="WIDTH: 122px; HEIGHT: 450px" tabIndex="1" hspace="5" src="menu.aspx"
-										frameBorder="0" width="120" scrolling="no"></IFRAME>
+								<td vAlign="top" align="left" width="120">
 								</td>
-								<TD height="191" align="left" valign="top" style="HEIGHT: 191px"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<TD style="HEIGHT: 191px" vAlign="top" align="left" height="191">
+									<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 										<tr>
-											<td style="HEIGHT: 18px" align="right">
-												<iframe src="login.aspx" id="login" style="WIDTH: 100%; HEIGHT: 18px" tabIndex="1" align="right"
-													frameBorder="0" scrolling="no"></iframe>
+											<td style="HEIGHT: 18px">
+												<DIV align="right">
+													<DIV id="m_login" style="HEIGHT: 18px" align="right" runat="server" ms_positioning="FlowLayout">
+														<asp:Label id="lbLoginMessage" runat="server" CssClass="login" ForeColor="Red"></asp:Label>&nbsp;&nbsp;
+														<SPAN class="login">Benutzername</SPAN>
+														<asp:textbox id="txtBenutzername" runat="server" Width="60px" BorderWidth="1px" BorderStyle="Solid"
+															Height="16px" Font-Size="10px" MaxLength="20"></asp:textbox>&nbsp;&nbsp; <SPAN class="login">
+															Passwort</SPAN>
+														<asp:textbox id="txtPasswort" runat="server" Width="60px" BorderWidth="1px" BorderStyle="Solid"
+															Height="16px" Font-Size="10px" MaxLength="20" TextMode="Password"></asp:textbox>&nbsp;&nbsp;
+														<asp:LinkButton id="LinkLogin" runat="server" CssClass="function">Login</asp:LinkButton>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													</DIV>
+													<DIV align="right">
+														<DIV id="m_logout" style="HEIGHT: 18px" runat="server" ms_positioning="FlowLayout">
+															<asp:Label id="lbLoginStatus" runat="server" CssClass="login"></asp:Label>
+															<asp:LinkButton id="LinkLogout" runat="server" CssClass="function">Logout</asp:LinkButton>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														</DIV>
+													</DIV>
+												</DIV>
 											</td>
 										</tr>
 										<tr>
-											<td>&nbsp;</td>
+											<td></td>
 										</tr>
 									</table>
+									<p>&nbsp;</p>
 								</TD>
 							</tr>
 						</table>
