@@ -100,7 +100,7 @@ namespace DBAccessor
 			m_adpUmfragen.Update(dsUpdate, dsUpdate.umfragen.TableName);
 		}
 
-		public DSUmfragen getUmfrageByID(int id)
+		public DSUmfragen GetUmfrageByID(int id)
 		{
 			SqlParameter pID = ParamUmfrageID;
 			pID.Value = id;
@@ -111,7 +111,7 @@ namespace DBAccessor
 
 		public void DeleteUmfrage(int id)
 		{
-			DSUmfragen dsDelete = getUmfrageByID(id);
+			DSUmfragen dsDelete = GetUmfrageByID(id);
 			if (dsDelete.umfragen.Count == 1)
 			{
 				dsDelete.umfragen[0].Delete();

@@ -97,7 +97,7 @@ namespace DBAccessor
 			m_adpUserantworttext.Update(dsUpdate, dsUpdate.userantworttext.TableName);
 		}
 
-		public DSUserantworttext getAntwortByID(int id)
+		public DSUserantworttext GetAntwortByID(int id)
 		{
 			SqlParameter pID = ParamUawtID;
 			pID.Value = id;
@@ -108,7 +108,7 @@ namespace DBAccessor
 
 		public void DeleteAntwort(int id)
 		{
-			DSUserantworttext dsDelete = getAntwortByID(id);
+			DSUserantworttext dsDelete = GetAntwortByID(id);
 			if (dsDelete.userantworttext.Count == 1)
 			{
 				dsDelete.userantworttext[0].Delete();

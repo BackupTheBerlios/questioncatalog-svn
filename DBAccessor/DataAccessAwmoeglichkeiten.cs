@@ -100,7 +100,7 @@ namespace DBAccessor
 			m_adpAwmoegl.Update(dsUpdate, dsUpdate.awmoeglichkeiten.TableName);
 		}
 
-		public DSAwmoeglichkeiten getAntwortmoeglByID(int id)
+		public DSAwmoeglichkeiten GetAntwortmoeglByID(int id)
 		{
 			SqlParameter pID = ParamAwmID;
 			pID.Value = id;
@@ -111,7 +111,7 @@ namespace DBAccessor
 
 		public void DeleteAntwortmoegl(int id)
 		{
-			DSAwmoeglichkeiten dsDelete = getAntwortmoeglByID(id);
+			DSAwmoeglichkeiten dsDelete = GetAntwortmoeglByID(id);
 			if (dsDelete.awmoeglichkeiten.Count == 1)
 			{
 				dsDelete.awmoeglichkeiten[0].Delete();

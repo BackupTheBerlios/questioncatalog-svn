@@ -100,7 +100,7 @@ namespace DBAccessor
 			m_adpBenutzer.Update(dsUpdate, dsUpdate.benutzer.TableName);
 		}
 
-		public DSBenutzer getBenutzerByID(int id)
+		public DSBenutzer GetBenutzerByID(int id)
 		{
 			SqlParameter pID = ParamUserID;
 			pID.Value = id;
@@ -111,7 +111,7 @@ namespace DBAccessor
 
 		public void DeleteBenutzer(int id)
 		{
-			DSBenutzer dsDelete = getBenutzerByID(id);
+			DSBenutzer dsDelete = GetBenutzerByID(id);
 			if (dsDelete.benutzer.Count == 1)
 			{
 				dsDelete.benutzer[0].Delete();

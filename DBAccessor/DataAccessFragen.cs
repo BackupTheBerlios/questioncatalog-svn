@@ -100,7 +100,7 @@ namespace DBAccessor
 			m_adpFragen.Update(dsUpdate, dsUpdate.fragen.TableName);
 		}
 
-		public DSFragen getFrageByID(int id)
+		public DSFragen GetFrageByID(int id)
 		{
 			SqlParameter pID = ParamFrageID;
 			pID.Value = id;
@@ -111,7 +111,7 @@ namespace DBAccessor
 
 		public void DeleteFrage(int id)
 		{
-			DSFragen dsDelete = getFrageByID(id);
+			DSFragen dsDelete = GetFrageByID(id);
 			if (dsDelete.fragen.Count == 1)
 			{
 				dsDelete.fragen[0].Delete();
