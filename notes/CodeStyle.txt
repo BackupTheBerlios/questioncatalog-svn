@@ -4,3 +4,4 @@ TextBox		txt
 Membervariable	m_
 DataAdapter	adp
 DataSet		ds
+Command		cm
