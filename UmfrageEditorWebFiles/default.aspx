@@ -21,9 +21,8 @@
 					<td vAlign="top" align="left" width="691">
 						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td vAlign="top" align="left" width="120">
-									<iframe tabIndex="1" src="menu.aspx" frameBorder="0" width="120" scrolling="no" id="menu"
-										hspace="10"></iframe>
+								<td width="120" height="100%" align="left" vAlign="top"><IFRAME id="menu" style="WIDTH: 122px; HEIGHT: 450px" tabIndex="1" hspace="5" src="menu.aspx"
+										frameBorder="0" width="120" scrolling="no"></IFRAME>
 								</td>
 								<TD vAlign="top" align="left"></TD>
 							</tr>

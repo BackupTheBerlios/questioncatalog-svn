@@ -21,15 +21,15 @@
 					<td vAlign="top" align="left" width="691">
 						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td vAlign="top" align="left" width="120"><IFRAME id="menu" tabIndex="1" hspace="10" src="menu.aspx" frameBorder="0" width="120" scrolling="no"></IFRAME>
+								<td vAlign="top" align="left" width="120"><IFRAME id="menu" style="WIDTH: 122px; HEIGHT: 450px" tabIndex="1" hspace="5" src="menu.aspx"
+										frameBorder="0" width="120" scrolling="no"></IFRAME>
 								</td>
 								<TD vAlign="top" align="left">
 									<P></P>
 									<DIV id="lbAusgabe" style="DISPLAY: inline; WIDTH: 70px; HEIGHT: 15px" runat="server"
 										ms_positioning="FlowLayout">Ausgabe</DIV>
-									<asp:Label id="lbLoginStatus" style="Z-INDEX: 108; LEFT: 376px; POSITION: absolute; TOP: 584px"
-										runat="server"></asp:Label>
-									<asp:HyperLink id="HyperLink1" runat="server" NavigateUrl="defaultuser.aspx">HyperLink</asp:HyperLink>
+									<asp:HyperLink id="HyperLink1" runat="server" NavigateUrl="defaultuser.aspx">HyperLink</asp:HyperLink>&nbsp;
+									<asp:Label id="lbLoginStatus" runat="server"></asp:Label>
 									<P></P>
 									<P>
 										<asp:Label id="Label1" runat="server">Benutzername</asp:Label><BR>

@@ -7,7 +7,7 @@
 		<meta name="CODE_LANGUAGE" Content="C#">
 		<meta name="vs_defaultClientScript" content="JavaScript">
 		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
-	    <link href="styles.css" rel="stylesheet" type="text/css">
+		<link href="styles.css" rel="stylesheet" type="text/css">
 	</HEAD>
 	<body>
 		<form id="Form1" method="post" runat="server">
@@ -21,9 +21,8 @@
 					<td vAlign="top" align="left" width="691">
 						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
 							<tr>
-								<td vAlign="top" align="left" width="120">
-									<iframe tabIndex="1" src="menu.aspx" frameBorder="0" width="120" scrolling="no" id="menu"
-										hspace="10"></iframe>
+								<td vAlign="top" align="left" width="120"><IFRAME id="menu" style="WIDTH: 122px; HEIGHT: 450px" tabIndex="1" hspace="5" src="menu.aspx"
+										frameBorder="0" width="120" scrolling="no"></IFRAME>
 								</td>
 								<TD vAlign="top" align="left"></TD>
 							</tr>

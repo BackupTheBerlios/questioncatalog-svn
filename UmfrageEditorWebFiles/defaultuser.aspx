@@ -21,7 +21,8 @@
 					<td width="691" align="left" valign="top">
 						<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
-								<td width="120" align="left" valign="top"><IFRAME id="menu" tabIndex="1" hspace="10" src="menu.aspx" frameBorder="0" width="120" scrolling="no"></IFRAME>
+								<td width="120" align="left" valign="top"><IFRAME id="menu" style="WIDTH: 122px; HEIGHT: 450px" tabIndex="1" hspace="5" src="menu.aspx"
+										frameBorder="0" width="120" scrolling="no"></IFRAME>
 								</td>
 								<TD align="left" valign="top">
 									<asp:Label id="m_lbLoginInfo" runat="server">Sie sind eingeloggt als </asp:Label>
