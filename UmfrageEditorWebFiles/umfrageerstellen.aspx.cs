@@ -171,15 +171,50 @@ namespace UmfrageEditor
 
 		private void m_btnLoeschen_Click(object sender, System.EventArgs e)
 		{
-//			for (int i = 0; i < m_dgFragen.Items.Count; i++)
+			
+
+//			// Datenquelle des DataGrid vewenden
+//			if (m_dgFragen.DataSource is DSFragen.fragenDataTable)
 //			{
-//				if (m_dgFragen.Items[i].ItemType == ListItemType.Item || m_dgFragen.Items[i].ItemType == ListItemType.AlternatingItem)
-//				{
-//					if (((CheckBox)(m_dgFragen.Items[i].Cells[0].Controls[1])).Checked)
-//					{
-//						// TODO: Frage löschen
-//					}
-//				}
+//				dsFragen = (DSFragen)m_dgFragen.DataSource;
+//			}
+
+//			if (dsFragen != null)
+//			{
+			ArrayList idCache = new ArrayList();
+
+			// IDs aller selektierten Fragen ermitteln
+			for (int i = 0; i < m_dgFragen.Items.Count; i++)
+			{
+				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgFragen.Items[i], typeof(CheckBox), 0, 0);
+				if (cbx != null && cbx.Checked)
+				{
+					idCache.Add(Convert.ToInt32(m_dgFragen.Items[i].Cells[2].Text));
+				}
+			}
+
+			// Paramerter für die DB-Abfrage vorbereiten
+			DataParameters delIDparams = new DataParameters();
+			SqlParameter pFrageID = null;
+			foreach (int id in idCache)
+			{
+				pFrageID = DataAccessFragen.ParamFrageID;
+				pFrageID.Value = id;
+				delIDparams.Add(pFrageID);
+			}
+
+			// alle Datensätze, die gelöscht werden sollen aus der DB ziehen
+			DataAccessFragen daFragen = new DataAccessFragen();
+			DSFragen dsFragen = daFragen.Select(delIDparams);
+
+			// alle Datensätze aus dem DataSet löschen
+			for (int i = 0; i < dsFragen.fragen.Count; i++)
+			{
+				dsFragen.fragen[i].Delete();
+			}
+
+			daFragen.CommitChanges(dsFragen);
+			RefreshDGFragen();
 //			}
 		}
 
