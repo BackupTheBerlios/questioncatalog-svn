@@ -28,7 +28,7 @@ namespace UmfrageEditor
  
 		protected void Session_Start(Object sender, EventArgs e)
 		{
-
+			new SessionContainer(Session.SessionID).WriteToSession(Session);
 		}
 
 		protected void Application_BeginRequest(Object sender, EventArgs e)

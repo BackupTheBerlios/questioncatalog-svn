@@ -20,32 +20,11 @@ namespace UmfrageEditor
 	/// </summary>
 	public class _default : System.Web.UI.Page
 	{
-	
-//		protected SqlConnection m_conn;
-		protected System.Data.SqlClient.SqlConnection sqlConnection1;
-		protected System.Web.UI.WebControls.DataGrid DataGrid1;
-//		protected SqlCommand m_sqlCmd;
+		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Hier Benutzercode zur Seiteninitialisierung einfügen
-			DBconnector db = new DBconnector();
-//			DataGrid1.DataSource = db.m_sqlCmd.ExecuteReader();
-//			DataGrid1.DataBind();
 
-			// Verbindung zur Datenbank herstellen
-			
-
-//			m_conn = new SqlConnection(ConfigurationSettings.AppSettings["ConnectionString"]);
-//			
-//
-//			m_sqlCmd = new SqlCommand();
-//			m_sqlCmd.Connection = m_conn;
-//
-//			m_conn.Open();
-
-			DataGrid1.DataSource = db.getData("SELECT * FROM umfragen");
-			DataGrid1.DataBind();
 		}
 
 		#region Vom Web Form-Designer generierter Code
@@ -64,21 +43,10 @@ namespace UmfrageEditor
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-			// 
-			// sqlConnection1
-			// 
-			this.sqlConnection1.ConnectionString = "workstation id=TRONIC;packet size=4096;user id=sa;data source=TRONIC;persist secu" +
-				"rity info=True;initial catalog=UmfrageEditorDB;password=fhwaspnet";
-			this.sqlConnection1.InfoMessage += new System.Data.SqlClient.SqlInfoMessageEventHandler(this.sqlConnection1_InfoMessage);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void sqlConnection1_InfoMessage(object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e)
-		{
-		
-		}
 	}
 }

@@ -67,7 +67,7 @@ namespace DBAccessor
 		/// <returns>ein DataSet vom Typ DSBenutzer das die gesuchten Datensätze enthält</returns>
 		public DSBenutzer Select(DataParameters selectParams)
 		{
-			StringBuilder sbSelect = new StringBuilder("SELECT * FROM Benutzer");
+			StringBuilder sbSelect = new StringBuilder("SELECT * FROM benutzer");
 			if (selectParams != null)
 			{
 				string sqlClause = " WHERE ";
@@ -207,8 +207,14 @@ namespace DBAccessor
 																																																				new System.Data.Common.DataColumnMapping("Passwort", "Passwort"),
 																																																				new System.Data.Common.DataColumnMapping("GruppenID", "GruppenID")})});
 			this.m_adpBenutzer.UpdateCommand = this.m_cmUpdate;
+			this.m_adpBenutzer.RowUpdated += new System.Data.SqlClient.SqlRowUpdatedEventHandler(this.m_adpBenutzer_RowUpdated);
 
 		}
 		#endregion
+
+		private void m_adpBenutzer_RowUpdated(object sender, System.Data.SqlClient.SqlRowUpdatedEventArgs e)
+		{
+		
+		}
 	}
 }

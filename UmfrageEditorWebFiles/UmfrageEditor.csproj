@@ -135,6 +135,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "loginstatus.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "loginstatus.aspx.cs"
+                    DependentUpon = "loginstatus.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "loginstatus.aspx.resx"
+                    DependentUpon = "loginstatus.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "registrieren.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -151,6 +167,11 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "SessionContainer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "umfrageerstellen.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -165,6 +186,11 @@
                     RelPath = "umfrageerstellen.aspx.resx"
                     DependentUpon = "umfrageerstellen.aspx.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "UserInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "Web.config"

@@ -10,8 +10,10 @@
 	</HEAD>
 	<body MS_POSITIONING="GridLayout">
 		<form id="Form1" method="post" runat="server">
-			<asp:DataGrid id="DataGrid1" style="Z-INDEX: 101; LEFT: 160px; POSITION: absolute; TOP: 136px"
-				runat="server"></asp:DataGrid>
+			<asp:HyperLink id="lnkVerwaltung" style="Z-INDEX: 101; LEFT: 104px; POSITION: absolute; TOP: 48px"
+				runat="server" NavigateUrl="registrieren.aspx">Verwaltung</asp:HyperLink>
+			<iframe style="Z-INDEX: 102; LEFT: 384px; POSITION: absolute; TOP: 232px" src="loginstatus.aspx">
+			</iframe>
 		</form>
 	</body>
 </HTML>

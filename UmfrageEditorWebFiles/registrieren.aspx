@@ -19,6 +19,10 @@
 				type="submit" value="Registrieren" name="Submit1" runat="server">
 			<DIV id="lbAusgabe" style="DISPLAY: inline; Z-INDEX: 106; LEFT: 64px; WIDTH: 70px; POSITION: absolute; TOP: 72px; HEIGHT: 15px"
 				runat="server" ms_positioning="FlowLayout">Ausgabe</DIV>
+			<asp:Button id="btnLogin" style="Z-INDEX: 107; LEFT: 568px; POSITION: absolute; TOP: 464px"
+				runat="server" Text="Login"></asp:Button>
+			<asp:Label id="lbLoginStatus" style="Z-INDEX: 108; LEFT: 376px; POSITION: absolute; TOP: 584px"
+				runat="server"></asp:Label>
 		</form>
 	</body>
 </HTML>
