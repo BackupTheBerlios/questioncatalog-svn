@@ -28,6 +28,14 @@ namespace UmfrageEditor
 		}
 		protected int m_umfrageID;
 
+		/// <summary>
+		/// gibt an, ob zur Zeit eine Umfrage geladen ist
+		/// </summary>
+		public bool IsLoaded
+		{
+			get { return (m_umfrageID > 0); }
+		}
+
 
 		/// <summary>
 		/// speichert die ID der aktuellen Umfrage
