@@ -24,7 +24,6 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.Label m_lbUserName;
 		protected System.Web.UI.WebControls.Button m_btnLoeschen;
 		protected System.Web.UI.WebControls.Button m_btnBearbeiten;
-		protected System.Web.UI.WebControls.Button m_btnUmfrageNeu;
 		protected System.Web.UI.WebControls.CheckBoxList m_chblUmfragenListe;
 		protected System.Web.UI.HtmlControls.HtmlTable m_tblUmfragenListe;
 		protected System.Web.UI.WebControls.HyperLink lnkHome;
@@ -32,6 +31,7 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
 		protected System.Web.UI.HtmlControls.HtmlForm Form1;
+		protected System.Web.UI.WebControls.HyperLink m_lnkUmfrageNeu;
 		
 		/// <summary>
 		/// Kommunikation mit der DB
@@ -43,7 +43,7 @@ namespace UmfrageEditor
 			UserInfo user = SessionContainer.ReadFromSession(this).User;
 
 			// TEST: zum Testen einen Benutzer einloggen
-			user.Login("kathrin", "kathrin");
+//			user.Login("kathrin", "kathrin");
 
 			// prüfen, ob der Benutzer eingeloggt ist, 
 			// wenn nicht, auf die Login-Seite zurückschicken
@@ -101,10 +101,11 @@ namespace UmfrageEditor
 
 		private void m_btnBearbeiten_Click(object sender, System.EventArgs e)
 		{
-			string url = "umfrageerstellen.aspx?uid="+ m_chblUmfragenListe.SelectedValue.ToString();
-			Response.Redirect(url);
-
-//			m_lbUserName.Text = m_chblUmfragenListe.SelectedValue.ToString();
+			if (m_chblUmfragenListe.SelectedValue != "")
+			{
+				string url = "umfrageerstellen.aspx?uid="+ m_chblUmfragenListe.SelectedValue;
+				Response.Redirect(url);
+			}
 		}
 
 		private void RefreshUmfragenListe()
@@ -123,6 +124,9 @@ namespace UmfrageEditor
 			// die UmfrageID als Value mitgeben, um zum Löschen oder Bearbeiten wieder an den Datensatz zu kommen
 			m_chblUmfragenListe.DataValueField = ds.umfragen.Columns["UmfrageID"].ToString();
 			m_chblUmfragenListe.DataBind();
+			// wenn keine Datensätze gefunden wurden, sollen die Umfragenliste und die
+			// dazugehörigen Buttons nicht sichtbar sein
+			m_tblUmfragenListe.Visible = (ds.umfragen.Rows.Count > 0);
 		}
 	}
 }

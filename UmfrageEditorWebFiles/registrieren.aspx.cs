@@ -26,17 +26,16 @@ namespace UmfrageEditor
 		protected System.Web.UI.HtmlControls.HtmlGenericControl lbAusgabe;
 		protected System.Web.UI.WebControls.Button btnLogin;
 		protected System.Web.UI.WebControls.Label lbLoginStatus;
-//		protected DBconnector db;
+		protected System.Web.UI.WebControls.HyperLink HyperLink1;
+
 		protected DataAccessBenutzer daBenutzer;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-//			db = new DBconnector();
+
 
 			daBenutzer = new DataAccessBenutzer();
-//			DSBenutzer dsBen = db.Select();
-//			DataGrid1.DataSource = dsBen.benutzer;
-//			DataGrid1.DataBind();
+
 		}
 
 		#region Vom Web Form-Designer generierter Code
@@ -55,8 +54,8 @@ namespace UmfrageEditor
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.btnRegistrieren.ServerClick += new System.EventHandler(this.btnRegistrieren_ServerClick);
 			this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+			this.btnRegistrieren.ServerClick += new System.EventHandler(this.btnRegistrieren_ServerClick);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -64,18 +63,7 @@ namespace UmfrageEditor
 
 		private void btnRegistrieren_ServerClick(object sender, System.EventArgs e)
 		{
-//			SqlDataReader reader = db.getData("SELECT Name FROM benutzer WHERE Name = '" + txtBenutzername.Text + "'");
-//			if (reader.HasRows)
-//			{
-//				reader.Close();
-//				lbAusgabe.InnerText = "Benutzername existiert bereits!";
-//			}
-//			else
-//			{
-//				reader.Close();
-//				lbAusgabe.InnerText = "Ok!";
-//				db.setData("INSERT INTO benutzer (Name, Passwort) VALUES ('" + txtBenutzername.Text + "', '" + txtBenutzername.Text + "'");
-//			}
+
 
 			SqlParameter paramName = DataAccessBenutzer.ParamName;
 			paramName.Value = txtBenutzername.Text;
@@ -136,7 +124,8 @@ namespace UmfrageEditor
 			}
 			if (SessionContainer.ReadFromSession(this).User.IsLoggedIn)
 			{
-				lbLoginStatus.Text = "Login erfolgreich!";
+//				lbLoginStatus.Text = "Login erfolgreich!";
+				Server.Transfer("defaultuser.aspx");
 			}
 			else
 			{

@@ -10,7 +10,7 @@
 	</HEAD>
 	<body>
 		<form id="Form1" method="post" runat="server">
-			<asp:DataGrid id="DataGrid1" runat="server"></asp:DataGrid>
+			&nbsp;
 		</form>
 	</body>
 </HTML>

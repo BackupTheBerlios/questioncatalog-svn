@@ -23,6 +23,7 @@
 				runat="server" Text="Login"></asp:Button>
 			<asp:Label id="lbLoginStatus" style="Z-INDEX: 108; LEFT: 376px; POSITION: absolute; TOP: 584px"
 				runat="server"></asp:Label>
+			<asp:HyperLink id="HyperLink1" runat="server" NavigateUrl="defaultuser.aspx">HyperLink</asp:HyperLink>
 		</form>
 	</body>
 </HTML>
