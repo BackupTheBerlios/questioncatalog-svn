@@ -11,23 +11,32 @@ namespace UmfrageEditor
 	{
 		public UserInfo()
 		{
-			m_isLoggedIn = false;
-			m_username = "";
+			Logout();
 		}
-
-		public bool IsLoggedIn
-		{
-			get { return m_isLoggedIn; }
-//			set { m_isLoggedIn = value; }
-		}
-		protected bool m_isLoggedIn;
 
 		public string Username
 		{
 			get { return m_username; }
-//			set { m_username = value; }
 		}
 		protected string m_username;
+
+		public int UserID
+		{
+			get { return m_userID; }
+		}
+		protected int m_userID;
+
+		public bool IsLoggedIn
+		{
+			get { return m_isLoggedIn; }
+		}
+		protected bool m_isLoggedIn;
+
+		public bool IsAdmin
+		{
+			get { return m_isAdmin; }
+		}
+		protected bool m_isAdmin;
 
 		/// <summary>
 		/// prüft, ob Benutzername und Passwort gültig sind und loggt den Benutzer ggf. ein
@@ -55,6 +64,8 @@ namespace UmfrageEditor
 			{
 				m_isLoggedIn = true;
 				m_username = username;
+				m_userID = (int)dsUser.benutzer.Rows[0]["UserID"];
+				m_isAdmin = (1 == (int)dsUser.benutzer.Rows[0]["GruppenID"]);
 			}
 			else
 			{
@@ -71,6 +82,8 @@ namespace UmfrageEditor
 		{
 			m_isLoggedIn = false;
 			m_username = "";
+			m_userID = -1;
+			m_isAdmin = false;
 		}
 	}
 }

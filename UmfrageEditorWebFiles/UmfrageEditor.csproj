@@ -300,6 +300,11 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "UmfrageInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "UserInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

@@ -17,6 +17,7 @@ namespace UmfrageEditor
 			// Membervariablen initialisieren...			
 			m_SessionID = SessionID;
 			m_user = new UserInfo();
+			m_umfrage = new UmfrageInfo();
 		}
 
 		/// <summary>
@@ -68,6 +69,12 @@ namespace UmfrageEditor
 			get { return m_user; }
 		}
 		protected UserInfo m_user;
+
+		public UmfrageInfo Umfrage
+		{
+			get { return m_umfrage; }
+		}
+		protected UmfrageInfo m_umfrage;
 
 	}
 

@@ -10,14 +10,7 @@
 	</HEAD>
 	<body>
 		<form id="Form1" method="post" runat="server">
-			<asp:TextBox id="umfragetitel" style="Z-INDEX: 101; LEFT: 416px; POSITION: absolute; TOP: 112px"
-				runat="server" MaxLength="100"></asp:TextBox>
-			<asp:TextBox id="umfrageinfo" style="Z-INDEX: 102; LEFT: 408px; POSITION: absolute; TOP: 256px"
-				runat="server" Height="168px" Width="336px" MaxLength="1000"></asp:TextBox>
-			<asp:Label id="lbUmfragetitel" style="Z-INDEX: 103; LEFT: 424px; POSITION: absolute; TOP: 64px"
-				runat="server">Umfragetitel</asp:Label>
-			<asp:Label id="lbKurzbeschreibung" style="Z-INDEX: 104; LEFT: 432px; POSITION: absolute; TOP: 192px"
-				runat="server">Kurzbeschreibung</asp:Label>
+			<asp:DataGrid id="DataGrid1" runat="server"></asp:DataGrid>
 		</form>
 	</body>
 </HTML>

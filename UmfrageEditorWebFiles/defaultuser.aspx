@@ -10,18 +10,24 @@
 	</HEAD>
 	<body>
 		<form id="Form1" method="post" runat="server">
-			<DIV id="m_pnUmfrageListe" style="WIDTH: 263px; POSITION: relative; HEIGHT: 120px" align="left"
+			<asp:Label id="m_lbLoginInfo" runat="server">Sie sind eingeloggt als </asp:Label>
+			<asp:Label id="m_lbUserName" runat="server"></asp:Label>
+			<TABLE id="m_tblUmfragenListe" cellSpacing="1" cellPadding="1" width="300" border="0" runat="server">
+				<TR>
+					<TD colSpan="2">
+						<asp:CheckBoxList id="m_chblUmfragenListe" runat="server"></asp:CheckBoxList></TD>
+				</TR>
+				<TR>
+					<TD style="WIDTH: 109px">
+						<asp:Button id="m_btnLoeschen" runat="server" Text="Löschen"></asp:Button></TD>
+					<TD>
+						<asp:Button id="m_btnBearbeiten" runat="server" Text="Bearbeiten"></asp:Button></TD>
+				</TR>
+			</TABLE>
+			<DIV id="m_pnUmfrageNeu" style="WIDTH: 269px; POSITION: relative; HEIGHT: 64px" align="left"
 				runat="server" ms_positioning="GridLayout">
-				<asp:Button id="m_btnLoeschen" style="Z-INDEX: 101; LEFT: 16px; POSITION: absolute; TOP: 80px"
-					runat="server" Text="Löschen"></asp:Button>
-				<asp:Button id="m_btnBearbeiten" style="Z-INDEX: 102; LEFT: 144px; POSITION: absolute; TOP: 80px"
-					runat="server" Text="Bearbeiten"></asp:Button>
-				<asp:CheckBoxList id="m_chblUmfragenListe" style="Z-INDEX: 103; LEFT: 24px; POSITION: absolute; TOP: 24px"
-					runat="server"></asp:CheckBoxList></DIV>
-			<DIV id="m_pnUmfrageNeu" style="WIDTH: 269px; POSITION: relative; HEIGHT: 72px" align="left"
-				runat="server" ms_positioning="GridLayout">
-				<asp:Button id="m_btnUmfrageNeu" style="Z-INDEX: 101; LEFT: 16px; POSITION: absolute; TOP: 32px"
-					runat="server" Text="neue Umfrage erstellen"></asp:Button></DIV>
+				<asp:Button id="m_btnUmfrageNeu" style="Z-INDEX: 101; LEFT: 0px; POSITION: absolute; TOP: 16px"
+					runat="server" Text="neue Umfrage erstellen" Width="232px"></asp:Button></DIV>
 		</form>
 	</body>
 </HTML>

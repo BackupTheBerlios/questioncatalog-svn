@@ -8,6 +8,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using DBAccessor;
 
 namespace UmfrageEditor
 {
@@ -16,14 +17,14 @@ namespace UmfrageEditor
 	/// </summary>
 	public class umfrageerstellen : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.TextBox umfragetitel;
-		protected System.Web.UI.WebControls.Label lbUmfragetitel;
-		protected System.Web.UI.WebControls.Label lbKurzbeschreibung;
-		protected System.Web.UI.WebControls.TextBox umfrageinfo;
+		protected System.Web.UI.WebControls.DataGrid DataGrid1;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Hier Benutzercode zur Seiteninitialisierung einfügen
+			DSUmfragen dsUmfr = 
+				SessionContainer.ReadFromSession(this).Umfrage.getUmfrageByID(Convert.ToInt32(Request.QueryString["uid"]));
+			DataGrid1.DataSource = dsUmfr.umfragen;
+			DataGrid1.DataBind();
 		}
 
 		#region Vom Web Form-Designer generierter Code
