@@ -34,3 +34,6 @@ p {
 .login {
 	font-size: 10px;
 }
+.textbox {
+	border: 1px solid #000000;
+}
