@@ -75,6 +75,7 @@ namespace UmfrageEditor
 			this.m_btnUmfragen.Click += new System.EventHandler(this.m_btnUmfragen_Click);
 			this.m_dgBenutzer.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.m_dgBenutzer_ItemCommand);
 			this.m_btnBenutzerLoeschen.Click += new System.EventHandler(this.m_btnBenutzerLoeschen_Click);
+			this.m_btnUmfrageLoeschen.Click += new System.EventHandler(this.m_btnUmfrageLoeschen_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -98,7 +99,7 @@ namespace UmfrageEditor
 		{
 			// für alle selektierten Zeilen den entsprechenden Datensatz löschen
 			DataAccessBenutzer daBenutzer = new DataAccessBenutzer();
-			// IDs aller selektierten Fragen ermitteln
+			// IDs aller selektierten Benutzer ermitteln
 			for (int i = 0; i < m_dgBenutzer.Items.Count; i++)
 			{
 				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgBenutzer.Items[i], typeof(CheckBox), 1, 0);
@@ -111,6 +112,25 @@ namespace UmfrageEditor
 			}
 
 			RefreshDGBenutzer();
+		}
+
+		private void m_btnUmfrageLoeschen_Click(object sender, System.EventArgs e)
+		{
+			// für alle selektierten Zeilen den entsprechenden Datensatz löschen
+			DataAccessUmfragen daUmfr = new DataAccessUmfragen();
+			// IDs aller selektierten Umfragen ermitteln
+			for (int i = 0; i < m_dgUmfragen.Items.Count; i++)
+			{
+				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgUmfragen.Items[i], typeof(CheckBox), 1, 0);
+				if (cbx != null && cbx.Checked)
+				{
+					// Datensatz löschen
+					int id = Convert.ToInt32(m_dgUmfragen.Items[i].Cells[0].Text);
+					daUmfr.DeleteUmfrage(id);
+				}
+			}
+
+			RefreshDGUmfragen();
 		}
 
 		private void ddlUserRights_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -168,7 +188,7 @@ namespace UmfrageEditor
 					ddl.DataSource = choice;
 					ddl.DataBind();
 					ddl.SelectedIndex = dsAllUsers.benutzer[i].GruppenID;
-					ddl.SelectedIndexChanged +=new EventHandler(ddlUserRights_SelectedIndexChanged);
+					ddl.SelectedIndexChanged += new EventHandler(ddlUserRights_SelectedIndexChanged);
 					ddl.AutoPostBack = true;
 				}
 			}
