@@ -3,6 +3,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmfrageEditor", "http://loc
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBAccessor", "DBAccessor\DBAccessor.csproj", "{859E03D5-0E2C-4B21-B500-AAF0A876B3A1}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -13,6 +17,10 @@ Global
 		{0FC11245-02CE-495D-95A9-AC04BD7D6C15}.Debug.Build.0 = Debug|.NET
 		{0FC11245-02CE-495D-95A9-AC04BD7D6C15}.Release.ActiveCfg = Release|.NET
 		{0FC11245-02CE-495D-95A9-AC04BD7D6C15}.Release.Build.0 = Release|.NET
+		{859E03D5-0E2C-4B21-B500-AAF0A876B3A1}.Debug.ActiveCfg = Debug|.NET
+		{859E03D5-0E2C-4B21-B500-AAF0A876B3A1}.Debug.Build.0 = Debug|.NET
+		{859E03D5-0E2C-4B21-B500-AAF0A876B3A1}.Release.ActiveCfg = Release|.NET
+		{859E03D5-0E2C-4B21-B500-AAF0A876B3A1}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
