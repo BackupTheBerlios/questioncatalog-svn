@@ -39,7 +39,7 @@
 									</TABLE>
 									<TABLE id="m_tblBenutzer" cellSpacing="1" cellPadding="1" width="600" border="1" runat="server">
 										<TR>
-											<TD borderColor="silver">
+											<TD borderColor="#c0c0c0" colSpan="2">
 												<asp:DataGrid id="m_dgBenutzer" runat="server" BorderWidth="0px" AutoGenerateColumns="False" GridLines="None">
 													<Columns>
 														<asp:BoundColumn DataField="UserID"></asp:BoundColumn>
@@ -57,6 +57,10 @@
 													</Columns>
 												</asp:DataGrid></TD>
 										</TR>
+										<TR>
+											<TD style="WIDTH: 100px" borderColor="#c0c0c0">
+												<asp:Button id="m_btnBenutzerLoeschen" runat="server" Text="Löschen" Width="90px"></asp:Button></TD>
+										</TR>
 									</TABLE>
 									<TABLE id="m_tblUmfragen" borderColor="silver" cellSpacing="1" cellPadding="1" width="600"
 										border="1" runat="server">
@@ -73,6 +77,10 @@
 														<asp:BoundColumn DataField="Titel"></asp:BoundColumn>
 													</Columns>
 												</asp:DataGrid></TD>
+										</TR>
+										<TR>
+											<TD>
+												<asp:Button id="m_btnUmfrageLoeschen" runat="server" Width="90px" Text="Löschen"></asp:Button></TD>
 										</TR>
 									</TABLE>
 								</TD>

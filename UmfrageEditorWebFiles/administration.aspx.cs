@@ -28,8 +28,10 @@ namespace UmfrageEditor
 		protected System.Web.UI.HtmlControls.HtmlTable m_tblUmfragen;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
 		protected System.Drawing.Color backColorNotChecked = Color.FromArgb(102, 144, 247);
-		protected System.Web.UI.WebControls.DataGrid m_dgBenutzer;
 		protected System.Web.UI.WebControls.DataGrid m_dgUmfragen;
+		protected System.Web.UI.WebControls.DataGrid m_dgBenutzer;
+		protected System.Web.UI.WebControls.Button m_btnBenutzerLoeschen;
+		protected System.Web.UI.WebControls.Button m_btnUmfrageLoeschen;
 		protected System.Drawing.Color backColorChecked = Color.FromArgb(66, 99, 198);
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -122,9 +124,25 @@ namespace UmfrageEditor
 
 		private void RefreshDGBenutzer()
 		{
+			// alle Benutzerdatensätze aus der DB ziehen und im Datagrid darstellen 
 			DSBenutzer dsAllUsers = new DataAccessBenutzer().Select();
 			m_dgBenutzer.DataSource = dsAllUsers.benutzer;
 			m_dgBenutzer.DataBind();
+
+			// Benutzerrechte in den DropdownListen darstellen
+			// Inhalt der Dropdownlisten vorbereiten
+			ArrayList choice = new ArrayList();
+			choice.Add("Admin");
+			choice.Add("Benutzer");
+			for (int i = 0; i < dsAllUsers.benutzer.Count; i++)
+			{
+				DropDownList ddl = (DropDownList)DataGridAccess.GetControlFromDataGrid(m_dgBenutzer.Items[i], typeof(DropDownList), 3, 0);
+				if (ddl != null)
+				{
+					ddl.DataSource = choice;
+					ddl.DataBind();
+				}
+			}
 		}
 
 		private void RefreshDGUmfragen()
