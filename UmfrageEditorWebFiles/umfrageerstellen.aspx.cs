@@ -150,8 +150,15 @@ namespace UmfrageEditor
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.LinkLogout.Click += new System.EventHandler(this.LinkLogout_Click);
 			this.LinkLogin.Click += new System.EventHandler(this.LinkLogin_Click);
+			this.LinkLogout.Click += new System.EventHandler(this.LinkLogout_Click);
+			this.m_btnTitelUebernehmen.Click += new System.EventHandler(this.m_btnTitelUebernehmen_Click);
+			this.m_btnLoeschen.Click += new System.EventHandler(this.m_btnLoeschen_Click);
+			this.m_btnBearbeiten.Click += new System.EventHandler(this.m_btnBearbeiten_Click);
+			this.m_lnkbMehrAntw.Click += new System.EventHandler(this.m_lnkbMehrAntw_Click);
+			this.m_btnFrageUebernehmen.Click += new System.EventHandler(this.m_btnFrageUebernehmen_Click);
+			this.m_btnFertig.Click += new System.EventHandler(this.m_btnFertig_Click);
+			this.m_lnkbNeueFrage.Click += new System.EventHandler(this.m_lnkbNeueFrage_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -273,8 +280,19 @@ namespace UmfrageEditor
 
 		private void m_btnFertig_Click(object sender, System.EventArgs e)
 		{
-			if (IsValid)
-			{}
+			SaveUmfrage();
+			if (m_pnFrageErstellen.Visible)
+			{
+				SaveFrage();
+				if (m_tblAntwortmoeglErstellen.Visible)
+				{
+					SaveAntworten();
+				}
+			}
+			// Umfrage aus der Session schmeißen
+			SessionContainer.ReadFromSession(this).Umfrage.Clear();
+			// zur Persönlichen Startseite zurückschicken
+			Server.Transfer("defaultuser.aspx");
 		}
 
 		#endregion
@@ -450,6 +468,9 @@ namespace UmfrageEditor
 					m_rdbOderFrage.Checked = true;
 					break;
 			}
+
+			// neue Frage-Link anzeigen
+			m_pnNeueFrage.Visible = true;
 		}
 
 		private void ClearFrage()
@@ -470,6 +491,7 @@ namespace UmfrageEditor
 			ClearFrage();
 			m_pnFrageErstellen.Visible = true;
 			m_pnFrageUebernehmen.Visible = true;
+			m_pnNeueFrage.Visible = true;
 		}
 
 		private void NeueUmfrage()

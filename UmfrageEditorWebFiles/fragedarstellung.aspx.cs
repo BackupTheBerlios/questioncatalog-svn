@@ -23,10 +23,7 @@ namespace UmfrageEditor
 	public class fragedarstellung : System.Web.UI.Page
 	{
 		protected System.Web.UI.WebControls.Table m_tblFragenListe;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnUmfrageTitel;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl m_lbUmfrageTitel;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl P1;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl m_lbComment;
 		protected System.Web.UI.WebControls.LinkButton LinkLogout;
 		protected System.Web.UI.WebControls.Label lbLoginStatus;
 		protected System.Web.UI.WebControls.LinkButton LinkLogin;
@@ -40,8 +37,12 @@ namespace UmfrageEditor
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_user;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_menu_debug;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_logout;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnUmfrageTitel;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_lbUmfrageTitel;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_lbComment;
+		protected System.Web.UI.WebControls.DataGrid m_dgFragedarstellung;
 	
-		protected DataAccessBenutzer daBenutzer;
+		protected DataAccessBenutzer daBenutzer = new DataAccessBenutzer();
 
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -49,17 +50,100 @@ namespace UmfrageEditor
 
 			// Falls keine Umfrage geladen ist, zurück zur Startseite
 			UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
+
+			// TEST: Umfrage laden
+			umfr.Load(16);
+
 			if (!umfr.IsLoaded)
 			{
-				
+				Server.Transfer("default.aspx");
 			}
-
-			daBenutzer = new DataAccessBenutzer();
 
 			// Einblendungen für Login und Navmenü prüfen
 			check_visibility();
 
+			// Initialisierungen
+			if (!IsPostBack)
+			{
+				// Umfrage aus der DB ziehen
+				DSUmfragen dsUmfr = new DataAccessUmfragen().GetUmfrageByID(umfr.UmfrageID);
+
+				if (dsUmfr.umfragen.Count == 1)
+				{
+					// Umfragetitel setzen
+					m_lbUmfrageTitel.InnerText = dsUmfr.umfragen[0].Titel;
+					m_lbComment.InnerText = dsUmfr.umfragen[0].Beschreibung;
+					ShowFragen();
+				}
+			}
+
 		}
+
+		#region Hilfsfunktionen
+
+		private void ShowFragen()
+		{
+			UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
+			// alle Fragen zu der Umfrage aus der DB ziehen
+			SqlParameter pAllFragen = DataAccessFragen.Paramr_UmfrageID;
+			pAllFragen.Value = umfr.UmfrageID;
+			DataParameters parameters = new	DataParameters();
+			parameters.Add(pAllFragen);
+			DSFragen dsAllFragen = new DataAccessFragen().Select(parameters);
+
+			// DataGrid vorbereiten
+			m_dgFragedarstellung.DataSource = dsAllFragen.fragen;
+			m_dgFragedarstellung.DataBind();
+
+			// Fragen in Datagrid eintragen
+			for (int i = 0; i < m_dgFragedarstellung.Items.Count; i++)
+			{
+				// Titel setzen
+				Label lb = (Label)DataGridAccess.GetControlFromDataGrid(m_dgFragedarstellung.Items[i], typeof(Label), 1, 0);
+				if (lb != null)
+				{
+					lb.Text = dsAllFragen.fragen[i].Text;
+				}
+
+				// Antwortmöglickeiten darstellen
+				PutAntworten(m_dgFragedarstellung.Items[i],dsAllFragen.fragen[i].FrageID, dsAllFragen.fragen[i].Frageart);
+
+			}
+
+		}
+
+		private void PutAntworten(DataGridItem item, int frageID, int frageart)
+		{
+			// Antwortmöglichkeiten aus der DB ziehen
+			SqlParameter pFrageID = DataAccessAwmoeglichkeiten.Paramr_FrageID;
+			pFrageID.Value = frageID;
+			DataParameters parameters = new DataParameters();
+			parameters.Add(pFrageID);
+			DSAwmoeglichkeiten dsAntw = new DataAccessAwmoeglichkeiten().Select(parameters);
+
+			switch (frageart)
+			{
+				case DBConstants.TextFrage:
+					TextBox txt = (TextBox)DataGridAccess.GetControlFromDataGrid(item, typeof(TextBox), 1, 0);
+					if (txt != null)
+					{
+						txt.Visible = true;
+					}
+					break;
+				case DBConstants.UndFrage:
+					CheckBoxList chbl = (CheckBoxList)DataGridAccess.GetControlFromDataGrid(item, typeof(CheckBoxList), 1, 0);
+					if (chbl != null)
+					{
+						chbl.Visible = true;
+						chbl.DataTextField = dsAntw.awmoeglichkeiten.Columns["Text"].ToString();
+						chbl.DataSource = dsAntw.awmoeglichkeiten;
+						chbl.DataBind();
+					}
+					break;
+			}
+		}
+
+		#endregion
 
 		#region Vom Web Form-Designer generierter Code
 		override protected void OnInit(EventArgs e)

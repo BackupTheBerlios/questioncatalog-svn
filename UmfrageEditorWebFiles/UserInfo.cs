@@ -70,12 +70,12 @@ namespace UmfrageEditor
 			DSBenutzer dsUser = daUser.Select(loginParams);
 
 			// genau 1 Datensatz?
-			if (dsUser.benutzer.Rows.Count == 1)
+			if (dsUser.benutzer.Count == 1)
 			{
 				m_isLoggedIn = true;
 				m_username = username;
-				m_userID = (int)dsUser.benutzer.Rows[0]["UserID"];
-				m_isAdmin = (1 == (int)dsUser.benutzer.Rows[0]["GruppenID"]);
+				m_userID = dsUser.benutzer[0].UserID;
+				m_isAdmin = (DBConstants.Admin == dsUser.benutzer[0].GruppenID);
 			}
 			else
 			{

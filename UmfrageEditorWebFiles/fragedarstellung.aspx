@@ -78,6 +78,11 @@
 														</DIV>
 													</DIV>
 												</DIV>
+											</TD>
+										</TR>
+										<TR>
+											<TD>
+												<br>
 												<DIV id="m_pnUmfrageTitel" style="WIDTH: 550px; HEIGHT: 100px" runat="server" ms_positioning="FlowLayout">
 													<P id="P1"></P>
 													<FONT size="3"></FONT>
@@ -87,10 +92,22 @@
 													<DIV id="m_lbComment" style="DISPLAY: inline; WIDTH: 100%; HEIGHT: 15px" align="center"
 														runat="server" ms_positioning="FlowLayout"></DIV>
 												</DIV>
-											</TD>
-										</TR>
-										<TR>
-											<TD></TD>
+												<asp:DataGrid id="m_dgFragedarstellung" runat="server" BorderWidth="0px" AutoGenerateColumns="False"
+													GridLines="None">
+													<Columns>
+														<asp:BoundColumn DataField="FrageID"></asp:BoundColumn>
+														<asp:TemplateColumn>
+															<ItemTemplate>
+																<P>
+																	<asp:Label id="Label1" runat="server">Label</asp:Label></P>
+																<P>
+																	<asp:TextBox id="TextBox1" runat="server" Visible="False"></asp:TextBox>
+																	<asp:CheckBoxList id="CheckBoxList1" runat="server" Visible="False"></asp:CheckBoxList>
+																	<asp:DropDownList id="DropDownList1" runat="server" Visible="False"></asp:DropDownList></P>
+															</ItemTemplate>
+														</asp:TemplateColumn>
+													</Columns>
+												</asp:DataGrid></TD>
 										</TR>
 									</TABLE>
 								</TD>
