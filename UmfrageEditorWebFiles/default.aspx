@@ -93,7 +93,21 @@ MM_reloadPage(true);
 											</td>
 										</tr>
 										<tr>
-											<td></td>
+											<td align="center">
+												<P align="center"><BR>
+													<BR>
+													Wählen Sie eine Umfrage aus, an der Sie teilnehmen möchten</P>
+												<P>
+													<asp:DataGrid id="m_dgUmfragen" runat="server" CssClass="text" Width="424px" AutoGenerateColumns="False"
+														BorderStyle="None" BorderWidth="0px" GridLines="None">
+														<HeaderStyle Font-Bold="True"></HeaderStyle>
+														<Columns>
+															<asp:BoundColumn DataField="UmfrageID" HeaderText="ID"></asp:BoundColumn>
+															<asp:HyperLinkColumn Target="_parent" DataTextField="Titel" HeaderText="Titel der Umfrage" NavigateUrl="fragedarstellung.aspx"></asp:HyperLinkColumn>
+															<asp:BoundColumn DataField="Beschreibung" HeaderText="Beschreibung"></asp:BoundColumn>
+														</Columns>
+													</asp:DataGrid></P>
+											</td>
 										</tr>
 									</table>
 									<p>&nbsp;</p>

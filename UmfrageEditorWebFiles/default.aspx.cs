@@ -34,6 +34,7 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.LinkButton LinkLogin;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_login;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_logout;
+		protected System.Web.UI.WebControls.DataGrid m_dgUmfragen;
 
 		protected DataAccessBenutzer daBenutzer = new DataAccessBenutzer();
 
@@ -41,6 +42,7 @@ namespace UmfrageEditor
 		{
 			// Einblendungen für Login und Navmenü prüfen
 			check_visibility();
+			RefreshDGUmfragen();
 		}
 
 		#region Vom Web Form-Designer generierter Code
@@ -59,8 +61,6 @@ namespace UmfrageEditor
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.LinkLogout.Click += new System.EventHandler(this.LinkLogout_Click);
-			this.LinkLogin.Click += new System.EventHandler(this.LinkLogin_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -250,5 +250,20 @@ namespace UmfrageEditor
 		}
 
 		#endregion
+
+
+		private void RefreshDGUmfragen()
+		{
+			// alle Benutzerdatensätze aus der DB ziehen und im Datagrid darstellen 
+			DSUmfragen dsAllUmfragen = new DataAccessUmfragen().Select();
+			m_dgUmfragen.DataSource = dsAllUmfragen.umfragen;
+			m_dgUmfragen.DataBind();
+		}
+
+		private void DataGrid1_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+		
+		}
+
 	}
 }

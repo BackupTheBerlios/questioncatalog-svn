@@ -81,8 +81,10 @@
 											</TD>
 										</TR>
 										<TR>
-											<TD class="text" align="center"><BR>
-												Umfrageergebnisse<BR>
+											<TD align="center">
+												<P><BR>
+													Umfrageergebnisse<BR>
+												</P>
 											</TD>
 										</TR>
 									</TABLE>
