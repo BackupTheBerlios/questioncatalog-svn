@@ -27,14 +27,20 @@
 										frameBorder="0" width="120" scrolling="no"></IFRAME>
 								</td>
 								<TD vAlign="top" align="left">
-									<DIV id="m_pnUmfrageTitel" style="WIDTH: 600px; POSITION: relative; HEIGHT: 248px" runat="server"
+									<DIV id="m_pnUmfrageTitel" style="WIDTH: 600px; POSITION: relative; HEIGHT: 264px" runat="server"
 										ms_positioning="GridLayout"><asp:label id="m_lbTitle" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 88px" runat="server">Titel</asp:label><asp:label id="m_lbComment" style="Z-INDEX: 102; LEFT: 8px; POSITION: absolute; TOP: 128px"
 											runat="server">Kurzbeschreibung</asp:label><asp:textbox id="m_txtTitel" style="Z-INDEX: 103; LEFT: 128px; POSITION: absolute; TOP: 80px"
-											runat="server" Width="393px"></asp:textbox><asp:button id="m_btnTitelUebernehmen" style="Z-INDEX: 104; LEFT: 376px; POSITION: absolute; TOP: 192px"
-											runat="server" Text="Übernehmen"></asp:button><asp:checkbox id="m_chbOnline" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 200px"
+											runat="server" Width="393px"></asp:textbox><asp:button id="m_btnTitelUebernehmen" style="Z-INDEX: 104; LEFT: 376px; POSITION: absolute; TOP: 208px"
+											runat="server" Text="Übernehmen"></asp:button><asp:checkbox id="m_chbOnline" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 208px"
 											runat="server" Text="Umfrage online stellen"></asp:checkbox><asp:textbox id="m_txtComment" style="Z-INDEX: 106; LEFT: 128px; POSITION: absolute; TOP: 120px"
 											runat="server" Width="392px"></asp:textbox><asp:label id="m_lbHeadline" style="Z-INDEX: 107; LEFT: 8px; POSITION: absolute; TOP: 24px"
-											runat="server">Neue Umfrage Erstellen</asp:label></DIV>
+											runat="server">Neue Umfrage Erstellen</asp:label>
+										<asp:RequiredFieldValidator id="m_valTitel" style="Z-INDEX: 108; LEFT: 536px; POSITION: absolute; TOP: 88px"
+											runat="server" Width="8px" ErrorMessage="!" ControlToValidate="m_txtTitel" EnableClientScript="False"></asp:RequiredFieldValidator>
+										<asp:RequiredFieldValidator id="m_valComment" style="Z-INDEX: 109; LEFT: 536px; POSITION: absolute; TOP: 128px"
+											runat="server" ErrorMessage="!" ControlToValidate="m_txtComment" EnableClientScript="False"></asp:RequiredFieldValidator>
+										<asp:Label id="m_lbValidatorMessageTitel" style="Z-INDEX: 110; LEFT: 128px; POSITION: absolute; TOP: 168px"
+											runat="server" ForeColor="Red" Visible="False">Bitte füllen Sie das markierte Feld aus!</asp:Label></DIV>
 									<TABLE id="m_tblFragen" style="WIDTH: 600px; HEIGHT: 57px" cellSpacing="1" cellPadding="1"
 										width="600" border="0" runat="server">
 										<TR>
@@ -52,16 +58,20 @@
 												</asp:datagrid></TD>
 										</TR>
 										<TR>
-											<TD style="WIDTH: 109px"><asp:button id="m_btnLoeschen" runat="server" Text="Löschen"></asp:button></TD>
-											<TD><asp:button id="m_btnBearbeiten" runat="server" Width="96px" Text="Bearbeiten"></asp:button></TD>
+											<TD style="WIDTH: 100px"><asp:button id="m_btnLoeschen" runat="server" Text="Löschen" CausesValidation="False"></asp:button></TD>
+											<TD><asp:button id="m_btnBearbeiten" runat="server" Width="96px" Text="Bearbeiten" CausesValidation="False"></asp:button></TD>
 										</TR>
 									</TABLE>
-									<DIV id="m_pnFrageErstellen" style="WIDTH: 100%; POSITION: relative; HEIGHT: 186px" runat="server"
+									<DIV id="m_pnFrageErstellen" style="WIDTH: 100%; POSITION: relative; HEIGHT: 218px" runat="server"
 										ms_positioning="GridLayout"><asp:label id="m_lbFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px" runat="server">Frage</asp:label><asp:textbox id="m_txtFrageTitel" style="Z-INDEX: 102; LEFT: 96px; POSITION: absolute; TOP: 24px"
-											runat="server" Width="424px"></asp:textbox><asp:radiobutton id="m_rdbTextfrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 72px"
-											runat="server" Text="Text-Frage" GroupName="frageart" Checked="True" AutoPostBack="True"></asp:radiobutton><asp:radiobutton id="m_rdbUndFrage" style="Z-INDEX: 104; LEFT: 8px; POSITION: absolute; TOP: 104px"
-											runat="server" Text="Und-Frage (mehrfachauswahl möglich)" GroupName="frageart" AutoPostBack="True"></asp:radiobutton><asp:radiobutton id="m_rdbOderFrage" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 136px"
-											runat="server" Text="Oder-Frage (keine Mehrfachauswahl)" GroupName="frageart" AutoPostBack="True"></asp:radiobutton></DIV>
+											runat="server" Width="424px"></asp:textbox><asp:radiobutton id="m_rdbTextfrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 112px"
+											runat="server" Text="Text-Frage" GroupName="frageart" Checked="True" AutoPostBack="True"></asp:radiobutton><asp:radiobutton id="m_rdbUndFrage" style="Z-INDEX: 104; LEFT: 8px; POSITION: absolute; TOP: 144px"
+											runat="server" Text="Und-Frage (mehrfachauswahl möglich)" GroupName="frageart" AutoPostBack="True"></asp:radiobutton><asp:radiobutton id="m_rdbOderFrage" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 176px"
+											runat="server" Text="Oder-Frage (keine Mehrfachauswahl)" GroupName="frageart" AutoPostBack="True"></asp:radiobutton>
+										<asp:RequiredFieldValidator id="m_valFrageTitel" style="Z-INDEX: 106; LEFT: 536px; POSITION: absolute; TOP: 32px"
+											runat="server" ErrorMessage="!" ControlToValidate="m_txtFrageTitel" EnableClientScript="False"></asp:RequiredFieldValidator>
+										<asp:Label id="m_lbValidatorMessageFrage" style="Z-INDEX: 107; LEFT: 96px; POSITION: absolute; TOP: 72px"
+											runat="server" ForeColor="Red" Visible="False">Bitte füllen Sie das markierte Feld aus!</asp:Label></DIV>
 									<TABLE id="m_tblAntwortmoeglErstellen" style="WIDTH: 600px; HEIGHT: 84px" cellSpacing="1"
 										cellPadding="1" width="600" border="0" runat="server">
 										<TR>
@@ -85,7 +95,7 @@
 												</asp:datagrid></TD>
 										</TR>
 										<TR>
-											<TD style="WIDTH: 447px"><asp:linkbutton id="m_lnkbMehrAntw" runat="server">mehr Antwortmöglichkeiten</asp:linkbutton></TD>
+											<TD style="WIDTH: 447px"><asp:linkbutton id="m_lnkbMehrAntw" runat="server" CausesValidation="False">mehr Antwortmöglichkeiten</asp:linkbutton></TD>
 											<TD></TD>
 										</TR>
 									</TABLE>
@@ -95,7 +105,7 @@
 									<DIV id="m_pnNeueFrage" style="WIDTH: 600px; POSITION: relative; HEIGHT: 88px" runat="server"
 										ms_positioning="GridLayout"><asp:button id="m_btnFertig" style="Z-INDEX: 102; LEFT: 448px; POSITION: absolute; TOP: 32px"
 											runat="server" Text="Fertig"></asp:button><asp:linkbutton id="m_lnkbNeueFrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 40px"
-											runat="server">neue Frage erstellen</asp:linkbutton></DIV>
+											runat="server" CausesValidation="False">neue Frage erstellen</asp:linkbutton></DIV>
 								</TD>
 							</tr>
 						</table>

@@ -13,3 +13,5 @@ DataGrid	dg
 Checkbox	chb
 CheckBoxList	chbl
 RadioButton	rdb
+Validator	val
+DropDownList	ddl

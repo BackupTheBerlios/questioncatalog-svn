@@ -45,6 +45,11 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.LinkButton m_lnkbNeueFrage;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnNeueFrage;
 		protected System.Web.UI.WebControls.Label m_lbWarningAlreadyAnswered;
+		protected System.Web.UI.WebControls.RequiredFieldValidator m_valTitel;
+		protected System.Web.UI.WebControls.RequiredFieldValidator m_valComment;
+		protected System.Web.UI.WebControls.RequiredFieldValidator m_valFrageTitel;
+		protected System.Web.UI.WebControls.Label m_lbValidatorMessageTitel;
+		protected System.Web.UI.WebControls.Label m_lbValidatorMessageFrage;
 		protected string PageTitle;
 
 		/// <summary>
@@ -238,7 +243,10 @@ namespace UmfrageEditor
 		private void m_btnTitelUebernehmen_Click(object sender, System.EventArgs e)
 		{
 			SaveUmfrage();
-			LoadFrage(FrageID);			
+			if (IsValid)
+			{
+				LoadFrage(FrageID);			
+			}
 		}
 
 		private void m_btnFrageUebernehmen_Click(object sender, System.EventArgs e)
@@ -469,6 +477,9 @@ namespace UmfrageEditor
 		{
 			if (IsValid)
 			{
+				// Fehlermessage zurückssetzen
+				m_lbValidatorMessageTitel.Visible = false;
+
 				int onlinestatus = (m_chbOnline.Checked ? DBConstants.Online : DBConstants.NotOnline);
 				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
 				UserInfo user = SessionContainer.ReadFromSession(this).User;
@@ -496,12 +507,19 @@ namespace UmfrageEditor
 					umfr.Load(dsUmfr.umfragen[0].UmfrageID);
 				}
 			}
+			else
+			{
+				m_lbValidatorMessageTitel.Visible = true;
+			}
 		}
 
 		private void SaveFrage()
 		{
 			if (IsValid)
 			{
+				// Fehlermessage zurückssetzen
+				m_lbValidatorMessageFrage.Visible = false;
+
 				// Daten vorbereiten
 				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
 				int frageart = DBConstants.TextFrage;
@@ -538,6 +556,10 @@ namespace UmfrageEditor
 				FrageID = dsFragen.fragen[0].FrageID;
 
 				RefreshDGFragen();
+			}
+			else
+			{
+				m_lbValidatorMessageFrage.Visible = true;
 			}
 		}
 

@@ -73,6 +73,8 @@ namespace UmfrageEditor
 		{    
 			this.m_btnBenutzer.Click += new System.EventHandler(this.m_btnBenutzer_Click);
 			this.m_btnUmfragen.Click += new System.EventHandler(this.m_btnUmfragen_Click);
+			this.m_dgBenutzer.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.m_dgBenutzer_ItemCommand);
+			this.m_btnBenutzerLoeschen.Click += new System.EventHandler(this.m_btnBenutzerLoeschen_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -90,6 +92,30 @@ namespace UmfrageEditor
 		private void m_btnUmfragen_Click(object sender, System.EventArgs e)
 		{
 			ShowUmfragen();
+		}
+
+		private void m_btnBenutzerLoeschen_Click(object sender, System.EventArgs e)
+		{
+			// für alle selektierten Zeilen den entsprechenden Datensatz löschen
+			DataAccessBenutzer daBenutzer = new DataAccessBenutzer();
+			// IDs aller selektierten Fragen ermitteln
+			for (int i = 0; i < m_dgBenutzer.Items.Count; i++)
+			{
+				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgBenutzer.Items[i], typeof(CheckBox), 1, 0);
+				if (cbx != null && cbx.Checked)
+				{
+					// Datensatz löschen
+					int id = Convert.ToInt32(m_dgBenutzer.Items[i].Cells[0].Text);
+					daBenutzer.DeleteBenutzer(id);
+				}
+			}
+
+			RefreshDGBenutzer();
+		}
+
+		private void ddlUserRights_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			m_btnBenutzer.Text = "bla";
 		}
 
 		#endregion
@@ -132,8 +158,8 @@ namespace UmfrageEditor
 			// Benutzerrechte in den DropdownListen darstellen
 			// Inhalt der Dropdownlisten vorbereiten
 			ArrayList choice = new ArrayList();
-			choice.Add("Admin");
 			choice.Add("Benutzer");
+			choice.Add("Admin");
 			for (int i = 0; i < dsAllUsers.benutzer.Count; i++)
 			{
 				DropDownList ddl = (DropDownList)DataGridAccess.GetControlFromDataGrid(m_dgBenutzer.Items[i], typeof(DropDownList), 3, 0);
@@ -141,6 +167,9 @@ namespace UmfrageEditor
 				{
 					ddl.DataSource = choice;
 					ddl.DataBind();
+					ddl.SelectedIndex = dsAllUsers.benutzer[i].GruppenID;
+					ddl.SelectedIndexChanged +=new EventHandler(ddlUserRights_SelectedIndexChanged);
+					ddl.AutoPostBack = true;
 				}
 			}
 		}
@@ -155,6 +184,10 @@ namespace UmfrageEditor
 
 		#endregion
 
+		private void m_dgBenutzer_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+		{
+			m_btnBenutzer.Text = "bla";
+		}
 
 	}
 }
