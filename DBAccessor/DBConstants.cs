@@ -7,10 +7,10 @@ namespace DBAccessor
 	/// </summary>
 	public class DBConstants
 	{
-		public DBConstants()
-		{
-
-		}
+		/// <summary>
+		/// repräsentiert einen ungültigen Wert (zB. für IDs)
+		/// </summary>
+		public const int NotValid = -1;
 
 		#region Konstanten für Benutzer
 
@@ -40,7 +40,9 @@ namespace DBAccessor
 
 		#region Debug Infos
 
-		// Debugoptionen ein=true / aus=false schalten
+		/// <summary>
+		/// Debugoptionen ein=true / aus=false schalten
+		/// </summary> 
 		public static bool Debugmodus = true;
 			
 		#endregion

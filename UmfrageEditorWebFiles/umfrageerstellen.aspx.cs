@@ -113,14 +113,17 @@ namespace UmfrageEditor
 		{    
 			this.m_btnLoeschen.Click += new System.EventHandler(this.m_btnLoeschen_Click);
 			this.m_btnBearbeiten.Click += new System.EventHandler(this.m_btnBearbeiten_Click);
-			this.m_lnkbNeueFrage.Click += new System.EventHandler(this.m_lnkbNeueFrage_Click);
 			this.m_rdbTextfrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
 			this.m_rdbUndFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
 			this.m_rdbOderFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
+			this.m_lnkbMehrAntw.Click += new System.EventHandler(this.m_lnkbMehrAntw_Click);
+			this.m_lnkbNeueFrage.Click += new System.EventHandler(this.m_lnkbNeueFrage_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
+
+		#region Benutzerdefinierte Eventhandler
 
 		private void m_btnBearbeiten_Click(object sender, System.EventArgs e)
 		{
@@ -168,16 +171,16 @@ namespace UmfrageEditor
 
 		private void m_btnLoeschen_Click(object sender, System.EventArgs e)
 		{
-			for (int i = 0; i < m_dgFragen.Items.Count; i++)
-			{
-				if (m_dgFragen.Items[i].ItemType == ListItemType.Item || m_dgFragen.Items[i].ItemType == ListItemType.AlternatingItem)
-				{
-					if (((CheckBox)(m_dgFragen.Items[i].Cells[0].Controls[1])).Checked)
-					{
-						// TODO: Frage löschen
-					}
-				}
-			}
+//			for (int i = 0; i < m_dgFragen.Items.Count; i++)
+//			{
+//				if (m_dgFragen.Items[i].ItemType == ListItemType.Item || m_dgFragen.Items[i].ItemType == ListItemType.AlternatingItem)
+//				{
+//					if (((CheckBox)(m_dgFragen.Items[i].Cells[0].Controls[1])).Checked)
+//					{
+//						// TODO: Frage löschen
+//					}
+//				}
+//			}
 		}
 
 		private void m_lnkbNeueFrage_Click(object sender, System.EventArgs e)
@@ -198,6 +201,45 @@ namespace UmfrageEditor
 			m_tblAntwortmoeglErstellen.Visible = (m_rdbOderFrage.Checked || m_rdbUndFrage.Checked);
 			PrepareDGAntwErstellen(6);
 		}
+
+		private void m_lnkbMehrAntw_Click(object sender, System.EventArgs e)
+		{
+			ArrayList tempData = new ArrayList();
+
+			// den Inhalt aller Textboxen die nicht leer sind zwischenspeichern
+			for (int i = 0; i < m_dgAntwErstellen.Items.Count; i++)
+			{
+				TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 0, 0);
+				if (txtbx != null)
+				{
+					if (txtbx.Text.Trim() != "")
+					{
+						tempData.Add(new Pair(txtbx.Text, m_dgAntwErstellen.Items[i].Cells[1].Text));
+					}
+
+//					// Antworttext in das Editfeld dieser Zeile eintragen
+//					txtbx.Text = dsAwMoegl.awmoeglichkeiten[i].Text;
+//					// AntwortMögl.-ID in die gleiche Zeile eintragen
+//					m_dgAntwErstellen.Items[i].Cells[2].Text = dsAwMoegl.awmoeglichkeiten[i].AwmID.ToString();
+				}
+			}
+
+			// mehr Eingabefelder erzeugen
+			PrepareDGAntwErstellen(m_dgAntwErstellen.Items.Count + 4);
+
+			// Daten in die Textboxen zurückschreiben 
+			for (int i = 0; i < tempData.Count; i++)
+			{
+				TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 0, 0);
+				if (txtbx != null)
+				{
+					txtbx.Text = (string)((Pair)tempData[i]).First;
+					m_dgAntwErstellen.Items[i].Cells[1].Text = (string)((Pair)tempData[i]).Second;
+				}
+			}
+		}
+
+		#endregion
 
 		#region Hilfsfunktionen
 
@@ -221,11 +263,17 @@ namespace UmfrageEditor
 			ArrayList rowsCountArray = new ArrayList();
 			for (int i = 0; i < numOfTxt; i++)
 			{
-				rowsCountArray.Add(i);
+				rowsCountArray.Add(DBConstants.NotValid);
 			}
 
 			m_dgAntwErstellen.DataSource = rowsCountArray;
 			m_dgAntwErstellen.DataBind();  
+
+			// ID-Felder im Datagrid mit "NotValid" besetzen
+			for (int j = 0; j < m_dgAntwErstellen.Items.Count; j++)
+			{
+				m_dgAntwErstellen.Items[j].Cells[1].Text = DBConstants.NotValid.ToString();
+			}
 		}
 
 		private void FillDGAntwErstellen(int FrageID)
@@ -247,15 +295,14 @@ namespace UmfrageEditor
 				int i;
 				for (i = 0; i < dsAwMoegl.awmoeglichkeiten.Count; i++)
 				{
-					TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 1, 0);
+					TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 0, 0);
 					if (txtbx != null)
 					{
 						// Antworttext in das Editfeld dieser Zeile eintragen
 						txtbx.Text = dsAwMoegl.awmoeglichkeiten[i].Text;
 						// AntwortMögl.-ID in die gleiche Zeile eintragen
-						m_dgAntwErstellen.Items[i].Cells[2].Text = dsAwMoegl.awmoeglichkeiten[i].AwmID.ToString();
+						m_dgAntwErstellen.Items[i].Cells[1].Text = dsAwMoegl.awmoeglichkeiten[i].AwmID.ToString();
 					}
-					
 				}
 			}
 			else
@@ -308,8 +355,6 @@ namespace UmfrageEditor
 		}
 
 		#endregion
-
-
 
 	}
 }
