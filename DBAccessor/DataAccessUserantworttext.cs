@@ -97,6 +97,25 @@ namespace DBAccessor
 			m_adpUserantworttext.Update(dsUpdate, dsUpdate.userantworttext.TableName);
 		}
 
+		public DSUserantworttext getAntwortByID(int id)
+		{
+			SqlParameter pID = ParamUawtID;
+			pID.Value = id;
+			DataParameters parameter = new DataParameters();
+			parameter.Add(pID);
+			return Select(parameter);
+		}
+
+		public void DeleteAntwort(int id)
+		{
+			DSUserantworttext dsDelete = getAntwortByID(id);
+			if (dsDelete.userantworttext.Count == 1)
+			{
+				dsDelete.userantworttext[0].Delete();
+				CommitChanges(dsDelete);
+			}
+		}
+
 		#region Klassenmethoden zur Vorinitialisierung zu verwendender SQLParameter
 		/// <summary>
 		/// gibt einen für die Spalte "UawtID" der Tabelle userantworttext initialisierten SQLParameter zurück

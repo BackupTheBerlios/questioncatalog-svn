@@ -100,6 +100,25 @@ namespace DBAccessor
 			m_adpFragen.Update(dsUpdate, dsUpdate.fragen.TableName);
 		}
 
+		public DSFragen getFrageByID(int id)
+		{
+			SqlParameter pID = ParamFrageID;
+			pID.Value = id;
+			DataParameters parameter = new DataParameters();
+			parameter.Add(pID);
+			return Select(parameter);
+		}
+
+		public void DeleteFrage(int id)
+		{
+			DSFragen dsDelete = getFrageByID(id);
+			if (dsDelete.fragen.Count == 1)
+			{
+				dsDelete.fragen[0].Delete();
+				CommitChanges(dsDelete);
+			}
+		}
+
 		#region Klassenmethoden zur Vorinitialisierung zu verwendender SQLParameter
 		/// <summary>
 		/// gibt einen für die Spalte "FrageID" der Tabelle fragen initialisierten SQLParameter zurück

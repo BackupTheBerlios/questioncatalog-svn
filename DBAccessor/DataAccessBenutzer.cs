@@ -100,6 +100,25 @@ namespace DBAccessor
 			m_adpBenutzer.Update(dsUpdate, dsUpdate.benutzer.TableName);
 		}
 
+		public DSBenutzer getBenutzerByID(int id)
+		{
+			SqlParameter pID = ParamUserID;
+			pID.Value = id;
+			DataParameters parameter = new DataParameters();
+			parameter.Add(pID);
+			return Select(parameter);
+		}
+
+		public void DeleteBenutzer(int id)
+		{
+			DSBenutzer dsDelete = getBenutzerByID(id);
+			if (dsDelete.benutzer.Count == 1)
+			{
+				dsDelete.benutzer[0].Delete();
+				CommitChanges(dsDelete);
+			}
+		}
+
 		#region Klassenmethoden zur Vorinitialisierung zu verwendender SQLParameter
 		/// <summary>
 		/// gibt einen für die Spalte "UserID" der Tabelle benutzer initialisierten SQLParameter zurück

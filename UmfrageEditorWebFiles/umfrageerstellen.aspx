@@ -57,11 +57,13 @@
 										</TR>
 									</TABLE>
 									<DIV id="m_pnFrageErstellen" style="WIDTH: 100%; POSITION: relative; HEIGHT: 186px" runat="server"
-										ms_positioning="GridLayout"><asp:label id="m_lbFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px" runat="server">Frage</asp:label><asp:textbox id="m_txtFrageTitel" style="Z-INDEX: 102; LEFT: 88px; POSITION: absolute; TOP: 24px"
+										ms_positioning="GridLayout"><asp:label id="m_lbFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px" runat="server">Frage</asp:label><asp:textbox id="m_txtFrageTitel" style="Z-INDEX: 102; LEFT: 96px; POSITION: absolute; TOP: 24px"
 											runat="server" Width="424px"></asp:textbox><asp:radiobutton id="m_rdbTextfrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 72px"
 											runat="server" Text="Text-Frage" GroupName="frageart" Checked="True" AutoPostBack="True"></asp:radiobutton><asp:radiobutton id="m_rdbUndFrage" style="Z-INDEX: 104; LEFT: 8px; POSITION: absolute; TOP: 104px"
 											runat="server" Text="Und-Frage (mehrfachauswahl möglich)" GroupName="frageart" AutoPostBack="True"></asp:radiobutton><asp:radiobutton id="m_rdbOderFrage" style="Z-INDEX: 105; LEFT: 8px; POSITION: absolute; TOP: 136px"
-											runat="server" Text="Oder-Frage (keine Mehrfachauswahl)" GroupName="frageart" AutoPostBack="True"></asp:radiobutton></DIV>
+											runat="server" Text="Oder-Frage (keine Mehrfachauswahl)" GroupName="frageart" AutoPostBack="True"></asp:radiobutton>
+										<asp:Label id="m_lbFrageID" style="Z-INDEX: 106; LEFT: 552px; POSITION: absolute; TOP: 32px"
+											runat="server" Visible="False">-1</asp:Label></DIV>
 									<TABLE id="m_tblAntwortmoeglErstellen" style="WIDTH: 600px; HEIGHT: 84px" cellSpacing="1"
 										cellPadding="1" width="600" border="0" runat="server">
 										<TR>

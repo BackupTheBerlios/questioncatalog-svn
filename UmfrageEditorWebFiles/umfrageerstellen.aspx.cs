@@ -34,7 +34,6 @@ namespace UmfrageEditor
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnUmfrageTitel;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnFrageErstellen;
 		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwortmoeglErstellen;
-//		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwortM;
 		protected System.Web.UI.WebControls.Button m_btnFrageUebernehmen;
 		protected System.Web.UI.WebControls.Label m_lbHeadline;
 		protected System.Web.UI.WebControls.TextBox m_txtFrageTitel;
@@ -45,7 +44,17 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.Button m_btnFertig;
 		protected System.Web.UI.WebControls.LinkButton m_lnkbNeueFrage;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnNeueFrage;
+		protected System.Web.UI.WebControls.Label m_lbFrageID;
 		protected string PageTitle;
+
+		/// <summary>
+		/// speichert die FrageID der in Bearbeitung befindlichen Frage
+		/// </summary>
+		protected int FrageID
+		{
+			get { return (ViewState["FrageID"] != null) ? (int)ViewState["FrageId"] : DBConstants.NotValid; } 
+			set { ViewState["FrageID"] = value; }
+		}
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -64,6 +73,9 @@ namespace UmfrageEditor
 
 				// Abschnitte, die immer sichtbar sein sollen
 				m_pnUmfrageTitel.Visible = true;
+
+				// Elemente, die nie sichtbar sein sollen
+				m_lbFrageID.Visible = false;
 
 				// soll eine neue Umfrage erstellt werden?
 				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
@@ -117,6 +129,7 @@ namespace UmfrageEditor
 			this.m_rdbUndFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
 			this.m_rdbOderFrage.CheckedChanged += new System.EventHandler(this.m_rdbFrageart_CheckedChanged);
 			this.m_lnkbMehrAntw.Click += new System.EventHandler(this.m_lnkbMehrAntw_Click);
+			this.m_btnFertig.Click += new System.EventHandler(this.m_btnFertig_Click);
 			this.m_lnkbNeueFrage.Click += new System.EventHandler(this.m_lnkbNeueFrage_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
@@ -133,35 +146,41 @@ namespace UmfrageEditor
 				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgFragen.Items[i], typeof(CheckBox), 0, 0);
 				if (cbx != null && cbx.Checked)
 				{
-					// den Fragetitel eintragen
-					m_txtFrageTitel.Text = m_dgFragen.Items[i].Cells[1].Text;
-					m_pnFrageErstellen.Visible = true;
-					m_pnFrageUebernehmen.Visible = true;
-
-					// bei Und- und Oderfragen auch die Antwortmöglichkeiten eintragen
-					int frageart = Convert.ToInt32(m_dgFragen.Items[i].Cells[3].Text);
-					if (frageart != DBConstants.TextFrage)
-					{
-						FillDGAntwErstellen(Convert.ToInt32(m_dgFragen.Items[i].Cells[2].Text));
-						m_tblAntwortmoeglErstellen.Visible = true;
-					}
-
-					// Radiobutton entsprechend der Frageart setzen
-					m_rdbTextfrage.Checked = false;
-					m_rdbUndFrage.Checked = false;
-					m_rdbOderFrage.Checked = false;
-					switch(frageart)
-					{
-						case DBConstants.TextFrage:
-							m_rdbTextfrage.Checked = true;
-							break;
-						case DBConstants.UndFrage:
-							m_rdbUndFrage.Checked = true;
-							break;
-						case DBConstants.OderFrage:
-							m_rdbOderFrage.Checked = true;
-							break;
-					}
+//					// den Fragetitel eintragen
+//					m_txtFrageTitel.Text = m_dgFragen.Items[i].Cells[1].Text;
+//					// FrageID in ein unsichbares Label schreiben
+//					// (wird nur im ViewState gespeichert und taucht nicht im Code auf, den der Client bekommt)
+//					m_lbFrageID.Text = m_dgFragen.Items[i].Cells[2].Text;
+//					// sicherheitshalber nochmal auf false setzen
+//					m_lbFrageID.Visible = false;
+//					FrageID = Convert.ToInt32(m_dgFragen.Items[i].Cells[2].Text);
+//					m_pnFrageErstellen.Visible = true;
+//					m_pnFrageUebernehmen.Visible = true;
+//
+//					// bei Und- und Oderfragen auch die Antwortmöglichkeiten eintragen
+//					int frageart = Convert.ToInt32(m_dgFragen.Items[i].Cells[3].Text);
+//					if (frageart != DBConstants.TextFrage)
+//					{
+//						FillDGAntwErstellen(Convert.ToInt32(m_dgFragen.Items[i].Cells[2].Text));
+//						m_tblAntwortmoeglErstellen.Visible = true;
+//					}
+//
+//					// Radiobutton entsprechend der Frageart setzen
+//					m_rdbTextfrage.Checked = false;
+//					m_rdbUndFrage.Checked = false;
+//					m_rdbOderFrage.Checked = false;
+//					switch(frageart)
+//					{
+//						case DBConstants.TextFrage:
+//							m_rdbTextfrage.Checked = true;
+//							break;
+//						case DBConstants.UndFrage:
+//							m_rdbUndFrage.Checked = true;
+//							break;
+//						case DBConstants.OderFrage:
+//							m_rdbOderFrage.Checked = true;
+//							break;
+//					}
 
 					// die erste selektierte Frage wurde gefunden, die weiteren werden nicht behandelt
 					break;
@@ -210,12 +229,7 @@ namespace UmfrageEditor
 
 		private void m_lnkbNeueFrage_Click(object sender, System.EventArgs e)
 		{
-			// alle Editfelder zurücksetzen
-			m_txtFrageTitel.Text = "";
-			m_rdbTextfrage.Checked = true;
-			m_rdbOderFrage.Checked = false;
-			m_rdbUndFrage.Checked = false;
-			m_tblAntwortmoeglErstellen.Visible = false;
+			ClearFrage();
 			m_pnFrageErstellen.Visible = true;
 			m_pnFrageUebernehmen.Visible = true;
 		}
@@ -241,11 +255,6 @@ namespace UmfrageEditor
 					{
 						tempData.Add(new Pair(txtbx.Text, m_dgAntwErstellen.Items[i].Cells[1].Text));
 					}
-
-//					// Antworttext in das Editfeld dieser Zeile eintragen
-//					txtbx.Text = dsAwMoegl.awmoeglichkeiten[i].Text;
-//					// AntwortMögl.-ID in die gleiche Zeile eintragen
-//					m_dgAntwErstellen.Items[i].Cells[2].Text = dsAwMoegl.awmoeglichkeiten[i].AwmID.ToString();
 				}
 			}
 
@@ -379,7 +388,80 @@ namespace UmfrageEditor
 			}
 		}
 
+		private void LoadFrage(int id)
+		{
+			FrageID = id;
+			// FrageID in ein unsichbares Label schreiben
+			// (wird nur im ViewState gespeichert und taucht nicht im Code auf, den der Client bekommt)
+			m_lbFrageID.Text = id.ToString();
+			// sicherheitshalber nochmal auf false setzen
+			m_lbFrageID.Visible = false;
+
+			// Frage neu aus der DB ziehen
+			SqlParameter pFrageID = DataAccessFragen.ParamFrageID;
+			pFrageID.Value = id;
+			DataParameters parameters = new DataParameters();
+			parameters.Add(pFrageID);
+			DSFragen dsFragen = new DataAccessFragen().Select(parameters);
+
+			if (dsFragen.fragen.Count != 1)
+			{
+				ClearFrage();
+				return;
+			}
+
+			// den Fragetitel eintragen
+			m_txtFrageTitel.Text = dsFragen.fragen[0].Text;
+			m_pnFrageErstellen.Visible = true;
+			m_pnFrageUebernehmen.Visible = true;
+			// Antwortmöglichkeiten vorsichtshalber ausblenden
+			m_tblAntwortmoeglErstellen.Visible = false;
+
+			// bei Und- und Oderfragen auch die Antwortmöglichkeiten eintragen
+			int frageart = dsFragen.fragen[0].Frageart;
+			if (frageart != DBConstants.TextFrage)
+			{
+				FillDGAntwErstellen(id);
+				m_tblAntwortmoeglErstellen.Visible = true;
+			}
+
+			// Radiobutton entsprechend der Frageart setzen
+			m_rdbTextfrage.Checked = false;
+			m_rdbUndFrage.Checked = false;
+			m_rdbOderFrage.Checked = false;
+			switch(frageart)
+			{
+				case DBConstants.TextFrage:
+					m_rdbTextfrage.Checked = true;
+					break;
+				case DBConstants.UndFrage:
+					m_rdbUndFrage.Checked = true;
+					break;
+				case DBConstants.OderFrage:
+					m_rdbOderFrage.Checked = true;
+					break;
+			}
+		}
+
+		private void ClearFrage()
+		{
+			FrageID = DBConstants.NotValid;
+			// alle Editfelder zurücksetzen
+			m_txtFrageTitel.Text = "";
+			m_rdbTextfrage.Checked = true;
+			m_rdbOderFrage.Checked = false;
+			m_rdbUndFrage.Checked = false;
+			m_tblAntwortmoeglErstellen.Visible = false;
+			m_pnFrageErstellen.Visible = false;
+			m_pnFrageUebernehmen.Visible = false;
+		}
+
 		#endregion
+
+		private void m_btnFertig_Click(object sender, System.EventArgs e)
+		{
+
+		}
 
 	}
 }

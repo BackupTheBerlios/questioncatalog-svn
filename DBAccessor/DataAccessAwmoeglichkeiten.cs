@@ -100,7 +100,26 @@ namespace DBAccessor
 			m_adpAwmoegl.Update(dsUpdate, dsUpdate.awmoeglichkeiten.TableName);
 		}
 
-		#region Klassenmethoden zur Vorinitialisierung zu verwendender SQLParameter
+		public DSAwmoeglichkeiten getAntwortmoeglByID(int id)
+		{
+			SqlParameter pID = ParamAwmID;
+			pID.Value = id;
+			DataParameters parameter = new DataParameters();
+			parameter.Add(pID);
+			return Select(parameter);
+		}
+
+		public void DeleteAntwortmoegl(int id)
+		{
+			DSAwmoeglichkeiten dsDelete = getAntwortmoeglByID(id);
+			if (dsDelete.awmoeglichkeiten.Count == 1)
+			{
+				dsDelete.awmoeglichkeiten[0].Delete();
+				CommitChanges(dsDelete);
+			}
+		}
+
+		#region Klasseneigenschaften zur Vorinitialisierung zu verwendender SQLParameter
 		/// <summary>
 		/// gibt einen für die Spalte "AwmID" der Tabelle awmoeglichkeiten initialisierten SQLParameter zurück
 		/// </summary>

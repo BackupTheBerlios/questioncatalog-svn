@@ -100,7 +100,26 @@ namespace DBAccessor
 			m_adpUmfragen.Update(dsUpdate, dsUpdate.umfragen.TableName);
 		}
 
-		#region Klassenmethoden zur Vorinitialisierung zu verwendender SQLParameter
+		public DSUmfragen getUmfrageByID(int id)
+		{
+			SqlParameter pID = ParamUmfrageID;
+			pID.Value = id;
+			DataParameters parameter = new DataParameters();
+			parameter.Add(pID);
+			return Select(parameter);
+		}
+
+		public void DeleteUmfrage(int id)
+		{
+			DSUmfragen dsDelete = getUmfrageByID(id);
+			if (dsDelete.umfragen.Count == 1)
+			{
+				dsDelete.umfragen[0].Delete();
+				CommitChanges(dsDelete);
+			}
+		}
+
+		#region Klasseneigenschaften zur Vorinitialisierung zu verwendender SQLParameter
 		/// <summary>
 		/// gibt einen für die Spalte "UmfrageID" der Tabelle umfragen initialisierten SQLParameter zurück
 		/// </summary>

@@ -69,21 +69,20 @@ namespace UmfrageEditor
 			}
 
 			DataAccessUmfragen daUmfr = new DataAccessUmfragen();
-			DSUmfragen dsUmfr = getUmfrageByID(m_umfrageID);
-			if (dsUmfr.umfragen.Rows.Count != 1)
+			DSUmfragen dsUmfr = daUmfr.getUmfrageByID(m_umfrageID);
+			if (dsUmfr.umfragen.Count != 1)
 			{
 				// wenn nicht genau 1 Datensatz zurückkommt, stimmt was nicht
 				// TODO: Exception werfen
 			}
-			else if (!dsUmfr.umfragen.Rows[0]["r_userID"].Equals(owner.UserID) && !owner.IsAdmin)
+			else if (!dsUmfr.umfragen[0].r_userID.Equals(owner.UserID) && !owner.IsAdmin)
 			{
 				// die Umfrage gehört nicht dem eingeloggten Benutzer und dieser ist kein Admin
 				// TODO: Exception
 			}
 			else
 			{
-				dsUmfr.umfragen[0].Delete();
-				daUmfr.CommitChanges(dsUmfr);
+				daUmfr.DeleteUmfrage(m_umfrageID);
 			}
 		}
 
@@ -99,21 +98,21 @@ namespace UmfrageEditor
 			DeleteFromDB(owner);
 		}
 
-		/// <summary>
-		/// gibt ein DataSet zurück, das den Datensatz mit der Umfrage mit der ID umfrageID enthält
-		/// </summary>
-		/// <param name="umfrageID">ID der gesuchten Umfrage</param>
-		/// <returns>DataSet vom Typ DSUmfragen mit dem gesuchten Datensatz</returns>
-		public DSUmfragen getUmfrageByID(int umfrageID)
-		{
-			SqlParameter pUmfrageID = DataAccessUmfragen.ParamUmfrageID;
-			pUmfrageID.Value = umfrageID;
-			DataParameters umfrageparams = new DataParameters();
-			umfrageparams.Add(pUmfrageID);
-			DataAccessUmfragen daUmfr = new DataAccessUmfragen();
-			DSUmfragen dsUmfr = daUmfr.Select(umfrageparams);
-			return dsUmfr;
-		}
+//		/// <summary>
+//		/// gibt ein DataSet zurück, das den Datensatz mit der Umfrage mit der ID umfrageID enthält
+//		/// </summary>
+//		/// <param name="umfrageID">ID der gesuchten Umfrage</param>
+//		/// <returns>DataSet vom Typ DSUmfragen mit dem gesuchten Datensatz</returns>
+//		public DSUmfragen getUmfrageByID(int umfrageID)
+//		{
+//			SqlParameter pUmfrageID = DataAccessUmfragen.ParamUmfrageID;
+//			pUmfrageID.Value = umfrageID;
+//			DataParameters umfrageparams = new DataParameters();
+//			umfrageparams.Add(pUmfrageID);
+//			DataAccessUmfragen daUmfr = new DataAccessUmfragen();
+//			DSUmfragen dsUmfr = daUmfr.Select(umfrageparams);
+//			return dsUmfr;
+//		}
 
 		public DSUmfragen getLoadedUmfrage()
 		{
@@ -122,7 +121,7 @@ namespace UmfrageEditor
 				return new DSUmfragen();
 			}
 			
-			return getUmfrageByID(m_umfrageID);
+			return new DataAccessUmfragen().getUmfrageByID(m_umfrageID);
 		}
 
 	}
