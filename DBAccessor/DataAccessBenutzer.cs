@@ -4,7 +4,6 @@ using System.Collections;
 using System.Diagnostics;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace DBAccessor
 {
@@ -13,12 +12,12 @@ namespace DBAccessor
 	/// </summary>
 	public class DataAccessBenutzer : System.ComponentModel.Component
 	{
-		private System.Data.SqlClient.SqlConnection m_sqlConn;
-		private System.Data.SqlClient.SqlDataAdapter m_adpBenutzer;
-		private System.Data.SqlClient.SqlCommand m_cmSelect;
-		private System.Data.SqlClient.SqlCommand m_cmInsert;
-		private System.Data.SqlClient.SqlCommand m_cmUpdate;
-		private System.Data.SqlClient.SqlCommand m_cmDelete;
+		private SqlConnection m_sqlConn;
+		private SqlDataAdapter m_adpBenutzer;
+		private SqlCommand m_cmSelect;
+		private SqlCommand m_cmInsert;
+		private SqlCommand m_cmUpdate;
+		private SqlCommand m_cmDelete;
 		/// <summary>
 		/// Erforderliche Designervariable.
 		/// </summary>
@@ -67,21 +66,15 @@ namespace DBAccessor
 		/// <returns>ein DataSet vom Typ DSBenutzer das die gesuchten Datensätze enthält</returns>
 		public DSBenutzer Select(DataParameters selectParams)
 		{
-			StringBuilder sbSelect = new StringBuilder("SELECT * FROM benutzer");
+			m_adpBenutzer.SelectCommand.CommandText = SQLCommandBuilder.MakeSelectString(selectParams, "benutzer");
+
 			if (selectParams != null)
 			{
-				string sqlClause = " WHERE ";
 				for(int i = 0; i < selectParams.Count; i++)
 				{
-					sbSelect.Append(sqlClause);
-					sqlClause = " AND ";
-
-					sbSelect.AppendFormat("{0}={1}", selectParams[i].SourceColumn, selectParams[i].ParameterName);
-
 					m_adpBenutzer.SelectCommand.Parameters.Add(selectParams[i]);
 				}
 			}
-			m_adpBenutzer.SelectCommand.CommandText = sbSelect.ToString();
 
 			DSBenutzer dsResult = new DSBenutzer();				
 			m_adpBenutzer.Fill(dsResult, dsResult.benutzer.TableName);
@@ -106,6 +99,7 @@ namespace DBAccessor
 			m_adpBenutzer.Update(dsUpdate, dsUpdate.benutzer.TableName);
 		}
 
+		#region Klassenmethoden zur Vorinitialisierung zu verwendender SQLParameter
 		/// <summary>
 		/// gibt einen für die Spalte "UserID" der Tabelle benutzer initialisierten SQLParameter zurück
 		/// </summary>
@@ -137,6 +131,7 @@ namespace DBAccessor
 		{
 			get {return new SqlParameter("@GruppenID", SqlDbType.Int, 4, "GruppenID");}
 		}
+		#endregion
 
 		#region Vom Komponenten-Designer generierter Code
 		/// <summary>

@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="DSFragen" targetNamespace="http://www.tempuri.org/DSFragen.xsd" xmlns:mstns="http://www.tempuri.org/DSFragen.xsd" xmlns="http://www.tempuri.org/DSFragen.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="DSFragen" msdata:IsDataSet="true" msdata:Locale="de-DE">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="fragen">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FrageID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+              <xs:element name="r_UmfrageID" type="xs:int" />
+              <xs:element name="Text" type="xs:string" />
+              <xs:element name="Frageart" type="xs:int" />
+              <xs:element name="Reihenfolge" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:fragen" />
+      <xs:field xpath="mstns:FrageID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

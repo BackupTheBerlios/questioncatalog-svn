@@ -93,6 +93,16 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "DataAccessAwmoeglichkeiten.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccessAwmoeglichkeiten.resx"
+                    DependentUpon = "DataAccessAwmoeglichkeiten.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "DataAccessBenutzer.cs"
                     SubType = "Component"
                     BuildAction = "Compile"
@@ -103,9 +113,63 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "DataAccessFragen.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccessFragen.resx"
+                    DependentUpon = "DataAccessFragen.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "DataAccessUmfragen.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccessUmfragen.resx"
+                    DependentUpon = "DataAccessUmfragen.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "DataAccessUserantwortselect.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccessUserantwortselect.resx"
+                    DependentUpon = "DataAccessUserantwortselect.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "DataAccessUserantworttext.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataAccessUserantworttext.resx"
+                    DependentUpon = "DataAccessUserantworttext.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "DataParameters.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DSAwmoeglichkeiten.xsd"
+                    BuildAction = "Content"
+                    Generator = "MSDataSetGenerator"
+                    LastGenOutput = "DSAwmoeglichkeiten.cs"
+                />
+                <File
+                    RelPath = "DSAwmoeglichkeiten.cs"
+                    DependentUpon = "DSAwmoeglichkeiten.xsd"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
                 />
                 <File
                     RelPath = "DSBenutzer.xsd"
@@ -125,6 +189,67 @@
                     RelPath = "DSBenutzer.xsx"
                     DependentUpon = "DSBenutzer.xsd"
                     BuildAction = "None"
+                />
+                <File
+                    RelPath = "DSFragen.xsd"
+                    BuildAction = "Content"
+                    Generator = "MSDataSetGenerator"
+                    LastGenOutput = "DSFragen.cs"
+                />
+                <File
+                    RelPath = "DSFragen.cs"
+                    DependentUpon = "DSFragen.xsd"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "DSUmfragen.xsd"
+                    BuildAction = "Content"
+                    Generator = "MSDataSetGenerator"
+                    LastGenOutput = "DSUmfragen.cs"
+                />
+                <File
+                    RelPath = "DSUmfragen.cs"
+                    DependentUpon = "DSUmfragen.xsd"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "DSUserantwortselect.xsd"
+                    BuildAction = "Content"
+                    Generator = "MSDataSetGenerator"
+                    LastGenOutput = "DSUserantwortselect.cs"
+                />
+                <File
+                    RelPath = "DSUserantwortselect.cs"
+                    DependentUpon = "DSUserantwortselect.xsd"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "DSUserantworttext.xsd"
+                    BuildAction = "Content"
+                    Generator = "MSDataSetGenerator"
+                    LastGenOutput = "DSUserantworttext.cs"
+                />
+                <File
+                    RelPath = "DSUserantworttext.cs"
+                    DependentUpon = "DSUserantworttext.xsd"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "SQLCommandBuilder.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
             </Include>
         </Files>

@@ -22,8 +22,8 @@ namespace UmfrageEditor
 
 		public string Username
 		{
-			get {}
-			set {}
+			get { return m_username; }
+			set { m_username = value; }
 		}
 		protected string m_username;
 	}

@@ -172,6 +172,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "testpage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "testpage.aspx.cs"
+                    DependentUpon = "testpage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "testpage.aspx.resx"
+                    DependentUpon = "testpage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "umfrageerstellen.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
