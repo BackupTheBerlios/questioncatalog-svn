@@ -79,10 +79,15 @@
 															</DIV>
 														</DIV>
 													</DIV>
+												</TD>
+											</TR>
+											<TR>
+												<TD>
+													<P align="center">User Profil</P>
 													<TABLE id="m_tblUmfragenListe" cellSpacing="1" cellPadding="1" width="300" border="0" runat="server">
 														<TR>
 															<TD colSpan="2">
-																<asp:CheckBoxList id="m_chblUmfragenListe" runat="server"></asp:CheckBoxList></TD>
+																<asp:CheckBoxList id="m_chblUmfragenListe" runat="server" CssClass="text"></asp:CheckBoxList></TD>
 														</TR>
 														<TR>
 															<TD style="WIDTH: 109px">
@@ -96,9 +101,6 @@
 														<asp:LinkButton id="m_lnkbUmfrageNeu" style="Z-INDEX: 102; LEFT: 8px; POSITION: absolute; TOP: 24px"
 															runat="server">neue Umfrage erstellen</asp:LinkButton></DIV>
 												</TD>
-											</TR>
-											<TR>
-												<TD></TD>
 											</TR>
 										</TABLE>
 									</P>

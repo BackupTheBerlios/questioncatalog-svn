@@ -67,7 +67,7 @@ namespace UmfrageEditor
 
 			if (!IsPostBack)
 			{
-				m_lbUserName.Text = user.Username;
+				// m_lbUserName.Text = user.Username;
 				m_tblUmfragenListe.Visible = true;
 				m_pnUmfrageNeu.Visible = true;
 
@@ -91,11 +91,11 @@ namespace UmfrageEditor
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.LinkLogin.Click += new System.EventHandler(this.LinkLogin_Click);
+			this.LinkLogout.Click += new System.EventHandler(this.LinkLogout_Click);
 			this.m_btnLoeschen.Click += new System.EventHandler(this.m_btnLoeschen_Click);
 			this.m_btnBearbeiten.Click += new System.EventHandler(this.m_btnBearbeiten_Click);
 			this.m_lnkbUmfrageNeu.Click += new System.EventHandler(this.m_lnkbUmfrageNeu_Click);
-			this.LinkLogout.Click += new System.EventHandler(this.LinkLogout_Click);
-			this.LinkLogin.Click += new System.EventHandler(this.LinkLogin_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}

@@ -78,6 +78,7 @@ namespace UmfrageEditor
 		private void InitializeComponent()
 		{    
 			this.LinkLogin.Click += new System.EventHandler(this.LinkLogin_Click);
+			this.LinkLogout.Click += new System.EventHandler(this.LinkLogout_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
