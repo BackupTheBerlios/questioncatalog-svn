@@ -8,27 +8,21 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using DBAccessor;
-
-using System.Data.SqlClient;
-using System.Configuration;
 
 namespace UmfrageEditor
 {
 	/// <summary>
-	/// Startseite des Umfrage-Editors
+	/// Zusammenfassung für menu.
 	/// </summary>
-	public class _default : System.Web.UI.Page
+	public class menu : System.Web.UI.Page
 	{
-		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
-		protected System.Web.UI.WebControls.HyperLink lnkHome;
-		protected System.Web.UI.WebControls.HyperLink lnkLog;
 		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
-		protected System.Web.UI.WebControls.HyperLink lnkLogin;
-
+		protected System.Web.UI.WebControls.HyperLink lnkLog;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-
+			// Hier Benutzercode zur Seiteninitialisierung einfügen
 		}
 
 		#region Vom Web Form-Designer generierter Code
@@ -51,6 +45,5 @@ namespace UmfrageEditor
 
 		}
 		#endregion
-
 	}
 }

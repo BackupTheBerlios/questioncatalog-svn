@@ -231,6 +231,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "menu.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "menu.aspx.cs"
+                    DependentUpon = "menu.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "menu.aspx.resx"
+                    DependentUpon = "menu.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "registrieren.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -250,22 +266,6 @@
                     RelPath = "SessionContainer.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "testpage.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "testpage.aspx.cs"
-                    DependentUpon = "testpage.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "testpage.aspx.resx"
-                    DependentUpon = "testpage.aspx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "umfrageergebnisse.aspx"
