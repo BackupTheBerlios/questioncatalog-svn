@@ -27,6 +27,10 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.Button btnLogin;
 		protected System.Web.UI.WebControls.Label lbLoginStatus;
 		protected System.Web.UI.WebControls.HyperLink HyperLink1;
+		protected System.Web.UI.WebControls.HyperLink lnkHome;
+		protected System.Web.UI.WebControls.HyperLink lnkLog;
+		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
 
 		protected DataAccessBenutzer daBenutzer;
 	

@@ -42,6 +42,11 @@ namespace UmfrageEditor
 		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwErstellen;
 		protected System.Web.UI.WebControls.Button m_btnFrageUebernehmen;
 		protected System.Web.UI.WebControls.HyperLink m_lnkMehrAntw;
+		protected System.Web.UI.WebControls.Label m_lbHeadline;
+		protected System.Web.UI.WebControls.HyperLink lnkHome;
+		protected System.Web.UI.WebControls.HyperLink lnkLog;
+		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
 		protected System.Web.UI.WebControls.DataGrid m_dgFragen;
 	
 		private void Page_Load(object sender, System.EventArgs e)
