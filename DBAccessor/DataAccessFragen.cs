@@ -78,6 +78,7 @@ namespace DBAccessor
 
 			DSFragen dsResult = new DSFragen();				
 			m_adpFragen.Fill(dsResult, dsResult.fragen.TableName);
+			m_cmSelect.Parameters.Clear();
 			return dsResult;
 		}
 

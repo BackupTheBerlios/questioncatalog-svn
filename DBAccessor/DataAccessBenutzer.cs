@@ -78,6 +78,7 @@ namespace DBAccessor
 
 			DSBenutzer dsResult = new DSBenutzer();				
 			m_adpBenutzer.Fill(dsResult, dsResult.benutzer.TableName);
+			m_cmSelect.Parameters.Clear();
 			return dsResult;
 		}
 

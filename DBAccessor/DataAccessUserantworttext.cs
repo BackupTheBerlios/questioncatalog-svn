@@ -75,6 +75,7 @@ namespace DBAccessor
 
 			DSUserantworttext dsResult = new DSUserantworttext();				
 			m_adpUserantworttext.Fill(dsResult, dsResult.userantworttext.TableName);
+			m_cmSelect.Parameters.Clear();
 			return dsResult;
 		}
 

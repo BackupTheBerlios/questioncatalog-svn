@@ -171,16 +171,6 @@ namespace UmfrageEditor
 
 		private void m_btnLoeschen_Click(object sender, System.EventArgs e)
 		{
-			
-
-//			// Datenquelle des DataGrid vewenden
-//			if (m_dgFragen.DataSource is DSFragen.fragenDataTable)
-//			{
-//				dsFragen = (DSFragen)m_dgFragen.DataSource;
-//			}
-
-//			if (dsFragen != null)
-//			{
 			ArrayList idCache = new ArrayList();
 
 			// IDs aller selektierten Fragen ermitteln
@@ -193,29 +183,29 @@ namespace UmfrageEditor
 				}
 			}
 
-			// Paramerter für die DB-Abfrage vorbereiten
+			// Für jede ID den entsprechenden Datensatz aus der DB ziehen und löschen
+			DataAccessFragen daFragen = new DataAccessFragen();
 			DataParameters delIDparams = new DataParameters();
-			SqlParameter pFrageID = null;
+			SqlParameter pFrageID = DataAccessFragen.ParamFrageID;
+			DSFragen dsFragen = null;
 			foreach (int id in idCache)
 			{
-				pFrageID = DataAccessFragen.ParamFrageID;
+				// ID dem Parameterwert zuweisen 
+				// und die Parameterliste leeren bevor wieder etwas eingefügt wird
+				delIDparams.Clear();
 				pFrageID.Value = id;
 				delIDparams.Add(pFrageID);
+
+				dsFragen = daFragen.Select(delIDparams);
+				// alle Datensätze aus dem DataSet löschen
+				for (int i = 0; i < dsFragen.fragen.Count; i++)
+				{
+					dsFragen.fragen[i].Delete();
+				}
+				daFragen.CommitChanges(dsFragen);
 			}
 
-			// alle Datensätze, die gelöscht werden sollen aus der DB ziehen
-			DataAccessFragen daFragen = new DataAccessFragen();
-			DSFragen dsFragen = daFragen.Select(delIDparams);
-
-			// alle Datensätze aus dem DataSet löschen
-			for (int i = 0; i < dsFragen.fragen.Count; i++)
-			{
-				dsFragen.fragen[i].Delete();
-			}
-
-			daFragen.CommitChanges(dsFragen);
 			RefreshDGFragen();
-//			}
 		}
 
 		private void m_lnkbNeueFrage_Click(object sender, System.EventArgs e)

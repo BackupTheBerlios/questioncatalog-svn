@@ -78,6 +78,7 @@ namespace DBAccessor
 
 			DSAwmoeglichkeiten dsResult = new DSAwmoeglichkeiten();				
 			m_adpAwmoegl.Fill(dsResult, dsResult.awmoeglichkeiten.TableName);
+			m_cmSelect.Parameters.Clear();
 			return dsResult;
 		}
 
