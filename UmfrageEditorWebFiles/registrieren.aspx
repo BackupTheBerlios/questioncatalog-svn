@@ -8,7 +8,7 @@
 		<meta content="JavaScript" name="vs_defaultClientScript">
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 	</HEAD>
-	<body MS_POSITIONING="GridLayout">
+	<body>
 		<form id="Form1" method="post" runat="server">
 			<asp:TextBox id="txtBenutzername" style="Z-INDEX: 101; LEFT: 368px; POSITION: absolute; TOP: 304px"
 				runat="server"></asp:TextBox>
@@ -17,8 +17,8 @@
 			<asp:Label id="Label1" style="Z-INDEX: 103; LEFT: 376px; POSITION: absolute; TOP: 256px" runat="server">Benutzername</asp:Label>
 			<asp:Label id="Label2" style="Z-INDEX: 104; LEFT: 376px; POSITION: absolute; TOP: 352px" runat="server">Passwort</asp:Label><INPUT id="btnRegistrieren" style="Z-INDEX: 105; LEFT: 376px; POSITION: absolute; TOP: 464px"
 				type="submit" value="Registrieren" name="Submit1" runat="server">
-			<DIV id="lbAusgabe" style="DISPLAY: inline; Z-INDEX: 106; LEFT: 64px; WIDTH: 70px; POSITION: absolute; TOP: 72px; HEIGHT: 15px"
-				runat="server" ms_positioning="FlowLayout">Ausgabe</DIV>
+			<DIV id="lbAusgabe" style="DISPLAY: inline; WIDTH: 70px; HEIGHT: 15px" runat="server"
+				ms_positioning="FlowLayout">Ausgabe</DIV>
 			<asp:Button id="btnLogin" style="Z-INDEX: 107; LEFT: 568px; POSITION: absolute; TOP: 464px"
 				runat="server" Text="Login"></asp:Button>
 			<asp:Label id="lbLoginStatus" style="Z-INDEX: 108; LEFT: 376px; POSITION: absolute; TOP: 584px"

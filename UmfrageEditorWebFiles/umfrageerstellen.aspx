@@ -8,7 +8,7 @@
 		<meta name="vs_defaultClientScript" content="JavaScript">
 		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
 	</HEAD>
-	<body MS_POSITIONING="GridLayout">
+	<body>
 		<form id="Form1" method="post" runat="server">
 			<asp:TextBox id="umfragetitel" style="Z-INDEX: 101; LEFT: 416px; POSITION: absolute; TOP: 112px"
 				runat="server" MaxLength="100"></asp:TextBox>

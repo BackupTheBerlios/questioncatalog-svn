@@ -8,7 +8,7 @@
 		<meta name="vs_defaultClientScript" content="JavaScript">
 		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
 	</HEAD>
-	<body MS_POSITIONING="GridLayout">
+	<body>
 		<table border="0" cellspacing="0" cellpadding="0">
 			<tr align="left" valign="bottom">
 				<td height="130" colspan="2"><img src="images/top_bar.gif" width="712" height="130"></td>
@@ -18,7 +18,8 @@
 				<td width="673" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td width="120" align="left" valign="top">
-								<asp:HyperLink id="lnkVerwaltung" runat="server" NavigateUrl="registrieren.aspx">Verwaltung</asp:HyperLink>						  </td>
+								<asp:HyperLink id="lnkVerwaltung" runat="server" NavigateUrl="registrieren.aspx">Verwaltung</asp:HyperLink>
+							</td>
 							<td>
 								&nbsp; <iframe src="loginstatus.aspx"></iframe>
 							</td>
@@ -29,7 +30,6 @@
 		</table>
 		<p>&nbsp;</p>
 		<form id="Form1" method="post" runat="server">
-			&nbsp;
 		</form>
 	</body>
 </HTML>
