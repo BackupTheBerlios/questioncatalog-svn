@@ -41,15 +41,15 @@
 										</TR>
 										<TR>
 											<TD style="WIDTH: 109px">
-												<asp:Button id="m_btnLoeschen" runat="server" Text="Löschen"></asp:Button></TD>
+												<asp:Button id="m_btnLoeschen" runat="server" Text="Löschen" Width="100px"></asp:Button></TD>
 											<TD>
-												<asp:Button id="m_btnBearbeiten" runat="server" Text="Bearbeiten"></asp:Button></TD>
+												<asp:Button id="m_btnBearbeiten" runat="server" Text="Bearbeiten" Width="100px"></asp:Button></TD>
 										</TR>
 									</TABLE>
 									<DIV id="m_pnUmfrageNeu" style="WIDTH: 269px; POSITION: relative; HEIGHT: 71px" align="left"
 										runat="server" ms_positioning="GridLayout">
 										<asp:HyperLink id="m_lnkUmfrageNeu" style="Z-INDEX: 102; LEFT: 0px; POSITION: absolute; TOP: 24px"
-											runat="server" NavigateUrl="umfrageerstellen.aspx?modus=neu">neue Umfrage erstellen</asp:HyperLink></DIV>
+											runat="server" NavigateUrl="umfrageerstellen.aspx">neue Umfrage erstellen</asp:HyperLink></DIV>
 								</TD>
 							</tr>
 						</table>

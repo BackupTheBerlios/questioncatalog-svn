@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
@@ -17,12 +18,51 @@ namespace UmfrageEditor
 	/// </summary>
 	public class umfrageerstellen : System.Web.UI.Page
 	{
+		protected System.Web.UI.WebControls.Label m_lbTitle;
+		protected System.Web.UI.WebControls.Label m_lbComment;
+		protected System.Web.UI.WebControls.Button m_btnTitelUebernehmen;
+		protected System.Web.UI.WebControls.CheckBox m_chbOnline;
+		protected System.Web.UI.HtmlControls.HtmlTable m_tblFragen;
+		protected System.Web.UI.WebControls.Button m_btnLoeschen;
+		protected System.Web.UI.WebControls.Button m_btnBearbeiten;
+		protected System.Web.UI.WebControls.TextBox m_txtTitel;
+		protected System.Web.UI.WebControls.HyperLink m_lnkNeueFrage;
+		protected System.Web.UI.WebControls.Button m_btnFertig;
+		protected System.Web.UI.WebControls.Label m_lbFrage;
+		protected System.Web.UI.WebControls.TextBox TextBox1;
+		protected System.Web.UI.WebControls.TextBox m_txtComment;
+		protected System.Web.UI.WebControls.RadioButton m_rdbTextfrage;
+		protected System.Web.UI.WebControls.RadioButton m_rdbUndFrage;
+		protected System.Web.UI.WebControls.RadioButton m_rdbOderFrage;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnUmfrageTitel;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnNeueFrage;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnFrageErstellen;
+		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwortmoeglErstellen;
+		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwortM;
+		protected System.Web.UI.HtmlControls.HtmlTable m_tblAntwErstellen;
+		protected System.Web.UI.WebControls.Button m_btnFrageUebernehmen;
+		protected System.Web.UI.WebControls.HyperLink m_lnkMehrAntw;
+		protected System.Web.UI.WebControls.DataGrid m_dgFragen;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			DSUmfragen dsUmfr = 
 				SessionContainer.ReadFromSession(this).Umfrage.getUmfrageByID(Convert.ToInt32(Request.QueryString["uid"]));
-		}
+
+			if (!IsPostBack)
+			{
+				SqlParameter pRUmfrageID = DataAccessFragen.Paramr_UmfrageID;
+				pRUmfrageID.Value = SessionContainer.ReadFromSession(this).Umfrage.UmfrageID;
+				DataParameters paramsFragen = new DataParameters();
+				paramsFragen.Add(pRUmfrageID);
+				DataAccessFragen daFragen = new DataAccessFragen();
+				DSFragen dsFragen = daFragen.Select(paramsFragen);
+				m_dgFragen.DataSource = dsFragen.fragen;
+				m_dgFragen.DataBind();
+			}
+	}
+
+
 
 		#region Vom Web Form-Designer generierter Code
 		override protected void OnInit(EventArgs e)
@@ -40,9 +80,33 @@ namespace UmfrageEditor
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.m_btnLoeschen.Click += new System.EventHandler(this.m_btnLoeschen_Click);
+			this.m_btnBearbeiten.Click += new System.EventHandler(this.m_btnBearbeiten_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
+
+		private void m_btnBearbeiten_Click(object sender, System.EventArgs e)
+		{
+		
+		}
+
+		private void m_btnLoeschen_Click(object sender, System.EventArgs e)
+		{
+			for (int i = 0; i < m_dgFragen.Items.Count; i++)
+			{
+				if (m_dgFragen.Items[i].ItemType == ListItemType.Item || m_dgFragen.Items[i].ItemType == ListItemType.AlternatingItem)
+				{
+					if (((CheckBox)(m_dgFragen.Items[i].Cells[0].Controls[1])).Checked)
+					{
+						// TODO: Frage löschen
+					}
+				}
+			}
+		}
+
+		
+
 	}
 }

@@ -1,9 +1,14 @@
+Membervariable	m_
 Button		btn
 Label		lb
 TextBox		txt
-Membervariable	m_
 DataAdapter	adp
 DataSet		ds
 Command		cm
 Link		lnk
 Panel		pn
+Tabelle		tbl
+DataGrid	dg
+Checkbox	chb
+CheckBoxList	chbl
+RadioButton	rdb

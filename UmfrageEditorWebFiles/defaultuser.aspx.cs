@@ -43,7 +43,7 @@ namespace UmfrageEditor
 			UserInfo user = SessionContainer.ReadFromSession(this).User;
 
 			// TEST: zum Testen einen Benutzer einloggen
-//			user.Login("kathrin", "kathrin");
+			user.Login("kathrin", "kathrin");
 
 			// prüfen, ob der Benutzer eingeloggt ist, 
 			// wenn nicht, auf die Login-Seite zurückschicken
@@ -103,9 +103,16 @@ namespace UmfrageEditor
 		{
 			if (m_chblUmfragenListe.SelectedValue != "")
 			{
-				string url = "umfrageerstellen.aspx?uid="+ m_chblUmfragenListe.SelectedValue;
-				Response.Redirect(url);
+				SessionContainer.ReadFromSession(this).Umfrage.Load(Convert.ToInt32(m_chblUmfragenListe.SelectedValue));
+//				string url = "umfrageerstellen.aspx?uid="+ m_chblUmfragenListe.SelectedValue;
+//				Response.Redirect(url);
 			}
+			else
+			{
+				SessionContainer.ReadFromSession(this).Umfrage.Clear();
+			}
+
+			Server.Transfer("umfrageerstellen.aspx");
 		}
 
 		private void RefreshUmfragenListe()
