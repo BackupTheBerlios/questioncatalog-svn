@@ -38,6 +38,9 @@ namespace UmfrageEditor
 		{
 			UserInfo user = SessionContainer.ReadFromSession(this).User;
 
+			// TEST: zum Testen einen Benutzer einloggen
+			// user.Login("kathrin", "kathrin");
+
 			// prüfen, ob der Benutzer eingeloggt ist, 
 			// wenn nicht, auf die Login-Seite zurückschicken
 			if (!user.IsLoggedIn)

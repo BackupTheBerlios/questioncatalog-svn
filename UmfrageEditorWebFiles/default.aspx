@@ -47,6 +47,7 @@ MM_reloadPage(true);
 												<DIV class="menu" id="m_menu_user" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout">
 													<A class="menu" href="defaultuser.aspx" target="_parent">User Profil</A>
 												</DIV>
+												<br>
 												<DIV id="m_menu_debug" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout">
 													<P class="pagename" align="center">Debug Navigation</P>
 													<p>
@@ -55,8 +56,7 @@ MM_reloadPage(true);
 														<a href="default.aspx" target="_parent" class="menu">default</a><br>
 														<a href="defaultuser.aspx" target="_parent" class="menu">defaultuser</a><br>
 														<a href="ergebnisse.aspx.cs" target="_parent" class="menu">ergebnisse</a><br>
-														<a href="fragedarstellung.aspx" target="_parent" class="menu">fragedarstellung</a>
-														<br>
+														<a href="fragedarstellung.aspx" target="_parent" class="menu">fragedarstellung</a><br>
 														<a href="login.aspx" target="_parent" class="menu">login</a><br>
 														<a href="loginstatus.aspx" target="_parent" class="menu">loginstatus</a><br>
 														<a href="registrieren.aspx" target="_parent" class="menu">registrieren</a><br>

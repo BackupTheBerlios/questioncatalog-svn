@@ -173,6 +173,10 @@ namespace UmfrageEditor
 
 				// verstecke Logout
 				m_logout.Visible = false;
+
+				// Messages entsprechend setzen
+				lbLoginStatus.Text = "";
+
 			}
 			else
 			{
@@ -183,8 +187,13 @@ namespace UmfrageEditor
 
 				// Zeige Logout 
 				m_logout.Visible = true;
+
+				// Messages entsprechend setzen
+				lbLoginMessage.Text = "";
+				lbLoginStatus.Text = @"Eingeloggt als """ + SessionContainer.ReadFromSession(this).User.Username + @"""";
 			}
 			#endregion
+
 			#region Navigationsmenü 
 			
 			// Alle Menüs bis auf Widerruf deaktivieren
@@ -232,6 +241,11 @@ namespace UmfrageEditor
 			#endregion
 
 
+		}
+
+		private void LinkButton1_Click(object sender, System.EventArgs e)
+		{
+			//Response.AddHeader(Title,test);
 		}
 	}
 }

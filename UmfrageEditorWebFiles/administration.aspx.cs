@@ -41,7 +41,7 @@ namespace UmfrageEditor
 			UserInfo user = SessionContainer.ReadFromSession(this).User;
 
 //			// TEST: zum Testen einen Benutzer einloggen
-			user.Login("kathrin", "kathrin");
+			// user.Login("kathrin", "kathrin");
 
 			if (!user.IsLoggedIn || !user.IsAdmin)
 			{
