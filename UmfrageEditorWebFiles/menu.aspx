@@ -8,6 +8,7 @@
 		<meta content="JavaScript" name="vs_defaultClientScript">
 		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
 		<LINK href="styles.css" type="text/css" rel="stylesheet">
+		<BASE TARGET="_top">
 	</HEAD>
 	<body>
 		<form id="Form1" method="post" runat="server">
@@ -17,10 +18,9 @@
 			</DIV>
 			<DIV id="m_menu_registrieren" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout"><A class="menu" href="registrieren.aspx" target="_parent">Registrieren</A></DIV>
 			<DIV id="m_menu_admin" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout"><A class="menu" href="administration.aspx" target="_parent">Administration</A></DIV>
-			<DIV id="m_menu_user" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout"><A class="menu" href="defaultuser.aspx" target="_parent">User 
-					Profil</A><BR>
-				<A href="#" target="_parent">
-					<asp:linkbutton id="m_menu_logout" runat="server" CssClass="menu">Logout</asp:linkbutton></A></DIV>
+			<DIV class="menu" id="m_menu_user" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout"><A class="menu" href="defaultuser.aspx" target="_parent">User 
+					Profil</A>
+			</DIV>
 			<BR>
 			<DIV id="m_menu_debug" style="WIDTH: 120px" runat="server" ms_positioning="FlowLayout">
 				<P class="pagename" align="center">Debug Navigation</P>

@@ -26,3 +26,11 @@ p {
 	font-weight: bold;
 	border: thin solid #525252;
 }
+.function {
+	font-size: 10px;
+	text-decoration: underline;
+	color: #000000;
+}
+.login {
+	font-size: 10px;
+}

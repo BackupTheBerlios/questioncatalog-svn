@@ -32,10 +32,7 @@ namespace UmfrageEditor
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-
-
 			daBenutzer = new DataAccessBenutzer();
-
 		}
 
 		#region Vom Web Form-Designer generierter Code
@@ -55,6 +52,7 @@ namespace UmfrageEditor
 		private void InitializeComponent()
 		{    
 			this.txtBenutzername.TextChanged += new System.EventHandler(this.txtBenutzername_TextChanged);
+			this.txtPasswort.TextChanged += new System.EventHandler(this.txtPasswort_TextChanged);
 			this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
 			this.btnRegistrieren.ServerClick += new System.EventHandler(this.btnRegistrieren_ServerClick);
 			this.Load += new System.EventHandler(this.Page_Load);
@@ -136,6 +134,11 @@ namespace UmfrageEditor
 		}
 
 		private void txtBenutzername_TextChanged(object sender, System.EventArgs e)
+		{
+		
+		}
+
+		private void txtPasswort_TextChanged(object sender, System.EventArgs e)
 		{
 		
 		}
