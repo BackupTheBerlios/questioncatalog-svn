@@ -26,6 +26,55 @@
 									</DIV>
 								</td>
 								<TD align="left" valign="top">&nbsp;
+									<TABLE id="m_tblRegisterCards" cellSpacing="1" cellPadding="1" width="600" border="0" runat="server">
+										<TR>
+											<TD style="WIDTH: 120px">
+												<asp:Button id="m_btnBenutzer" runat="server" Text="Benutzer" BackColor="#4263C6" Width="100%"
+													BorderWidth="1px" ForeColor="White" BorderColor="Silver"></asp:Button></TD>
+											<TD style="WIDTH: 120px">
+												<asp:Button id="m_btnUmfragen" runat="server" Text="Umfragen" BackColor="#4263C6" Width="100%"
+													BorderWidth="1px" ForeColor="White" BorderColor="Silver"></asp:Button></TD>
+											<TD></TD>
+										</TR>
+									</TABLE>
+									<TABLE id="m_tblBenutzer" cellSpacing="1" cellPadding="1" width="600" border="1" runat="server">
+										<TR>
+											<TD borderColor="silver">
+												<asp:DataGrid id="m_dgBenutzer" runat="server" BorderWidth="0px" AutoGenerateColumns="False" GridLines="None">
+													<Columns>
+														<asp:BoundColumn DataField="UserID"></asp:BoundColumn>
+														<asp:TemplateColumn>
+															<ItemTemplate>
+																<asp:CheckBox id="CheckBox2" runat="server"></asp:CheckBox>
+															</ItemTemplate>
+														</asp:TemplateColumn>
+														<asp:BoundColumn DataField="Name"></asp:BoundColumn>
+														<asp:TemplateColumn>
+															<ItemTemplate>
+																<asp:DropDownList id="DropDownList1" runat="server"></asp:DropDownList>
+															</ItemTemplate>
+														</asp:TemplateColumn>
+													</Columns>
+												</asp:DataGrid></TD>
+										</TR>
+									</TABLE>
+									<TABLE id="m_tblUmfragen" borderColor="silver" cellSpacing="1" cellPadding="1" width="600"
+										border="1" runat="server">
+										<TR>
+											<TD>
+												<asp:DataGrid id="m_dgUmfragen" runat="server" BorderWidth="0px" AutoGenerateColumns="False" GridLines="None">
+													<Columns>
+														<asp:BoundColumn DataField="UmfrageID"></asp:BoundColumn>
+														<asp:TemplateColumn>
+															<ItemTemplate>
+																<asp:CheckBox id="CheckBox1" runat="server"></asp:CheckBox>
+															</ItemTemplate>
+														</asp:TemplateColumn>
+														<asp:BoundColumn DataField="Titel"></asp:BoundColumn>
+													</Columns>
+												</asp:DataGrid></TD>
+										</TR>
+									</TABLE>
 								</TD>
 							</tr>
 						</table>

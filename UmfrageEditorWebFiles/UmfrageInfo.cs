@@ -69,7 +69,7 @@ namespace UmfrageEditor
 			}
 
 			DataAccessUmfragen daUmfr = new DataAccessUmfragen();
-			DSUmfragen dsUmfr = daUmfr.getUmfrageByID(m_umfrageID);
+			DSUmfragen dsUmfr = daUmfr.GetUmfrageByID(m_umfrageID);
 			if (dsUmfr.umfragen.Count != 1)
 			{
 				// wenn nicht genau 1 Datensatz zurückkommt, stimmt was nicht
@@ -105,7 +105,7 @@ namespace UmfrageEditor
 				return new DSUmfragen();
 			}
 			
-			return new DataAccessUmfragen().getUmfrageByID(m_umfrageID);
+			return new DataAccessUmfragen().GetUmfrageByID(m_umfrageID);
 		}
 
 	}

@@ -44,7 +44,6 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.Button m_btnFertig;
 		protected System.Web.UI.WebControls.LinkButton m_lnkbNeueFrage;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl m_pnNeueFrage;
-		protected System.Web.UI.WebControls.Label m_lbFrageID;
 		protected string PageTitle;
 
 		/// <summary>
@@ -52,7 +51,18 @@ namespace UmfrageEditor
 		/// </summary>
 		protected int FrageID
 		{
-			get { return (ViewState["FrageID"] != null) ? (int)ViewState["FrageId"] : DBConstants.NotValid; } 
+			get
+			{
+				if (ViewState["FrageID"] == null)
+				{
+					return DBConstants.NotValid;
+				}
+				else
+				{
+					return (int)(ViewState["FrageId"]);
+				}
+//				return ((ViewState["FrageID"] == null) ? DBConstants.NotValid : (int)ViewState["FrageId"]); 
+			} 
 			set { ViewState["FrageID"] = value; }
 		}
 	
@@ -67,6 +77,7 @@ namespace UmfrageEditor
 
 			if (!IsPostBack)
 			{
+				// Initialisierungen:
 				// Titel des Browserfensters setzen
 				PageTitle = "Umfrage Erstellen";
 				DataBind();
@@ -74,10 +85,11 @@ namespace UmfrageEditor
 				// Abschnitte, die immer sichtbar sein sollen
 				m_pnUmfrageTitel.Visible = true;
 
-				// Elemente, die nie sichtbar sein sollen
-				m_lbFrageID.Visible = false;
+				// FrageID in den ViewState schreiben
+				FrageID = DBConstants.NotValid;
 
 				// soll eine neue Umfrage erstellt werden?
+				
 				UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
 				if (!umfr.IsLoaded)
 				{
@@ -145,44 +157,11 @@ namespace UmfrageEditor
 			// suche die erste selektierte Frage
 			for (int i = 0; i < m_dgFragen.Items.Count; i++)
 			{
-				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgFragen.Items[i], typeof(CheckBox), 0, 0);
+				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgFragen.Items[i], typeof(CheckBox), 1, 0);
 				if (cbx != null && cbx.Checked)
 				{
-//					// den Fragetitel eintragen
-//					m_txtFrageTitel.Text = m_dgFragen.Items[i].Cells[1].Text;
-//					// FrageID in ein unsichbares Label schreiben
-//					// (wird nur im ViewState gespeichert und taucht nicht im Code auf, den der Client bekommt)
-//					m_lbFrageID.Text = m_dgFragen.Items[i].Cells[2].Text;
-//					// sicherheitshalber nochmal auf false setzen
-//					m_lbFrageID.Visible = false;
-//					FrageID = Convert.ToInt32(m_dgFragen.Items[i].Cells[2].Text);
-//					m_pnFrageErstellen.Visible = true;
-//					m_pnFrageUebernehmen.Visible = true;
-//
-//					// bei Und- und Oderfragen auch die Antwortmöglichkeiten eintragen
-//					int frageart = Convert.ToInt32(m_dgFragen.Items[i].Cells[3].Text);
-//					if (frageart != DBConstants.TextFrage)
-//					{
-//						FillDGAntwErstellen(Convert.ToInt32(m_dgFragen.Items[i].Cells[2].Text));
-//						m_tblAntwortmoeglErstellen.Visible = true;
-//					}
-//
-//					// Radiobutton entsprechend der Frageart setzen
-//					m_rdbTextfrage.Checked = false;
-//					m_rdbUndFrage.Checked = false;
-//					m_rdbOderFrage.Checked = false;
-//					switch(frageart)
-//					{
-//						case DBConstants.TextFrage:
-//							m_rdbTextfrage.Checked = true;
-//							break;
-//						case DBConstants.UndFrage:
-//							m_rdbUndFrage.Checked = true;
-//							break;
-//						case DBConstants.OderFrage:
-//							m_rdbOderFrage.Checked = true;
-//							break;
-//					}
+					// selektierten Frage anhand ihrer ID zum Bearbeiten laden
+					LoadFrage(Convert.ToInt32(m_dgFragen.Items[i].Cells[0].Text));
 
 					// die erste selektierte Frage wurde gefunden, die weiteren werden nicht behandelt
 					break;
@@ -197,33 +176,20 @@ namespace UmfrageEditor
 			// IDs aller selektierten Fragen ermitteln
 			for (int i = 0; i < m_dgFragen.Items.Count; i++)
 			{
-				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgFragen.Items[i], typeof(CheckBox), 0, 0);
+				CheckBox cbx = (CheckBox)DataGridAccess.GetControlFromDataGrid(m_dgFragen.Items[i], typeof(CheckBox), 1, 0);
 				if (cbx != null && cbx.Checked)
 				{
-					idCache.Add(Convert.ToInt32(m_dgFragen.Items[i].Cells[2].Text));
+					// ID der selektierten Frage zwischenspeichern
+					idCache.Add(Convert.ToInt32(m_dgFragen.Items[i].Cells[0].Text));
 				}
 			}
 
 			// Für jede ID den entsprechenden Datensatz aus der DB ziehen und löschen
 			DataAccessFragen daFragen = new DataAccessFragen();
-			DataParameters delIDparams = new DataParameters();
-			SqlParameter pFrageID = DataAccessFragen.ParamFrageID;
-			DSFragen dsFragen = null;
 			foreach (int id in idCache)
 			{
-				// ID dem Parameterwert zuweisen 
-				// und die Parameterliste leeren bevor wieder etwas eingefügt wird
-				delIDparams.Clear();
-				pFrageID.Value = id;
-				delIDparams.Add(pFrageID);
-
-				dsFragen = daFragen.Select(delIDparams);
 				// alle Datensätze aus dem DataSet löschen
-				for (int i = 0; i < dsFragen.fragen.Count; i++)
-				{
-					dsFragen.fragen[i].Delete();
-				}
-				daFragen.CommitChanges(dsFragen);
+				daFragen.DeleteFrage(id);
 			}
 
 			RefreshDGFragen();
@@ -240,7 +206,7 @@ namespace UmfrageEditor
 		{
 			// wenn Und- oder Oderfrage ausgewählt ist, sollen Antwortmöglichkeiten erstellt werden können
 			m_tblAntwortmoeglErstellen.Visible = (m_rdbOderFrage.Checked || m_rdbUndFrage.Checked);
-			PrepareDGAntwErstellen(6);
+			FillDGAntwErstellen(FrageID);
 		}
 
 		private void m_lnkbMehrAntw_Click(object sender, System.EventArgs e)
@@ -250,12 +216,13 @@ namespace UmfrageEditor
 			// den Inhalt aller Textboxen die nicht leer sind zwischenspeichern
 			for (int i = 0; i < m_dgAntwErstellen.Items.Count; i++)
 			{
-				TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 0, 0);
+				TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 1, 0);
 				if (txtbx != null)
 				{
 					if (txtbx.Text.Trim() != "")
 					{
-						tempData.Add(new Pair(txtbx.Text, m_dgAntwErstellen.Items[i].Cells[1].Text));
+						// ein Pair von Text und ID zwischenspeichern
+						tempData.Add(new Pair(txtbx.Text, m_dgAntwErstellen.Items[i].Cells[0].Text));
 					}
 				}
 			}
@@ -266,11 +233,11 @@ namespace UmfrageEditor
 			// Daten in die Textboxen zurückschreiben 
 			for (int i = 0; i < tempData.Count; i++)
 			{
-				TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 0, 0);
+				TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 1, 0);
 				if (txtbx != null)
 				{
 					txtbx.Text = (string)((Pair)tempData[i]).First;
-					m_dgAntwErstellen.Items[i].Cells[1].Text = (string)((Pair)tempData[i]).Second;
+					m_dgAntwErstellen.Items[i].Cells[0].Text = (string)((Pair)tempData[i]).Second;
 				}
 			}
 		}
@@ -285,18 +252,21 @@ namespace UmfrageEditor
 
 				// Umfragedatensatz aktualisieren oder neu anlegen
 				DataAccessUmfragen daUmfr = new DataAccessUmfragen();
-				DSUmfragen dsUmfr= daUmfr.getUmfrageByID(umfr.UmfrageID);
+				DSUmfragen dsUmfr= daUmfr.GetUmfrageByID(umfr.UmfrageID);
 				if (dsUmfr.umfragen.Count == 0)
 				{
+					// Umfrage besteht noch nicht in der DB, neuen Datensatz anlegen
 					dsUmfr.umfragen.AddumfragenRow(m_txtTitel.Text, m_txtComment.Text, System.DateTime.Now, System.DateTime.Now, user.UserID, onlinestatus); 
 				}
 				else if (dsUmfr.umfragen.Count == 1)
 				{
+					// Umfrage besteht schon, Datensatz aktualisieren
 					dsUmfr.umfragen[0].Titel = m_txtTitel.Text;
 					dsUmfr.umfragen[0].Beschreibung = m_txtComment.Text;
 					dsUmfr.umfragen[0].Onlinestatus = onlinestatus;
 				}
 				daUmfr.CommitChanges(dsUmfr);
+
 				// ID des neuen Datensatzes in die Session schreiben
 				if (dsUmfr.umfragen[0].UmfrageID != umfr.UmfrageID)
 				{
@@ -308,7 +278,10 @@ namespace UmfrageEditor
 		private void m_btnFrageUebernehmen_Click(object sender, System.EventArgs e)
 		{
 			if (IsValid)
-			{}
+			{
+				DataAccessFragen daFragen = new DataAccessFragen();
+				DSFragen dsFragen = daFragen.GetFrageByID(FrageID);
+			}
 		}
 
 		private void m_btnFertig_Click(object sender, System.EventArgs e)
@@ -350,7 +323,7 @@ namespace UmfrageEditor
 			// ID-Felder im Datagrid mit "NotValid" besetzen
 			for (int j = 0; j < m_dgAntwErstellen.Items.Count; j++)
 			{
-				m_dgAntwErstellen.Items[j].Cells[1].Text = DBConstants.NotValid.ToString();
+				m_dgAntwErstellen.Items[j].Cells[0].Text = DBConstants.NotValid.ToString();
 			}
 		}
 
@@ -370,16 +343,15 @@ namespace UmfrageEditor
 				PrepareDGAntwErstellen(dsAwMoegl.awmoeglichkeiten.Count + 4);
 
 				// Daten in die Editfelder eintragen
-				int i;
-				for (i = 0; i < dsAwMoegl.awmoeglichkeiten.Count; i++)
+				for (int i = 0; i < dsAwMoegl.awmoeglichkeiten.Count; i++)
 				{
-					TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 0, 0);
+					TextBox txtbx = (TextBox)DataGridAccess.GetControlFromDataGrid(m_dgAntwErstellen.Items[i], typeof(TextBox), 1, 0);
 					if (txtbx != null)
 					{
 						// Antworttext in das Editfeld dieser Zeile eintragen
 						txtbx.Text = dsAwMoegl.awmoeglichkeiten[i].Text;
 						// AntwortMögl.-ID in die gleiche Zeile eintragen
-						m_dgAntwErstellen.Items[i].Cells[1].Text = dsAwMoegl.awmoeglichkeiten[i].AwmID.ToString();
+						m_dgAntwErstellen.Items[i].Cells[0].Text = dsAwMoegl.awmoeglichkeiten[i].AwmID.ToString();
 					}
 				}
 			}
@@ -434,19 +406,11 @@ namespace UmfrageEditor
 
 		private void LoadFrage(int id)
 		{
+			// ID der zu bearbeitenden Frage speichern
 			FrageID = id;
-			// FrageID in ein unsichbares Label schreiben
-			// (wird nur im ViewState gespeichert und taucht nicht im Code auf, den der Client bekommt)
-			m_lbFrageID.Text = id.ToString();
-			// sicherheitshalber nochmal auf false setzen
-			m_lbFrageID.Visible = false;
 
 			// Frage neu aus der DB ziehen
-			SqlParameter pFrageID = DataAccessFragen.ParamFrageID;
-			pFrageID.Value = id;
-			DataParameters parameters = new DataParameters();
-			parameters.Add(pFrageID);
-			DSFragen dsFragen = new DataAccessFragen().Select(parameters);
+			DSFragen dsFragen = new DataAccessFragen().GetFrageByID(id);
 
 			if (dsFragen.fragen.Count != 1)
 			{
