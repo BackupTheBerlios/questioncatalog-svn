@@ -9,11 +9,27 @@
 		<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
 	</HEAD>
 	<body MS_POSITIONING="GridLayout">
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr align="left" valign="bottom">
+				<td height="130" colspan="2"><img src="images/top_bar.gif" width="712" height="130"></td>
+			</tr>
+			<tr>
+				<td width="22" align="left" valign="top"><img src="images/side_bar.gif" width="21" height="296"></td>
+				<td width="673" align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="120" align="left" valign="top">
+								<asp:HyperLink id="lnkVerwaltung" runat="server" NavigateUrl="registrieren.aspx">Verwaltung</asp:HyperLink>						  </td>
+							<td>
+								&nbsp; <iframe src="loginstatus.aspx"></iframe>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<p>&nbsp;</p>
 		<form id="Form1" method="post" runat="server">
-			<asp:HyperLink id="lnkVerwaltung" style="Z-INDEX: 101; LEFT: 104px; POSITION: absolute; TOP: 48px"
-				runat="server" NavigateUrl="registrieren.aspx">Verwaltung</asp:HyperLink>
-			<iframe style="Z-INDEX: 102; LEFT: 384px; POSITION: absolute; TOP: 232px" src="loginstatus.aspx">
-			</iframe>
+			&nbsp;
 		</form>
 	</body>
 </HTML>
