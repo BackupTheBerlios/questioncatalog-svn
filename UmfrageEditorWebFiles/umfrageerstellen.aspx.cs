@@ -29,7 +29,6 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.HyperLink m_lnkNeueFrage;
 		protected System.Web.UI.WebControls.Button m_btnFertig;
 		protected System.Web.UI.WebControls.Label m_lbFrage;
-		protected System.Web.UI.WebControls.TextBox TextBox1;
 		protected System.Web.UI.WebControls.TextBox m_txtComment;
 		protected System.Web.UI.WebControls.RadioButton m_rdbTextfrage;
 		protected System.Web.UI.WebControls.RadioButton m_rdbUndFrage;
@@ -47,27 +46,53 @@ namespace UmfrageEditor
 		protected System.Web.UI.WebControls.HyperLink lnkLog;
 		protected System.Web.UI.WebControls.HyperLink lnkVerwaltung;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl menu_user;
+		protected System.Web.UI.WebControls.TextBox m_txtFrageTitel;
 		protected System.Web.UI.WebControls.DataGrid m_dgFragen;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			DSUmfragen dsUmfr = 
-				SessionContainer.ReadFromSession(this).Umfrage.getUmfrageByID(Convert.ToInt32(Request.QueryString["uid"]));
+			//wenn kein Benutzer eingeloggt ist, direkt zur Loginseite schicken
+			UserInfo user = SessionContainer.ReadFromSession(this).User;
+			if (!user.IsLoggedIn)
+			{
+				Server.Transfer("default.aspx");
+			}
+
+			UmfrageInfo umfr = SessionContainer.ReadFromSession(this).Umfrage;
+            // neue Umfrage soll erstellt werden
+			if (!umfr.IsLoaded)
+			{
+				// nur relevante Abschnitte der Seite anzeigen
+				m_tblFragen.Visible	= false;
+				m_pnNeueFrage.Visible = true;
+				m_pnFrageErstellen.Visible = false;
+				m_tblAntwortmoeglErstellen.Visible = false;
+			}
+			else
+			{
+				// testen, ob die geladene Umfrage dem eingeloggten Benutzer gehört...
+				DSUmfragen dsUmfr = umfr.getLoadedUmfrage();
+				if (dsUmfr.umfragen.Rows.Count == 1)
+				{
+					// ...wenn nicht neue Umfrage erstellen lassen
+					if (user.UserID != Convert.ToInt32(dsUmfr.umfragen.Rows[0]["r_UserID"]))
+					{
+						umfr.Clear();
+						Response.Redirect("umfrageerstellen.aspx");
+					}
+				}
+			}
 
 			if (!IsPostBack)
 			{
-				SqlParameter pRUmfrageID = DataAccessFragen.Paramr_UmfrageID;
-				pRUmfrageID.Value = SessionContainer.ReadFromSession(this).Umfrage.UmfrageID;
-				DataParameters paramsFragen = new DataParameters();
-				paramsFragen.Add(pRUmfrageID);
-				DataAccessFragen daFragen = new DataAccessFragen();
-				DSFragen dsFragen = daFragen.Select(paramsFragen);
-				m_dgFragen.DataSource = dsFragen.fragen;
-				m_dgFragen.DataBind();
+				// Abschnitte, die immer sichtbar sein sollen
+				m_pnUmfrageTitel.Visible = true;
+
+				RefreshDGFragen();
 			}
-	}
+		}
 
-
+		
 
 		#region Vom Web Form-Designer generierter Code
 		override protected void OnInit(EventArgs e)
@@ -111,7 +136,18 @@ namespace UmfrageEditor
 			}
 		}
 
-		
+		private void RefreshDGFragen()
+		{
+			SqlParameter pRUmfrageID = DataAccessFragen.Paramr_UmfrageID;
+			pRUmfrageID.Value = SessionContainer.ReadFromSession(this).Umfrage.UmfrageID;
+			DataParameters paramsFragen = new DataParameters();
+			paramsFragen.Add(pRUmfrageID);
+			DataAccessFragen daFragen = new DataAccessFragen();
+			DSFragen dsFragen = daFragen.Select(paramsFragen);
+			m_dgFragen.DataSource = dsFragen.fragen;
+			m_dgFragen.DataBind();
+			m_tblFragen.Visible = (dsFragen.fragen.Rows.Count > 0);
+		}
 
 	}
 }

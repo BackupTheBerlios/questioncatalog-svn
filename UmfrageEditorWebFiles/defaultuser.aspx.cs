@@ -49,7 +49,7 @@ namespace UmfrageEditor
 			// wenn nicht, auf die Login-Seite zurückschicken
 			if (!user.IsLoggedIn)
 			{
-				Server.Transfer("registrieren.aspx");
+				Server.Transfer("default.aspx");
 			}
 
 			if (!IsPostBack)
@@ -104,13 +104,14 @@ namespace UmfrageEditor
 			if (m_chblUmfragenListe.SelectedValue != "")
 			{
 				SessionContainer.ReadFromSession(this).Umfrage.Load(Convert.ToInt32(m_chblUmfragenListe.SelectedValue));
-//				string url = "umfrageerstellen.aspx?uid="+ m_chblUmfragenListe.SelectedValue;
-//				Response.Redirect(url);
 			}
 			else
 			{
 				SessionContainer.ReadFromSession(this).Umfrage.Clear();
 			}
+
+//			// TEST: Falsche UmfrageID laden
+//			SessionContainer.ReadFromSession(this).Umfrage.Load(5);
 
 			Server.Transfer("umfrageerstellen.aspx");
 		}

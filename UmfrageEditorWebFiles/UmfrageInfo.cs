@@ -114,5 +114,16 @@ namespace UmfrageEditor
 			DSUmfragen dsUmfr = daUmfr.Select(umfrageparams);
 			return dsUmfr;
 		}
+
+		public DSUmfragen getLoadedUmfrage()
+		{
+			if (!IsLoaded)
+			{
+				return new DSUmfragen();
+			}
+			
+			return getUmfrageByID(m_umfrageID);
+		}
+
 	}
 }

@@ -76,8 +76,8 @@
 									<DIV style="WIDTH: 600px; POSITION: relative; HEIGHT: 186px" ms_positioning="GridLayout"
 										id="m_pnFrageErstellen" runat="server">
 										<asp:Label id="m_lbFrage" style="Z-INDEX: 101; LEFT: 8px; POSITION: absolute; TOP: 32px" runat="server">Frage</asp:Label>
-										<asp:TextBox id="TextBox1" style="Z-INDEX: 102; LEFT: 88px; POSITION: absolute; TOP: 24px" runat="server"
-											Width="472px"></asp:TextBox>
+										<asp:TextBox id="m_txtFrageTitel" style="Z-INDEX: 102; LEFT: 88px; POSITION: absolute; TOP: 24px"
+											runat="server" Width="472px"></asp:TextBox>
 										<asp:RadioButton id="m_rdbTextfrage" style="Z-INDEX: 103; LEFT: 8px; POSITION: absolute; TOP: 72px"
 											runat="server" Text="Text-Frage"></asp:RadioButton>
 										<asp:RadioButton id="m_rdbUndFrage" style="Z-INDEX: 104; LEFT: 8px; POSITION: absolute; TOP: 104px"
